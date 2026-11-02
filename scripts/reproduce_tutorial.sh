@@ -4,8 +4,8 @@
 #   KITTI: first 120 images of ngdet's own seed-42 80/20 "train" split
 #   COCO:  first 120 val2017 images (sorted ids)
 #   nuImages: first 500 annotated v1.0-val key frames (sorted tokens)
-# then run this repo's wrappers on the same images, so the two harnesses can be
-# compared image for image.
+# then run this repo's wrappers on the same images, one image per batch like
+# ngdet, so the two harnesses can be compared image for image.
 #
 #   DATA=$HOME/data RUNS=$HOME/runs bash scripts/reproduce_tutorial.sh
 set -euo pipefail
@@ -58,7 +58,7 @@ for ds in kitti_ngdet120 coco_first120 nuimages_ngdet500; do
     tag=$(echo "$m" | sed 's#[:/@]#_#g')
     [ -s "$RUNS/dets/${tag}__$ds.npz" ] || python -m detbench.infer --model "$m" \
       --native "$DATA/native/$ds.json" --images "${ROOT[$ds]}" --out "$RUNS/dets/${tag}__$ds.npz" \
-      --batch 2 --workers 8 > "$RUNS/logs/${tag}__$ds.log" 2>&1
+      --batch 1 --workers 8 > "$RUNS/logs/${tag}__$ds.log" 2>&1
   done
 done
 echo "tutorial reproduction done"
