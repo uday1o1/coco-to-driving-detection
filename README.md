@@ -10,19 +10,20 @@ images.
 
 The work starts from the zero-shot harness in the
 [DeepDataMiningLearning ngdet tutorial](https://github.com/lkk688/DeepDataMiningLearning/tree/main/DeepDataMiningLearning/ngdet),
-reproduces its published table (closed-set entries within 0.001, Grounding DINO within
-0.004), and then measures how the evaluation choices it already lists
-as caveats (fixed score threshold, cyclist mapping, sample size) change the answer.
+reproduces its published table (differences of at most 0.0008 for the closed-set entries
+and 0.0041 for Grounding DINO), and then measures how the evaluation choices it already lists
+as caveats (fixed score threshold, cyclist mapping, sample size), together with four further protocol
+choices, change the answer.
 
 ## Findings
 
 1. **The tutorial's numbers reproduce.** Its own code at a pinned commit gives the published values on
-   COCO, nuImages and KITTI to within 0.001 for the closed-set models and 0.004 for Grounding DINO
+   COCO, nuImages and KITTI with differences of at most 0.0008 for the closed-set models and 0.0041 for Grounding DINO
    (Faster R-CNN v2: 0.581, 0.299, 0.279). The KITTI column comes from
    the first 120 images of the KITTI *train* list. This repo's harness, run in tutorial mode on the same
    images, matches ngdet to four decimals on all eight closed-set cases.
-2. **The protocol moves the numbers by up to 0.10 mAP per model, as much as the spread between models on
-   KITTI.** Going from the tutorial protocol to a
+2. **On the driving sets the protocol moves the numbers by up to 0.10 mAP per model, as much as the
+   spread between models on KITTI.** Going from the tutorial protocol to a
    corrected one (ignore regions, each dataset's own minimum-size rule, no score cut-off before mAP,
    consistent class definitions, rider fusion, keeping nuImages frames with no objects) raises mean mAP from 0.213 to 0.267 on KITTI and from 0.276
    to 0.326 on nuImages. On KITTI the model ranking changes substantially (Kendall tau 0.36 between the

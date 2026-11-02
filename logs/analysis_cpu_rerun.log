@@ -2,7 +2,7 @@
 # this file points to the lines that matter.
 
 Machine (cpu_rerun/check.txt): AMD EPYC 7V12 64-Core Processor, 128 threads, 503 GB RAM.
-Code: commit 24ba290 (first line of cpu_rerun/cpu_job.log).
+Code: commit 24ba290 (first line of cpu_rerun/check.txt, second of cpu_rerun/cpu_job.log).
 Data: NO_IMAGES=1 scripts/setup.sh ("setup done: 2.9G"), detections.tar from the release with its
 sha256 checked ("detections.tar: OK"), plus the release's yolo_yolo11n.pt_single__coco_val files.
 
@@ -12,7 +12,7 @@ The run reached the fusion section at 16:50:27, after stability had finished, an
 
 The remaining sections ran as separate scripts/analyze.py jobs: subgroups, finetune, errors,
 prompts, contrasts and robustness in parallel from 16:42:43 (cpu_rerun/par_job.log and par_*.log),
-fusion in a job of its own (cpu_rerun/fus_job.log, par_fusion.log). Each log ends with the
+fusion in a job of its own (cpu_rerun/fus_job.log, par_fusion.log). Each par_<section>.log holds the
 "wrote results/<section>.json" line; par_job.log then shows figures.py.
 
 COCO check printed by the gate section (measured AP, then the published AP in the code at 24ba290):
@@ -25,5 +25,5 @@ identical: main.json, reproduction.json, audit.json, stability.json, fusion.json
            finetune.json, prompts.json, contrasts.json.
 gate.json, errors.json, subgroups.json and robustness.json come from this run's analysis code.
 
-The unified_nms entries of results/robustness.json come from `scripts/analyze.py unified_nms`, run
-on a second CPU machine from the same release (cpu_rerun/unified_nms_job.log).
+The unified_nms entries of results/robustness.json come from a separate `scripts/analyze.py unified_nms`
+run from the same release (cpu_rerun/unified_nms_job.log).
