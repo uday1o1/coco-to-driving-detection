@@ -53,11 +53,11 @@ def settings(**over):
     return s
 
 
-def prepare(det_path, native_path, spec, s, ioa=0.3, stretch=1.0):
+def prepare(det_path, native_path, spec, s, ioa=None, bike_min=None, stretch=1.0):
     nat = native(str(native_path))
     gt = coco_gt(nat, s["semantics"], s["ignore"], s["minsize"], s["empty"])
     dets = protocol.apply(protocol.load(det_path), nat["dataset"], s["semantics"], s["threshold"],
-                          s["minsize"], s["fusion"], model_kind(spec), ioa, stretch)
+                          s["minsize"], s["fusion"], model_kind(spec), ioa, bike_min, stretch)
     keep = np.isin(dets["image_id"], [im["id"] for im in gt["images"]])
     dets = {k: v[keep] for k, v in dets.items()}
     return nat, gt, dets

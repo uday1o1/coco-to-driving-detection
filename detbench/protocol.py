@@ -10,9 +10,12 @@ The switches mirror the ground-truth side (see taxonomy.py and data.coco_gt):
 
 Rider fusion. A COCO-trained detector sees a cyclist as two objects, a person
 and a bicycle, while KITTI and nuImages label one box around both. Each person
-is paired with at most one bicycle when the lower half of the person box
-overlaps the bicycle box (intersection over the lower half >= `ioa`) and the
-person's horizontal centre lies over the bicycle. A pair becomes one cyclist
+is paired with at most one bicycle when the bicycle's score is at least
+`bike_min`, the lower half of the person box overlaps the bicycle box
+(intersection over the lower half >= `ioa`) and the person's horizontal centre
+lies over the bicycle. Both thresholds are fixed on KITTI train (FUSION
+below); without a score floor every pedestrian next to some faint bicycle
+box would be absorbed, because detections are kept down to score 0.001. A pair becomes one cyclist
 box (the union) scored by the geometric mean of the two scores; the person is
 removed. Bicycles left without a rider are dropped, since parked bicycles are
 not cyclists. Persons over a motorcycle are removed the same way, because both
@@ -26,6 +29,8 @@ import numpy as np
 from . import taxonomy as tx
 
 TUTORIAL_THRESHOLD = {"gdino": 0.15}
+# Rider-fusion thresholds, chosen on KITTI train (scripts/analyze.py fusion).
+FUSION = {"ioa": 0.3, "bike_min": 0.5}
 TUTORIAL_THRESHOLD_DEFAULT = 0.3
 
 
@@ -49,14 +54,15 @@ def _pairs(person, other, ioa_min):
     return np.argwhere(ok)
 
 
-def fuse_riders(boxes, scores, labels, ioa_min=0.3):
+def fuse_riders(boxes, scores, labels, ioa_min=0.3, bike_min=0.5, return_pairs=False):
     """Apply rider fusion to one image. labels are COCO-style names.
-    Returns new (boxes, scores, labels)."""
+    Returns new (boxes, scores, labels), plus the (person, bicycle) index
+    pairs when return_pairs is set."""
     person = np.nonzero(labels == "person")[0]
     out_b, out_s, out_l = [], [], []
-    used_p = set()
+    used_p, bike_pairs = set(), []
     for kind, new_label in (("bicycle", "cyclist"), ("motorcycle", None)):
-        other = np.nonzero(labels == kind)[0]
+        other = np.nonzero((labels == kind) & (scores >= bike_min))[0]
         cand = _pairs(boxes[person], boxes[other], ioa_min)
         if len(cand):
             ps = np.sqrt(scores[person[cand[:, 0]]] * scores[other[cand[:, 1]]])
@@ -67,6 +73,7 @@ def fuse_riders(boxes, scores, labels, ioa_min=0.3):
                     continue
                 used_p.add(i); used_o.add(j)
                 if new_label:
+                    bike_pairs.append((i, j))
                     b = np.concatenate([np.minimum(boxes[i, :2], boxes[j, :2]),
                                         np.maximum(boxes[i, 2:], boxes[j, 2:])])
                     out_b.append(b); out_s.append(ps[k]); out_l.append(new_label)
@@ -75,7 +82,7 @@ def fuse_riders(boxes, scores, labels, ioa_min=0.3):
     b = np.concatenate([boxes[keep], np.array(out_b, np.float32).reshape(-1, 4)])
     s = np.concatenate([scores[keep], np.array(out_s, np.float32)])
     l = np.concatenate([labels[keep], np.array(out_l, dtype=labels.dtype)])
-    return b, s, l
+    return (b, s, l, bike_pairs) if return_pairs else (b, s, l)
 
 
 def stretch_bicycles(boxes, scores, labels, factor=1.0):
@@ -89,7 +96,7 @@ def stretch_bicycles(boxes, scores, labels, factor=1.0):
 
 
 def apply(d: dict, dataset: str, semantics="corrected", threshold=False, minsize=True,
-          fusion="rider", model_kind="tv", ioa=0.3, stretch=1.0) -> dict:
+          fusion="rider", model_kind="tv", ioa=None, bike_min=None, stretch=1.0) -> dict:
     """Scored detections (image_id, boxes, scores, category_id) for one setting.
     fusion: "none" (bicycle -> cyclist), "rider" or "stretch"."""
     names = np.array([str(n).strip().lower() for n in d["names"]])
@@ -104,7 +111,9 @@ def apply(d: dict, dataset: str, semantics="corrected", threshold=False, minsize
             if not len(sl):
                 continue
             f = fuse_riders if fusion == "rider" else stretch_bicycles
-            kw = {"ioa_min": ioa} if fusion == "rider" else {"factor": stretch}
+            kw = ({"ioa_min": FUSION["ioa"] if ioa is None else ioa,
+                   "bike_min": FUSION["bike_min"] if bike_min is None else bike_min}
+                  if fusion == "rider" else {"factor": stretch})
             b, s, l = f(boxes[sl], scores[sl], labels[sl], **kw)
             parts.append((np.full(len(s), img[sl[0]]), b, s, l))
         img, boxes, scores, labels = (np.concatenate(x) for x in zip(*parts))

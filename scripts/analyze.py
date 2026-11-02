@@ -185,6 +185,180 @@ def section_stability(a):
     save("stability", out)
 
 
+# ------------------------------------------------------------------- fusion
+
+TUNE_SPEC = "tv:fasterrcnn_resnet50_fpn_v2"
+
+
+def _tune_job(runs, data, fusion, ioa, bike_min, stretch):
+    _, gt, dets = A.prepare(det_path(runs, TUNE_SPEC, "kitti_train"), native_path(data, "kitti_train"),
+                            TUNE_SPEC, A.settings(fusion=fusion), ioa, bike_min, stretch)
+    m, _ = match(gt, dets, cat_ids=[2, 3])
+    ap = {tx.CLASSES[c - 1]: APCache(m[c]).ap() for c in m}
+    return {"fusion": fusion, "ioa": ioa, "bike_min": bike_min, "stretch": stretch,
+            **ap, "objective": (ap["person"] + ap["cyclist"]) / 2}
+
+
+def _rider_decisions(runs, data, spec):
+    """On nuImages, how often does fusion pair a detected bicycle with a rider,
+    split by the ground-truth rider attribute?"""
+    from detbench import protocol
+    from detbench.evaluate import _iou
+    nat = A.native(str(native_path(data, "nuimages_val")))
+    d = protocol.load(det_path(runs, spec, "nuimages_val"))
+    names = np.array([str(n).lower() for n in d["names"]])
+    labels = names[d["labels"]]
+    bikes = {}
+    for b in nat["boxes"]:
+        if b["fine"].startswith("vehicle.bicycle."):
+            bikes.setdefault(b["image_id"], []).append(b)
+    counts = {"with_rider": [0, 0], "without_rider": [0, 0]}   # [detected, paired]
+    order = np.argsort(d["image_id"], kind="mergesort")
+    img = d["image_id"][order]
+    for iid, gts in bikes.items():
+        sl = order[np.searchsorted(img, iid, "left"):np.searchsorted(img, iid, "right")]
+        if not len(sl):
+            continue
+        _, _, _, pairs = protocol.fuse_riders(d["boxes"][sl], d["scores"][sl], labels[sl],
+                                              protocol.FUSION["ioa"], protocol.FUSION["bike_min"], True)
+        paired = {j for _, j in pairs}
+        bk = [k for k in range(len(sl)) if labels[sl][k] == "bicycle" and d["scores"][sl][k] >= protocol.FUSION["bike_min"]]
+        if not bk:
+            continue
+        for g in gts:
+            kind = g["fine"].split(".")[-1]
+            gb = np.array([g["xyxy"]], np.float64)
+            # with a rider the GT box covers rider and bike; the bike part is its lower half
+            if kind == "with_rider":
+                gb[0, 1] = (gb[0, 1] + gb[0, 3]) / 2
+            ious = _iou(d["boxes"][sl][bk].astype(np.float64), gb, np.zeros(1, np.bool_))[:, 0]
+            if ious.max() >= 0.5:
+                counts[kind][0] += 1
+                counts[kind][1] += int(bk[int(ious.argmax())] in paired)
+    return {k: {"detected": v[0], "paired": v[1], "rate": v[1] / max(v[0], 1)} for k, v in counts.items()}
+
+
+def section_fusion(a):
+    grid = ([("rider", i, b, 1.0) for i in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
+             for b in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)]
+            + [("stretch", 0.3, 0.5, f) for f in (0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0)]
+            + [("none", 0.3, 0.5, 1.0)])
+    tune = pool_map(_tune_job, [(a.runs, a.data, *g) for g in grid], a.procs)
+    best = {f: max((t for t in tune if t["fusion"] == f), key=lambda t: t["objective"]) for f in ("rider", "stretch")}
+    from detbench import protocol
+    chosen = {"ioa": best["rider"]["ioa"], "bike_min": best["rider"]["bike_min"]}
+    if chosen != protocol.FUSION:
+        print(f"set protocol.FUSION = {chosen} in detbench/protocol.py and re-run")
+    held_out = []
+    jobs = []
+    for s, name, fam in MODELS:
+        for ds in ("kitti_val", "nuimages_val"):
+            for fusion in ("none", "stretch", "rider"):
+                jobs.append((a.runs, a.data, s, name, ds, fusion, best["stretch"]["stretch"]))
+    held_out = [r for r in pool_map(_fusion_eval_job, jobs, a.procs) if r]
+    decisions = {name: _rider_decisions(a.runs, a.data, s) for s, name, fam in MODELS
+                 if det_path(a.runs, s, "nuimages_val").exists() and not s.startswith("gdino")}
+    save("fusion", {"tuned_on": "kitti_train / " + TUNE_SPEC, "grid": tune, "best": best,
+                    "held_out": held_out, "rider_decisions_nuimages": decisions})
+
+
+def _fusion_eval_job(runs, data, spec, name, ds, fusion, stretch):
+    f = det_path(runs, spec, ds)
+    if not f.exists():
+        return None
+    _, gt, dets = A.prepare(f, native_path(data, ds), spec, A.settings(fusion=fusion), stretch=stretch)
+    m, _ = match(gt, dets)
+    c = {tx.CLASSES[k - 1]: APCache(m[k]) for k in m}
+    return {"model": name, "dataset": ds, "fusion": fusion, "AP": mean_ap(c.values()),
+            **{k: v.ap() for k, v in c.items()}}
+
+
+# ---------------------------------------------------------------- subgroups
+
+PERSON_GROUPS = ["human.pedestrian.adult", "human.pedestrian.child",
+                 "human.pedestrian.construction_worker", "human.pedestrian.police_officer"]
+SG_HEIGHT_BINS = [(0, 40), (40, 80), (80, 1e10)]
+FT_MODELS = [(f"ft_yolo11m_seed{s}", f"YOLO11-M fine-tuned (seed {s})", "YOLO") for s in range(3)] + \
+            [(f"ft_frcnn_v2_seed{s}", f"Faster R-CNN v2 fine-tuned (seed {s})", "two-stage CNN") for s in range(3)]
+
+
+def _group_recall(found, groups, heights, w_obj, std_ref=None):
+    """Weighted recall per group, and the child/adult recall standardized to
+    the adult height distribution."""
+    out = {}
+    for g in PERSON_GROUPS:
+        s = groups == g
+        out[g] = float(np.dot(w_obj[s], found[s]) / max(w_obj[s].sum(), 1e-9))
+    ref = groups == "human.pedestrian.adult"
+    bins = np.digitize(heights, [b[1] for b in SG_HEIGHT_BINS[:-1]])
+    share = np.array([w_obj[ref & (bins == k)].sum() for k in range(len(SG_HEIGHT_BINS))])
+    share = share / share.sum()
+    for g in PERSON_GROUPS[1:]:
+        r = []
+        for k in range(len(SG_HEIGHT_BINS)):
+            s = (groups == g) & (bins == k)
+            r.append(np.dot(w_obj[s], found[s]) / w_obj[s].sum() if w_obj[s].sum() > 0 else np.nan)
+        r = np.array(r)
+        ok = ~np.isnan(r)
+        out[g + "/height_std"] = float(np.dot(share[ok], r[ok]) / share[ok].sum())
+    return out
+
+
+def _subgroup_job(runs, data, spec, name):
+    f = det_path(runs, spec, "nuimages_val")
+    if not f.exists():
+        return None
+    nat, gt, dets = A.prepare(f, native_path(data, "nuimages_val"), spec, A.settings())
+    m, ids = match(gt, dets, cat_ids=[2])
+    p = m[2]
+    anns, boxes = gt["annotations"], nat["boxes"]
+    keep = ~p.gt_ignored
+    groups = np.array([boxes[anns[k]["native_index"]]["fine"] for k in p.gt_ann])[keep]
+    heights = np.array([anns[k]["height"] for k in p.gt_ann])[keep]
+    score50, obj_img = p.gt_score50[keep], p.gt_img[keep]
+    cl = {im["id"]: im["cluster"] for im in nat["images"]}
+    clusters = np.array([cl[i] for i in ids])
+    res = {"model": name, "n": {g: int((groups == g).sum()) for g in PERSON_GROUPS}}
+    thr, f1 = A.operating_threshold(p)
+    res["threshold"], res["f1"] = thr, f1
+    res["recall"] = _group_recall(score50 >= thr, groups, heights, np.ones(len(groups)))
+    boot = []
+    for w in cluster_weights(clusters, 1000, seed=2):
+        t, _ = A.operating_threshold(p, w)                    # threshold re-estimated
+        boot.append(_group_recall(score50 >= t, groups, heights, w[obj_img]))
+    res["ci95"] = {k: ci([b[k] for b in boot]) for k in boot[0]}
+    for g in PERSON_GROUPS[1:]:
+        for suffix in ("", "/height_std"):
+            gap = [b["human.pedestrian.adult"] - b[g + suffix] for b in boot]
+            res.setdefault("gap_vs_adult", {})[g + suffix] = {
+                "gap": res["recall"]["human.pedestrian.adult"] - res["recall"][g + suffix],
+                "ci95": ci(gap), "p_two_sided": float(min(1, 2 * min(np.mean(np.array(gap) <= 0),
+                                                                     np.mean(np.array(gap) >= 0))))}
+    res["heights_median"] = {g: float(np.median(heights[groups == g])) for g in PERSON_GROUPS}
+    return res
+
+
+def holm(pvals):
+    order = np.argsort(pvals)
+    adj, running = np.empty(len(pvals)), 0.0
+    for rank, i in enumerate(order):
+        running = max(running, min(1.0, (len(pvals) - rank) * pvals[i]))
+        adj[i] = running
+    return adj.tolist()
+
+
+def section_subgroups(a):
+    specs = [(s, n) for s, n, _ in MODELS] + [(s, n) for s, n, _ in FT_MODELS]
+    rows = [r for r in pool_map(_subgroup_job, [(a.runs, a.data, s, n) for s, n in specs], a.procs) if r]
+    keys = [(i, k) for i, r in enumerate(rows) for k in r["gap_vs_adult"]]
+    adj = holm([rows[i]["gap_vs_adult"][k]["p_two_sided"] for i, k in keys])
+    for (i, k), p in zip(keys, adj):
+        rows[i]["gap_vs_adult"][k]["p_holm"] = p
+    save("subgroups", {"operating_point": "F1-optimal score threshold for person at IoU 0.5, "
+                                          "re-estimated in every bootstrap resample",
+                       "height_bins": SG_HEIGHT_BINS, "rows": rows})
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("section")
