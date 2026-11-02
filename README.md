@@ -215,7 +215,10 @@ standard one (YOLO: 100 epochs with mosaic; Faster R-CNN: 12 epochs), so the two
 differ in recipe as well as architecture. Neither trainer supports ignore regions, so KITTI's
 Person_sitting and DontCare boxes are trained as background; part of the drop on COCO and nuImages after
 fine-tuning may come from these label definitions rather than from forgetting; the design does not
-separate the two. In the prompt comparison,
+separate the two. All models keep the post-processing they ship with. Re-running class-wise NMS after mapping to the
+unified classes changes mAP by at most 0.002 for closed-set models and by -0.001 to +0.009 for the
+open-vocabulary models, whose prompt synonyms can return one box twice (results/robustness.json).
+In the prompt comparison,
 the bare prompt (vehicle, person, cyclist) both asks for a person once instead of twice and has no
 bicycle query for rider fusion to use, and the design does not separate the two effects.
 

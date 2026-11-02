@@ -778,49 +778,225 @@
    "spec": "yolo:yolo11x.pt",
    "dataset": "kitti_val",
    "AP": 0.27239296720650347,
-   "AP_unified_nms_0.7": 0.2723519999995626
+   "per_class": {
+    "vehicle": 0.5041669147189162,
+    "person": 0.23249176783076766,
+    "cyclist": 0.08052021906982691
+   },
+   "AP_unified_nms_0.7": 0.2723519999995626,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.5041800300202582,
+    "person": 0.23249198088523954,
+    "cyclist": 0.08038398909319021
+   }
   },
   {
    "spec": "yolo:yolo11x.pt",
    "dataset": "nuimages_val",
    "AP": 0.3673961215146815,
-   "AP_unified_nms_0.7": 0.36895158171416875
+   "per_class": {
+    "vehicle": 0.45662902259744637,
+    "person": 0.2765093440369547,
+    "cyclist": 0.3690499979096447
+   },
+   "AP_unified_nms_0.7": 0.36895158171416875,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.46117474209806053,
+    "person": 0.276509518424043,
+    "cyclist": 0.3691704846204038
+   }
   },
   {
    "spec": "dfine:x",
    "dataset": "kitti_val",
    "AP": 0.28305312633493807,
-   "AP_unified_nms_0.7": 0.2832395010839439
+   "per_class": {
+    "vehicle": 0.5279083883403914,
+    "person": 0.19855038613574189,
+    "cyclist": 0.12270060452868169
+   },
+   "AP_unified_nms_0.7": 0.2832395010839439,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.5293053638113664,
+    "person": 0.1979197860285179,
+    "cyclist": 0.12249335341194807
+   }
   },
   {
    "spec": "dfine:x",
    "dataset": "nuimages_val",
    "AP": 0.3426370318434686,
-   "AP_unified_nms_0.7": 0.3442012751550307
+   "per_class": {
+    "vehicle": 0.4601643187468314,
+    "person": 0.22892605929854976,
+    "cyclist": 0.3388207174850245
+   },
+   "AP_unified_nms_0.7": 0.3442012751550307,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.4653753432837166,
+    "person": 0.22834640322092534,
+    "cyclist": 0.3388820789604494
+   }
   },
   {
    "spec": "tv:fasterrcnn_resnet50_fpn_v2",
    "dataset": "kitti_val",
    "AP": 0.2864726393628782,
-   "AP_unified_nms_0.7": 0.2852447685681369
+   "per_class": {
+    "vehicle": 0.5044633055984706,
+    "person": 0.24743136107354993,
+    "cyclist": 0.10752325141661391
+   },
+   "AP_unified_nms_0.7": 0.2852447685681369,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.5007784166775289,
+    "person": 0.24743136107354993,
+    "cyclist": 0.10752452795333213
+   }
   },
   {
    "spec": "tv:fasterrcnn_resnet50_fpn_v2",
    "dataset": "nuimages_val",
    "AP": 0.39086887130571074,
-   "AP_unified_nms_0.7": 0.3904404490775133
+   "per_class": {
+    "vehicle": 0.45310333502149086,
+    "person": 0.3147872134869445,
+    "cyclist": 0.40471606540869703
+   },
+   "AP_unified_nms_0.7": 0.3904404490775133,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.451808903273341,
+    "person": 0.3147872134869445,
+    "cyclist": 0.40472523047225456
+   }
   },
   {
    "spec": "tv:retinanet_resnet50_fpn",
    "dataset": "kitti_val",
    "AP": 0.25934564933448945,
-   "AP_unified_nms_0.7": 0.2595678390794935
+   "per_class": {
+    "vehicle": 0.49119579815171294,
+    "person": 0.20754737875105472,
+    "cyclist": 0.07929377110070095
+   },
+   "AP_unified_nms_0.7": 0.2595678390794935,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.4916634990617819,
+    "person": 0.20754737875105472,
+    "cyclist": 0.07949263942564357
+   }
   },
   {
    "spec": "tv:retinanet_resnet50_fpn",
    "dataset": "nuimages_val",
    "AP": 0.29705526411619143,
-   "AP_unified_nms_0.7": 0.2979562842178309
+   "per_class": {
+    "vehicle": 0.38086552076083413,
+    "person": 0.2094790890490474,
+    "cyclist": 0.3008211825386933
+   },
+   "AP_unified_nms_0.7": 0.2979562842178309,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.38313779299501666,
+    "person": 0.2094790890490474,
+    "cyclist": 0.30125197060942915
+   }
+  },
+  {
+   "spec": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "kitti_val",
+   "AP": 0.3133559486902339,
+   "per_class": {
+    "vehicle": 0.4958560693271029,
+    "person": 0.20016562088539694,
+    "cyclist": 0.24404615585820266
+   },
+   "AP_unified_nms_0.7": 0.3127583009699419,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.499349422159649,
+    "person": 0.20177641352221387,
+    "cyclist": 0.23714906722796122
+   }
+  },
+  {
+   "spec": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "nuimages_val",
+   "AP": 0.38983918954452,
+   "per_class": {
+    "vehicle": 0.4645775718521196,
+    "person": 0.25343806086005327,
+    "cyclist": 0.4515019359213869
+   },
+   "AP_unified_nms_0.7": 0.39792747875747053,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.4744004272114563,
+    "person": 0.2678250400960761,
+    "cyclist": 0.45155696896487946
+   }
+  },
+  {
+   "spec": "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+   "dataset": "kitti_val",
+   "AP": 0.26940085947728404,
+   "per_class": {
+    "vehicle": 0.47558575527088437,
+    "person": 0.1575019887197153,
+    "cyclist": 0.17511483444125345
+   },
+   "AP_unified_nms_0.7": 0.2751029473912238,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.47913997770108235,
+    "person": 0.16443955349338454,
+    "cyclist": 0.18172931097920547
+   }
+  },
+  {
+   "spec": "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+   "dataset": "nuimages_val",
+   "AP": 0.34991836435803136,
+   "per_class": {
+    "vehicle": 0.46142974525661123,
+    "person": 0.22959825590200716,
+    "cyclist": 0.35872709191547436
+   },
+   "AP_unified_nms_0.7": 0.35915834057636875,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.47284894151556367,
+    "person": 0.24552748133707147,
+    "cyclist": 0.3590985988764709
+   }
+  },
+  {
+   "spec": "gdino:iSEE-Laboratory/llmdet_tiny",
+   "dataset": "kitti_val",
+   "AP": 0.28728590853606223,
+   "per_class": {
+    "vehicle": 0.4780872569631282,
+    "person": 0.21696596245987212,
+    "cyclist": 0.1668045061851861
+   },
+   "AP_unified_nms_0.7": 0.2884289163258685,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.4814188214416994,
+    "person": 0.21718681617918073,
+    "cyclist": 0.16668111135672534
+   }
+  },
+  {
+   "spec": "gdino:iSEE-Laboratory/llmdet_tiny",
+   "dataset": "nuimages_val",
+   "AP": 0.3784609997634057,
+   "per_class": {
+    "vehicle": 0.45384862842357604,
+    "person": 0.275801189176401,
+    "cyclist": 0.4057331816902389
+   },
+   "AP_unified_nms_0.7": 0.3831201273931762,
+   "per_class_unified_nms_0.7": {
+    "vehicle": 0.46476651776885797,
+    "person": 0.27875385778019784,
+    "cyclist": 0.4058400066304726
+   }
   }
  ],
  "yolo_nms_mode_tutorial_protocol_nuimages500": {
