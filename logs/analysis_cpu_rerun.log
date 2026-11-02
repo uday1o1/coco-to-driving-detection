@@ -17,9 +17,9 @@ Sections run one after another (scripts/run_analysis.sh, 24 workers):
 
 Remaining sections started in parallel at 16:42:43 (scripts/analyze.py <section>, 12 to 16
 workers each); the sequential run was stopped once stability had finished:
-fusion       -> results/fusion.json       16:48:38
 prompts      -> results/prompts.json      16:43:22
 errors       -> results/errors.json       16:43:47
+fusion       -> results/fusion.json       16:48:38
 contrasts    -> results/contrasts.json    17:47:00
 robustness   -> results/robustness.json   17:47:30
 subgroups    -> results/subgroups.json    17:48:15
@@ -30,7 +30,7 @@ COCO check printed by the gate section (measured AP, published AP):
 Faster R-CNN 37.2 37.0 | RetinaNet 35.9 36.4 | FCOS 39.1 39.2 | Faster R-CNN v2 47.3 46.7
 YOLO11-N 39.3 39.5 | YOLO11-M 51.3 51.5 | YOLO11-X 54.5 54.7
 D-FINE-N 42.8 42.8 | D-FINE-M 52.3 52.3 | D-FINE-X 55.8 55.8
-Grounding DINO-T 48.5 48.4 | MM-GDINO-T 50.4 50.4 | LLMDet-T 55.5 (published 55.6, added to the table later)
+Grounding DINO-T 48.5 48.4 | MM-GDINO-T 50.4 50.4 | LLMDet-T 55.5 (paper: 55.6, trained with COCO images)
 D-FINE Hugging Face port N/M/X 42.8 / 52.3 / 55.8 | YOLO11-N single-label NMS 38.7
 
 Comparison with the results files previously committed from the GPU machine (cmp, byte for byte):
@@ -38,3 +38,5 @@ identical: main.json, reproduction.json, audit.json, stability.json, fusion.json
            finetune.json, prompts.json, contrasts.json
 new or changed by this run (analysis code at 24ba290 differs for these sections):
            gate.json (added rows), errors.json, subgroups.json, robustness.json (new)
+robustness.json was extended afterwards with the NMS check for the open-vocabulary models
+(scripts/analyze.py unified_nms, run on a separate CPU machine from the same release).

@@ -33,9 +33,10 @@ as caveats (fixed score threshold, cyclist mapping, sample size) change the answ
    the bootstrap intervals overlap (results/robustness.json), so this is a tendency. YOLO11-X leads Faster R-CNN v2 by about 0.06 AP on
    COCO for both classes; on driving data the vehicle lead disappears, and on nuImages persons it becomes a
    deficit (-0.043 without fusion, -0.038 with). On KITTI neither the vehicle nor the person difference is
-   significant. Some apparent architecture effects come from rider fusion instead: FCOS beats Faster R-CNN
-   on COCO and loses on nuImages mAP (-0.031), but without fusion its nuImages mAP is higher (0.234 against 0.228,
-   point estimates); the reversal comes from fusion absorbing more of FCOS's person detections.
+   significant. Some apparent architecture effects come from rider fusion instead: on the classes all three datasets
+   share (vehicle and person), FCOS beats Faster R-CNN on COCO (+0.017) and trails it on nuImages (-0.051), but
+   without fusion the nuImages difference is +0.002; the reversal comes from fusion absorbing more of FCOS's
+   person detections.
 4. **Input resolution is a hidden confound.** YOLO11-M at 1280 px instead of its default 640 gains
    +0.072 mAP on nuImages (95% CI +0.061 to +0.084), giving the highest nuImages mAP of any
    configuration (0.404, against 0.391 for Faster R-CNN v2; that pair is not tested). D-FINE's
@@ -54,8 +55,8 @@ as caveats (fixed score threshold, cyclist mapping, sample size) change the answ
 8. **Open-vocabulary detectors are competitive on driving data and sensitive to the prompt.** Grounding
    DINO-T has the highest KITTI mAP (0.313), almost entirely through cyclists after rider fusion; without
    fusion it matches Faster R-CNN v2 (0.245) to three decimals. LLMDet beats its own starting point MM-GDINO on all three datasets
-   (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15. In plain PyTorch they are about five times slower than
-   Faster R-CNN v2 and ten times slower than YOLO.
+   (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15. In plain PyTorch (fp32, end to end) they are 4.4 to 4.5
+   times slower than Faster R-CNN v2 and 12 to 17 times slower than YOLO.
 
 ![protocol audit](figures/protocol_audit.png)
 
@@ -140,8 +141,8 @@ the motorcycle box. The two
 thresholds were chosen on KITTI *train* predictions of one model (Faster R-CNN v2) and fixed for every
 model and dataset (0.1 is the lowest score floor in the grid). On nuImages, whose labels say whether each bicycle has a rider, fusion confidently pairs
 (for the ten closed-set models) 49 to 92% of detected bicycles with riders and 2 to 34% of parked ones. On nuImages it raises cyclist AP
-from between 0.03 and 0.09 to between 0.18 and 0.45, but it lowers person AP for most models (by up to
-0.11 for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
+from between 0.03 and 0.09 to between 0.18 and 0.45, but it lowers person AP by more than 0.005 for 9 of the 13
+models (by up to 0.11 for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
 
 The evaluator reproduces pycocotools' matching exactly (tests/test_evaluate.py) and keeps the outcome of
 every detection, so a bootstrap resample is one weighted pass instead of a full re-evaluation. Every
@@ -216,7 +217,7 @@ differ in recipe as well as architecture. Neither trainer supports ignore region
 Person_sitting and DontCare boxes are trained as background; part of the drop on COCO and nuImages after
 fine-tuning may come from these label definitions rather than from forgetting; the design does not
 separate the two. All models keep the post-processing they ship with. Re-running class-wise NMS after mapping to the
-unified classes changes mAP by at most 0.002 for closed-set models and by -0.001 to +0.009 for the
+unified classes changes mAP by at most 0.002 for the four closed-set models checked and by -0.001 to +0.009 for the
 open-vocabulary models, whose prompt synonyms can return one box twice (results/robustness.json).
 In the prompt comparison,
 the bare prompt (vehicle, person, cyclist) both asks for a person once instead of twice and has no
