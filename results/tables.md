@@ -34,7 +34,7 @@
 | D-FINE-X | 55.8 | 55.8 |
 | Grounding DINO-T | 48.5 | 48.4 |
 | MM-GDINO-T | 50.4 | 50.4 |
-| LLMDet-T | 55.5 | n/a |
+| LLMDet-T | 55.5 | 55.6 |
 | D-FINE-N (Hugging Face port) | 42.8 | 42.8 |
 | D-FINE-M (Hugging Face port) | 52.3 | 52.3 |
 | D-FINE-X (Hugging Face port) | 55.8 | 55.8 |
