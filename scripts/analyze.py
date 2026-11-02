@@ -211,9 +211,10 @@ def _tune_job(runs, data, fusion, ioa, bike_min, stretch):
             **ap, "objective": (ap["person"] + ap["cyclist"]) / 2}
 
 
-def _rider_decisions(runs, data, spec):
-    """On nuImages, how often does fusion pair a detected bicycle with a rider,
-    split by the ground-truth rider attribute?"""
+def _rider_decisions(runs, data, spec, min_pair_score=0.3):
+    """On nuImages, how often does fusion confidently pair a detected bicycle
+    with a person (pair score >= min_pair_score), split by the ground-truth
+    rider attribute? Pairs below that score only add low-ranked cyclist boxes."""
     from detbench import protocol
     from detbench.evaluate import _iou
     nat = A.native(str(native_path(data, "nuimages_val")))
@@ -231,9 +232,10 @@ def _rider_decisions(runs, data, spec):
         sl = order[np.searchsorted(img, iid, "left"):np.searchsorted(img, iid, "right")]
         if not len(sl):
             continue
-        _, _, _, pairs = protocol.fuse_riders(d["boxes"][sl], d["scores"][sl], labels[sl],
+        sc = d["scores"][sl]
+        _, _, _, pairs = protocol.fuse_riders(d["boxes"][sl], sc, labels[sl],
                                               protocol.FUSION["ioa"], protocol.FUSION["bike_min"], True)
-        paired = {j for _, j in pairs}
+        paired = {j for i, j in pairs if np.sqrt(sc[i] * sc[j]) >= min_pair_score}
         bk = [k for k in range(len(sl)) if labels[sl][k] == "bicycle" and d["scores"][sl][k] >= protocol.FUSION["bike_min"]]
         if not bk:
             continue
@@ -251,7 +253,7 @@ def _rider_decisions(runs, data, spec):
 
 
 def section_fusion(a):
-    grid = ([("rider", i, b, 1.0) for i in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
+    grid = ([("rider", i, b, 1.0) for i in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
              for b in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)]
             + [("stretch", 0.3, 0.5, f) for f in (0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0)]
             + [("none", 0.3, 0.5, 1.0)])
