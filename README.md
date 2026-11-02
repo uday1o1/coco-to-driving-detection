@@ -2,39 +2,43 @@
 
 Thirteen COCO-trained detectors from five families (two-stage CNN, one-stage CNN, YOLO, real-time
 DETR, open vocabulary) evaluated zero-shot on COCO val2017, KITTI val and the full nuImages validation set,
-plus fine-tuning on KITTI, a latency benchmark and a pedestrian subgroup analysis. Every number comes
+plus fine-tuning on KITTI, a latency benchmark and a pedestrian subgroup analysis. Every mAP comes
 with a 95% confidence interval from a bootstrap that resamples whole drives (KITTI) or logs
-(nuImages), and every comparison claimed in the text is a paired test on the same images.
+(nuImages), and every difference called significant is a paired test on the same images.
 
 The work starts from the zero-shot harness in the
 [DeepDataMiningLearning ngdet tutorial](https://github.com/lkk688/DeepDataMiningLearning/tree/main/DeepDataMiningLearning/ngdet),
-reproduces its published table exactly, and then measures how the evaluation choices it already lists
+reproduces its published table (closed-set entries within 0.001, Grounding DINO within
+0.004), and then measures how the evaluation choices it already lists
 as caveats (fixed score threshold, cyclist mapping, sample size) change the answer.
 
 ## Findings
 
-1. **The tutorial's numbers reproduce exactly.** Its own code at a pinned commit gives the published
-   values on COCO, nuImages and KITTI (Faster R-CNN v2: 0.581, 0.299, 0.279). The KITTI column comes from
+1. **The tutorial's numbers reproduce.** Its own code at a pinned commit gives the published values on
+   COCO, nuImages and KITTI to within 0.001 for the closed-set models and 0.004 for Grounding DINO
+   (Faster R-CNN v2: 0.581, 0.299, 0.279). The KITTI column comes from
    the first 120 images of the KITTI *train* list. This repo's harness, run in tutorial mode on the same
    images, matches ngdet to four decimals on all eight closed-set cases.
 2. **The protocol moves the numbers as much as the model does.** Going from the tutorial protocol to a
    corrected one (ignore regions, each dataset's own minimum-size rule, no score cut-off before mAP,
-   consistent class definitions, rider fusion) raises mean mAP from 0.213 to 0.267 on KITTI and from 0.276
+   consistent class definitions, rider fusion, keeping nuImages frames with no objects) raises mean mAP from 0.213 to 0.267 on KITTI and from 0.276
    to 0.326 on nuImages. On KITTI the model ranking changes substantially (Kendall tau 0.36 between the
    two protocols). The fixed 0.3 score cut-off alone costs YOLO models 0.04 to 0.07 mAP on nuImages
    and COCO.
-3. **COCO ranks models well for vehicles, poorly for pedestrians.** On matched classes, COCO and the
-   driving datasets agree on the vehicle ranking (Spearman 0.77 with KITTI, 0.68 with nuImages) but much
-   less on the person ranking (0.27 and 0.50), while KITTI and nuImages agree on persons at 0.84 (bootstrap
-   intervals over models in results/robustness.json). YOLO11-X leads Faster R-CNN v2 by about 0.06 AP on
-   COCO for both classes; on driving data the vehicle lead disappears and on nuImages persons it becomes a
-   -0.043 deficit. Some apparent architecture effects come from rider fusion instead: FCOS beats Faster R-CNN
-   on COCO and loses on nuImages mAP (-0.031), but without fusion it is ahead there (0.234 against 0.228); the
-   reversal comes from fusion absorbing more of FCOS's person detections.
+3. **COCO tracks the vehicle ranking better than the pedestrian ranking.** On matched classes, COCO and
+   the driving datasets agree on the vehicle ranking at Spearman 0.77 (KITTI) and 0.68 (nuImages) but on
+   the person ranking at 0.27 and 0.50, while KITTI and nuImages agree on persons at 0.84. With 13 models
+   the bootstrap intervals overlap (results/robustness.json), so this is a tendency. YOLO11-X leads Faster R-CNN v2 by about 0.06 AP on
+   COCO for both classes; on driving data the vehicle lead disappears, and on nuImages persons it becomes a
+   deficit (-0.043 without fusion, -0.038 with). On KITTI neither the vehicle nor the person difference is
+   significant. Some apparent architecture effects come from rider fusion instead: FCOS beats Faster R-CNN
+   on COCO and loses on nuImages mAP (-0.031), but without fusion its nuImages mAP is higher (0.234 against 0.228,
+   point estimates); the reversal comes from fusion absorbing more of FCOS's person detections.
 4. **Input resolution is a hidden confound.** YOLO11-M at 1280 px instead of its default 640 gains
-   +0.072 mAP on nuImages (95% CI +0.061 to +0.084) and becomes the best model there (0.404). D-FINE's
+   +0.072 mAP on nuImages (95% CI +0.061 to +0.084), giving the highest nuImages mAP of any
+   configuration (0.404, against 0.391 for Faster R-CNN v2; that pair is not tested). D-FINE's
    stretched 640x640 input beats letterboxing on wide driving frames (-0.037 when letterboxed).
-5. **Pedestrians are the class that breaks.** Vehicle AP on KITTI is close to COCO; person AP falls
+5. **Pedestrians lose the most.** Vehicle AP on KITTI is close to COCO; person AP falls
    from about 0.6 to about 0.2 on both driving sets and stays low even for pedestrians taller than 160 px.
 6. **Construction workers are missed 4 to 14 recall points more often than other adult pedestrians**
    (significant after Holm correction for 12 of 13 models, all but FCOS), and 5 to 16 points when recall is
@@ -43,12 +47,13 @@ as caveats (fixed score threshold, cyclist mapping, sample size) change the answ
    appears, but at matched height it is 2 to 5 points and not significant: the fine-tuned model loses small
    pedestrians, and children are smaller.
 7. **Fine-tuning on one driving dataset hurts the other.** Fine-tuning on KITTI train (3 seeds, seed
-   s.d. at most 0.008) raises KITTI val mAP by +0.18 (Faster R-CNN v2) and +0.10 (YOLO11-M) but lowers
+   s.d. at most 0.008) raises KITTI val mAP by +0.18 (Faster R-CNN v2) and +0.11 (YOLO11-M) but lowers
    nuImages by -0.16 and -0.24 and COCO by -0.35 and -0.55.
 8. **Open-vocabulary detectors are competitive on driving data and sensitive to the prompt.** Grounding
    DINO-T has the highest KITTI mAP (0.313), almost entirely through cyclists after rider fusion; without
-   fusion it equals Faster R-CNN v2 (0.245). LLMDet beats its own starting point MM-GDINO on all three datasets
-   (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15.
+   fusion it matches Faster R-CNN v2 (0.245) to three decimals. LLMDet beats its own starting point MM-GDINO on all three datasets
+   (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15. In plain PyTorch they are about five times slower than
+   Faster R-CNN v2 and ten times slower than YOLO.
 
 ![protocol audit](figures/protocol_audit.png)
 
@@ -129,7 +134,7 @@ bicycle when the bicycle scores at least 0.1, the lower half of the person box o
 at least 70% and the person's centre lies over the bicycle; the pair becomes one cyclist box. The two
 thresholds were chosen on KITTI *train* predictions of one model (Faster R-CNN v2) and fixed for every
 model and dataset. On nuImages, whose labels say whether each bicycle has a rider, fusion confidently pairs
-49 to 92% of detected bicycles with riders and 2 to 34% of parked ones. On nuImages it raises cyclist AP
+(for the ten closed-set models) 49 to 92% of detected bicycles with riders and 2 to 34% of parked ones. On nuImages it raises cyclist AP
 from between 0.03 and 0.09 to between 0.18 and 0.45, but it lowers person AP for most models (by up to
 0.11 for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
 
@@ -141,7 +146,7 @@ must agree.
 ## Reproducing
 
 Hardware used: one RTX 4090 (24 GB), 32 CPU cores, 108 GB RAM, rented on vast.ai. The run logs record
-13.0 GPU hours of inference (most of it the open-vocabulary models on nuImages) and 3.2 hours of
+13.0 GPU hours of inference (most of it the open-vocabulary models on nuImages) and 3.3 hours of
 fine-tuning. Software: Python 3.12,
 torch 2.11.0+cu128, torchvision 0.26.0, transformers 5.22.1, ultralytics 8.4.197 (requirements.txt).
 
@@ -199,7 +204,8 @@ compares implementations as shipped, not optimised engines. The fine-tuning reci
 standard one (YOLO: 100 epochs with mosaic; Faster R-CNN: 12 epochs), so the two fine-tuned models
 differ in recipe as well as architecture. Neither trainer supports ignore regions, so KITTI's
 Person_sitting and DontCare boxes are trained as background; part of the drop on COCO and nuImages after
-fine-tuning comes from these label definitions rather than from forgetting. In the prompt comparison,
+fine-tuning may come from these label definitions rather than from forgetting; the design does not
+separate the two. In the prompt comparison,
 the bare prompt (vehicle, person, cyclist) both asks for a person once instead of twice and has no
 bicycle query for rider fusion to use, and the design does not separate the two effects.
 
