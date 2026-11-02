@@ -11,10 +11,10 @@ cd "$REPO"
 nvidia-smi > "$RUNS/logs/nvidia-smi_ft_$(date +%Y%m%d_%H%M%S).txt"
 
 for seed in 0 1 2; do
-  [ -s "$RUNS/ft/yolo11m_seed$seed/weights/last.pt" ] || \
+  [ -s "$RUNS/ft/yolo11m_seed$seed/done.json" ] || \
     python -m detbench.finetune yolo --kitti "$DATA/kitti" --native "$DATA/native/kitti_train.json" \
       --seed $seed --out "$RUNS/ft" > "$RUNS/logs/ft_yolo11m_seed$seed.log" 2>&1 || echo "FAILED yolo seed $seed"
-  [ -s "$RUNS/ft/frcnn_v2_seed$seed/last.pt" ] || \
+  [ -s "$RUNS/ft/frcnn_v2_seed$seed/done.json" ] || \
     python -m detbench.finetune frcnn --kitti "$DATA/kitti" --native "$DATA/native/kitti_train.json" \
       --seed $seed --out "$RUNS/ft" > "$RUNS/logs/ft_frcnn_v2_seed$seed.log" 2>&1 || echo "FAILED frcnn seed $seed"
 done

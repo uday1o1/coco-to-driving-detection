@@ -59,9 +59,12 @@ def train_yolo(a):
     yaml.write_text(f"path: {root}\ntrain: images/train\nval: images/train\n"
                     f"names: {dict(enumerate(tx.CLASSES))}\n")
     model = YOLO(a.weights or "yolo11m.pt")
+    t0 = time.time()
     model.train(data=str(yaml), epochs=a.epochs or 100, imgsz=640, batch=16, seed=a.seed,
                 deterministic=True, val=False, project=str(a.out), name=f"yolo11m_seed{a.seed}",
                 exist_ok=True, workers=12, plots=False)
+    (a.out / f"yolo11m_seed{a.seed}" / "done.json").write_text(
+        json.dumps({"seconds": round(time.time() - t0), "epochs": a.epochs or 100, "seed": a.seed}))
 
 
 def train_frcnn(a):

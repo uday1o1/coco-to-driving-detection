@@ -30,7 +30,7 @@ from . import taxonomy as tx
 
 TUTORIAL_THRESHOLD = {"gdino": 0.15}
 # Rider-fusion thresholds, chosen on KITTI train (scripts/analyze.py fusion).
-FUSION = {"ioa": 0.3, "bike_min": 0.5}
+FUSION = {"ioa": 0.7, "bike_min": 0.1}
 TUTORIAL_THRESHOLD_DEFAULT = 0.3
 
 
@@ -54,7 +54,7 @@ def _pairs(person, other, ioa_min):
     return np.argwhere(ok)
 
 
-def fuse_riders(boxes, scores, labels, ioa_min=0.3, bike_min=0.5, return_pairs=False):
+def fuse_riders(boxes, scores, labels, ioa_min=0.7, bike_min=0.1, return_pairs=False):
     """Apply rider fusion to one image. labels are COCO-style names.
     Returns new (boxes, scores, labels), plus the (person, bicycle) index
     pairs when return_pairs is set."""
