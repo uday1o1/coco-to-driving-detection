@@ -124,9 +124,15 @@ PROMPTS = {
 }
 
 
+# Some checkpoints label COCO classes with the older Pascal VOC spellings.
+COCO_ALIASES = {"motorbike": "motorcycle", "aeroplane": "airplane", "sofa": "couch",
+                "pottedplant": "potted plant", "diningtable": "dining table", "tvmonitor": "tv"}
+
+
 def pred_class(label: str, semantics: str):
     """Unified class for a detector label (COCO name or unified name)."""
     label = label.strip().lower()
+    label = COCO_ALIASES.get(label, label)
     if label in CLASSES:
         return label
     if semantics == "tutorial":

@@ -26,7 +26,8 @@ def coco_ap(npz: Path, ann: Path, image_ids=None) -> dict:
     with contextlib.redirect_stdout(io.StringIO()):
         gt = COCO(str(ann))
     name_to_cat = {c["name"]: c["id"] for c in gt.dataset["categories"]}
-    cats = np.array([name_to_cat.get(str(n), -1) for n in d["names"]])
+    from .taxonomy import COCO_ALIASES
+    cats = np.array([name_to_cat.get(COCO_ALIASES.get(str(n), str(n)), -1) for n in d["names"]])
     c = cats[d["labels"]]
     keep = c > 0
     b = d["boxes"][keep]

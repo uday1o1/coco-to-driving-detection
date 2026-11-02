@@ -99,7 +99,7 @@ def apply(d: dict, dataset: str, semantics="corrected", threshold=False, minsize
           fusion="rider", model_kind="tv", ioa=None, bike_min=None, stretch=1.0) -> dict:
     """Scored detections (image_id, boxes, scores, category_id) for one setting.
     fusion: "none" (bicycle -> cyclist), "rider" or "stretch"."""
-    names = np.array([str(n).strip().lower() for n in d["names"]])
+    names = np.array([tx.COCO_ALIASES.get(str(n).strip().lower(), str(n).strip().lower()) for n in d["names"]])
     labels = names[d["labels"]].astype("<U32")
     img, boxes, scores = d["image_id"], d["boxes"], d["scores"]
     if fusion != "none" and len(img):

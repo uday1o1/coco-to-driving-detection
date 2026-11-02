@@ -148,11 +148,8 @@ class DFineDetector:
 
 class DFineOfficialDetector:
     """D-FINE from the authors' repository (Peterande/D-FINE) with their
-    released COCO weights.
-
-    The Hugging Face port (transformers 5.22.1, ustc-community checkpoints)
-    scores about 4 AP lower on COCO val with identical preprocessing, so the
-    official code is used. Needs the repository at $DFINE_SRC (default
+    released COCO weights, the reference implementation behind the paper's
+    numbers. Needs the repository at $DFINE_SRC (default
     ~/dfine_src, set up by scripts/setup.sh). Preprocessing is the official
     one: resize to 640x640 without keeping aspect ratio, scale to [0, 1].
     The post-processor keeps the top 300 (query, class) pairs, no NMS.
