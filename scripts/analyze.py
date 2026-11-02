@@ -359,6 +359,125 @@ def section_subgroups(a):
                        "height_bins": SG_HEIGHT_BINS, "rows": rows})
 
 
+# ----------------------------------------------------------------- finetune
+
+def section_finetune(a):
+    """Fine-tuned (3 seeds) against the same architecture zero-shot."""
+    pairs = [("YOLO11-M", "yolo:yolo11m.pt", "ft_yolo11m_seed"),
+             ("Faster R-CNN v2", "tv:fasterrcnn_resnet50_fpn_v2", "ft_frcnn_v2_seed")]
+    jobs = [(a.runs, a.data, f"{pre}{s}", f"{name} seed {s}", name, ds)
+            for name, _, pre in pairs for s in range(3) for ds in DATASETS]
+    rows = [r for r in pool_map(_main_job, jobs, a.procs) if r]
+    diffs = []
+    for name, zs, pre in pairs:
+        for ds in DATASETS:
+            for s in range(3):
+                fa, fb = det_path(a.runs, f"{pre}{s}", ds), det_path(a.runs, zs, ds)
+                if fa.exists() and fb.exists():
+                    diffs.append({"model": name, "dataset": ds, "seed": s,
+                                  **A.paired_diff(fa, fb, native_path(a.data, ds), f"{pre}{s}", zs)})
+    save("finetune", {"runs": rows, "diff_vs_zero_shot": diffs})
+
+
+# ------------------------------------------------------------------- errors
+
+def _error_job(runs, data, spec, name, ds):
+    """At each class's F1-optimal threshold (IoU 0.5), sort false positives
+    into duplicate / localisation / class confusion / background and count
+    misses by object height."""
+    from detbench.evaluate import _iou
+    f = det_path(runs, spec, ds)
+    if not f.exists():
+        return None
+    nat, gt, dets = A.prepare(f, native_path(data, ds), spec, A.settings())
+    m, ids = match(gt, dets)
+    anns = gt["annotations"]
+    by_img = {}
+    for k, an in enumerate(anns):
+        if not an["iscrowd"]:
+            by_img.setdefault(an["image_id"], []).append(k)
+    out = {"model": name, "dataset": ds, "classes": {}}
+    for c, mc in m.items():
+        if mc.npig.sum() == 0:
+            continue
+        thr, f1 = A.operating_threshold(mc)
+        sel = (dets["category_id"] == c) & (dets["scores"] >= thr)
+        fp_types = {"duplicate": 0, "localization": 0, "confusion": 0, "background": 0}
+        o = np.argsort(-mc.score, kind="mergesort")
+        n_tp = int(mc.tp[0, o][mc.score[o] >= thr].sum())
+        n_fp = int(mc.fp[0, o][mc.score[o] >= thr].sum())
+        # recompute per image: which kept detections are false positives and why
+        for ii, iid in enumerate(ids):
+            ds_i = np.nonzero(sel & (dets["image_id"] == iid))[0]
+            if not len(ds_i):
+                continue
+            ds_i = ds_i[np.argsort(-dets["scores"][ds_i], kind="mergesort")][:100]
+            gk = by_img.get(iid, [])
+            same = [k for k in gk if anns[k]["category_id"] == c]
+            other = [k for k in gk if anns[k]["category_id"] != c]
+            box = lambda ks: np.array([[anns[k]["bbox"][0], anns[k]["bbox"][1],
+                                        anns[k]["bbox"][0] + anns[k]["bbox"][2],
+                                        anns[k]["bbox"][1] + anns[k]["bbox"][3]] for k in ks], np.float64).reshape(-1, 4)
+            db = dets["boxes"][ds_i]
+            iou_s = _iou(db, box(same), np.zeros(len(same), np.bool_)) if same else np.zeros((len(ds_i), 0))
+            iou_o = _iou(db, box(other), np.zeros(len(other), np.bool_)) if other else np.zeros((len(ds_i), 0))
+            taken = np.zeros(len(same), bool)
+            for i in range(len(ds_i)):
+                j = int(iou_s[i].argmax()) if len(same) else -1
+                if j >= 0 and iou_s[i, j] >= 0.5 and not taken[j]:
+                    taken[j] = True
+                    continue
+                if j >= 0 and iou_s[i, j] >= 0.5:
+                    fp_types["duplicate"] += 1
+                elif len(other) and iou_o[i].max() >= 0.5:
+                    fp_types["confusion"] += 1
+                elif j >= 0 and iou_s[i, j] >= 0.1:
+                    fp_types["localization"] += 1
+                else:
+                    fp_types["background"] += 1
+        h = np.array([anns[k]["height"] for k in mc.gt_ann])
+        keep = ~mc.gt_ignored
+        missed = keep & (mc.gt_score50 < thr)
+        bins = {f"{lo}-{int(hi) if hi < 1e9 else 'inf'}": [int((missed & (h >= lo) & (h < hi)).sum()),
+                                                            int((keep & (h >= lo) & (h < hi)).sum())]
+                for lo, hi in A.HEIGHT_BINS}
+        out["classes"][tx.CLASSES[c - 1]] = {"threshold": thr, "f1": f1, "tp": n_tp, "fp_matcher": n_fp,
+                                             "fp_types": fp_types, "missed_by_height": bins}
+    return out
+
+
+def section_errors(a):
+    jobs = [(a.runs, a.data, s, n, ds) for s, n, _ in MODELS for ds in DATASETS]
+    save("errors", [r for r in pool_map(_error_job, jobs, a.procs) if r])
+
+
+# --------------------------------------------------------------------- gate
+
+PUBLISHED_COCO_AP = {  # COCO val2017 box AP from the model's own documentation or paper
+    "tv:fasterrcnn_resnet50_fpn": 37.0, "tv:retinanet_resnet50_fpn": 36.4,
+    "tv:fcos_resnet50_fpn": 39.2, "tv:fasterrcnn_resnet50_fpn_v2": 46.7,
+    "yolo:yolo11n.pt": 39.5, "yolo:yolo11m.pt": 51.5, "yolo:yolo11x.pt": 54.7,
+    "dfine:ustc-community/dfine-nano-coco": 42.8, "dfine:ustc-community/dfine-medium-coco": 52.3,
+    "dfine:ustc-community/dfine-xlarge-coco": 55.8,
+    "gdino:IDEA-Research/grounding-dino-tiny@coco80": 48.4,
+}
+
+
+def section_gate(a):
+    from detbench.coco_gate import coco_ap
+    ann = Path(a.data) / "coco/annotations/instances_val2017.json"
+    rows = []
+    for s, name, fam in MODELS:
+        spec = s + "@coco80" if s.startswith("gdino") else s
+        f = det_path(a.runs, spec, "coco_val")
+        if f.exists():
+            r = coco_ap(f, ann)
+            rows.append({"model": name, "spec": spec, "measured_AP": round(100 * r["AP"], 1),
+                         "published_AP": PUBLISHED_COCO_AP.get(spec), **r})
+            print(rows[-1]["model"], rows[-1]["measured_AP"], rows[-1]["published_AP"])
+    save("gate", rows)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("section")
