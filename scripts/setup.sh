@@ -3,10 +3,12 @@
 #
 #   DATA=/path/to/data bash scripts/setup.sh
 #
-# Needs about 45 GB free during extraction (30 GB after). Every download is
+# Downloads about 31 GB of archives (nuImages samples 16.4 GB, KITTI images
+# 12.6 GB); allow about 40 GB free during extraction. Archives are deleted
+# after extraction. Every download is
 # public and needs no account: COCO from cocodataset.org, KITTI object from
 # the KITTI S3 bucket, nuImages from the nuScenes CloudFront bucket. Only the
-# nuImages validation images are extracted. Re-running skips finished steps.
+# nuImages validation images are extracted. Re-running skips finished downloads and extractions.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DATA="${DATA:-$HOME/data}"
@@ -101,7 +103,7 @@ keep = {im["id"] for im in [i for i in n["images"] if i["id"] in annotated][:500
 json.dump({**n, "images": [i for i in n["images"] if i["id"] in keep],
            "boxes": [b for b in n["boxes"] if b["image_id"] in keep]}, open(f"{d}/nuimages_ngdet500.json", "w"))
 EOF
-# every fifth nuImages val frame (spread over all logs), for the prompt ablation
+# every fifth nuImages val frame (81 of the 82 val logs), for the prompt ablation
 python - "$DATA/native" <<'EOF'
 import json, sys
 d = json.load(open(f"{sys.argv[1]}/nuimages_val.json"))

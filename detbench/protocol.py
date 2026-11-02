@@ -3,12 +3,13 @@
 The switches mirror the ground-truth side (see taxonomy.py and data.coco_gt):
 
   semantics  label mapping, "corrected" or "tutorial"
-  threshold  drop detections below the ngdet default score before computing
-             mAP (0.3 closed set, 0.15 for Grounding DINO style models)
+  threshold  drop detections below the score threshold the ngdet tutorial used
+             before computing mAP (0.3, the harness default; 0.15 for Grounding
+             DINO style models, the tutorial's gdino@0.15 setting)
   minsize    drop detections shorter than the dataset's labelling minimum
   fusion     rider fusion (below) instead of mapping every bicycle to cyclist
 
-Rider fusion. A COCO-trained detector sees a cyclist as two objects, a person
+Rider fusion. A detector with COCO's categories sees a cyclist as two objects, a person
 and a bicycle, while KITTI and nuImages label one box around both. Each person
 is paired with at most one bicycle when the bicycle's score is at least
 `bike_min`, the lower half of the person box overlaps the bicycle box
@@ -18,9 +19,11 @@ below); without a score floor every pedestrian next to some faint bicycle
 box would be absorbed, because detections are kept down to score 0.001. A pair becomes one cyclist
 box (the union) scored by the geometric mean of the two scores; the person is
 removed. Bicycles left without a rider are dropped, since parked bicycles are
-not cyclists. Persons over a motorcycle are removed the same way, because both
-datasets put the rider inside the motorcycle box. Pairs are taken greedily by
-pair score. Fusion is applied only to datasets that put the rider inside the
+not cyclists. Persons over a motorcycle are removed the same way, because nuImages puts
+the rider inside the motorcycle box (KITTI has no motorcycle class);
+motorcycle boxes themselves are dropped whenever fusion is on. Pairs are taken
+greedily by pair score, bicycles first, then motorcycles among the persons
+left. Fusion is applied only to datasets that put the rider inside the
 bicycle box (taxonomy.RIDER_IN_BOX); COCO labels the rider as a person.
 """
 from __future__ import annotations
@@ -41,7 +44,7 @@ def load(npz_path) -> dict:
 
 
 def _pairs(person, other, ioa_min):
-    """Candidate (person, other) index pairs and their IoA criterion."""
+    """(person, other) index pairs that pass the IoA and centre tests."""
     if not len(person) or not len(other):
         return np.zeros((0, 2), int)
     p, o = person[:, None, :], other[None, :, :]

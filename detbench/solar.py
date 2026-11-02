@@ -57,7 +57,7 @@ def lighting(elev: float) -> str:
 
 
 if __name__ == "__main__":
-    # Boston, 2018-06-21 16:00 UTC (noon EDT): sun near 70 deg.
+    # Boston, 2018-06-21 16:45 UTC (12:45 EDT, close to solar noon): sun near 71 deg.
     noon = datetime(2018, 6, 21, 16, 45, tzinfo=timezone.utc).timestamp()
     assert 68 < solar_elevation(noon, *CITY_LATLON["boston-seaport"]) < 73
     # Singapore, 2018-08-01 14:00 UTC (22:00 local): night.

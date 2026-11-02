@@ -97,7 +97,7 @@ def fig_cross_dataset(main):
 
 
 def fig_height(main):
-    """AP by object height on the driving sets, averaged over closed-set models per family."""
+    """AP by object height on the driving sets, averaged over the models of each family (ablation variants excluded)."""
     fig, axes = plt.subplots(1, 2, figsize=(7.5, 2.8), sharey=True)
     bins = ["0-40", "40-80", "80-160", "160-inf"]
     for ax, ds in zip(axes, ("kitti_val", "nuimages_val")):

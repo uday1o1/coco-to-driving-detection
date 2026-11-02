@@ -1,0 +1,12 @@
+24ba290 Analysis runs without images; the qualitative figure is drawn only when they are present
+128
+Model name:                              AMD EPYC 7V12 64-Core Processor
+Mem:             503          99         297           0         110         403
+main.json: identical to the committed file
+reproduction.json: identical to the committed file
+audit.json: identical to the committed file
+stability.json: identical to the committed file
+fusion.json: identical to the committed file
+finetune.json: identical to the committed file
+prompts.json: identical to the committed file
+contrasts.json: identical to the committed file

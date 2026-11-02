@@ -1,0 +1,16 @@
+Activated conda/uv virtual environment at /venv/main
+[16:42:43] start subgroups
+[16:42:43] start finetune
+[16:42:43] start errors
+[16:42:43] start prompts
+[16:42:43] start contrasts
+[16:42:43] start robustness
+[16:50:29] sequential run stopped after fusion
+subgroups: wrote /root/coco-to-driving-detection/results/subgroups.json
+finetune: wrote /root/coco-to-driving-detection/results/finetune.json
+errors: wrote /root/coco-to-driving-detection/results/errors.json
+prompts: wrote /root/coco-to-driving-detection/results/prompts.json
+contrasts: wrote /root/coco-to-driving-detection/results/contrasts.json
+robustness: wrote /root/coco-to-driving-detection/results/robustness.json
+figures in /root/coco-to-driving-detection/figures
+PAR DONE

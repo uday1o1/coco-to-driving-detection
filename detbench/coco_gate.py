@@ -1,11 +1,10 @@
 """Official 80-class COCO val2017 AP for a stored detection file.
 
-A wrapper passes only if this reproduces the checkpoint's published COCO AP,
-which catches preprocessing, box-format and label-mapping bugs before any
+Comparing this with the checkpoint's published COCO AP catches preprocessing, box-format and label-mapping bugs before any
 cross-dataset number is trusted. Uses the official annotation file and the
 standard pycocotools protocol (mask-area size buckets).
 
-    python -m detbench.coco_gate runs/dets/yolo11m__coco_val.npz \
+    python -m detbench.coco_gate runs/dets/yolo_yolo11m.pt__coco_val.npz \
         --ann $DATA/coco/annotations/instances_val2017.json
 """
 from __future__ import annotations

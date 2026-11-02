@@ -6,8 +6,9 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DATA="${DATA:-$HOME/data}"; RUNS="${RUNS:-$HOME/runs}"
-# Each worker holds a dataset's ground truth and one detection file (about 3 GB
-# for nuImages), so keep PROCS within memory / 3 GB.
+# Each worker holds a dataset's ground truth and one detection file in memory
+# (several GB at peak for nuImages), so keep PROCS well within the machine's
+# memory.
 PROCS="${PROCS:-12}"
 SECTIONS="${SECTIONS:-gate reproduction main audit stability fusion subgroups finetune errors prompts contrasts robustness}"
 cd "$REPO"

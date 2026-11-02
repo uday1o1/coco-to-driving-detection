@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Latency, peak memory and parameter count for every model, on an otherwise
-# idle GPU, at nuImages (1600x900) and KITTI (about 1242x375) resolution.
+# Latency, peak memory and parameter count for every model at nuImages (1600x900) and KITTI (about 1242x375) resolution. Run it on an otherwise idle GPU.
 #
 #   DATA=$HOME/data RUNS=$HOME/runs bash scripts/run_latency.sh
 set -uo pipefail

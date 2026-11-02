@@ -1,42 +1,29 @@
-# Summary of a CPU-only run of the analysis from the v1.0 release (assembled from the run's
-# own logs; times are the machine's clock).
-# Machine: AMD EPYC 7V12 64-Core Processor, 128 threads, 503 GB RAM, no GPU (vast.ai).
-# Code: commit 24ba290. Data: NO_IMAGES=1 scripts/setup.sh; detections.tar from the release
-# (sha256 checked) plus the separate yolo_yolo11n.pt_single__coco_val files.
+# Analysis from the v1.0 release on a CPU machine. The raw logs are in logs/cpu_rerun/;
+# this file points to the lines that matter.
 
-setup: coco_val 5000 images, kitti_train 3712, kitti_val 3769, nuimages_val 16445,
-       kitti_ngdet120 120, kitti_train120 120; 2.9 GB in /root/data
-detections.tar: OK
+Machine (cpu_rerun/check.txt): AMD EPYC 7V12 64-Core Processor, 128 threads, 503 GB RAM.
+Code: commit 24ba290 (first line of cpu_rerun/cpu_job.log).
+Data: NO_IMAGES=1 scripts/setup.sh ("setup done: 2.9G"), detections.tar from the release with its
+sha256 checked ("detections.tar: OK"), plus the release's yolo_yolo11n.pt_single__coco_val files.
 
-Sections run one after another (scripts/run_analysis.sh, 24 workers):
-[14:59:28] gate          -> results/gate.json
-[15:26:12] reproduction  -> results/reproduction.json
-[15:26:13] main          -> results/main.json
-[15:54:29] audit         -> results/audit.json
-[16:21:36] stability     -> results/stability.json (written 16:50:26)
+Sections run one after another by scripts/run_analysis.sh (cpu_rerun/cpu_job.log):
+[14:59:28] gate  [15:26:12] reproduction  [15:26:13] main  [15:54:29] audit  [16:21:36] stability
+The run reached the fusion section at 16:50:27, after stability had finished, and was stopped there.
 
-Remaining sections started in parallel at 16:42:43 (scripts/analyze.py <section>, 12 to 16
-workers each); the sequential run was stopped once stability had finished:
-prompts      -> results/prompts.json      16:43:22
-errors       -> results/errors.json       16:43:47
-fusion       -> results/fusion.json       16:48:38
-contrasts    -> results/contrasts.json    17:47:00
-robustness   -> results/robustness.json   17:47:30
-subgroups    -> results/subgroups.json    17:48:15
-finetune     -> results/finetune.json     17:53:13
-then scripts/figures.py and scripts/tables.py
+The remaining sections ran as separate scripts/analyze.py jobs: subgroups, finetune, errors,
+prompts, contrasts and robustness in parallel from 16:42:43 (cpu_rerun/par_job.log and par_*.log),
+fusion in a job of its own (cpu_rerun/fus_job.log, par_fusion.log). Each log ends with the
+"wrote results/<section>.json" line; par_job.log then shows figures.py.
 
-COCO check printed by the gate section (measured AP, published AP):
-Faster R-CNN 37.2 37.0 | RetinaNet 35.9 36.4 | FCOS 39.1 39.2 | Faster R-CNN v2 47.3 46.7
-YOLO11-N 39.3 39.5 | YOLO11-M 51.3 51.5 | YOLO11-X 54.5 54.7
-D-FINE-N 42.8 42.8 | D-FINE-M 52.3 52.3 | D-FINE-X 55.8 55.8
-Grounding DINO-T 48.5 48.4 | MM-GDINO-T 50.4 50.4 | LLMDet-T 55.5 (paper: 55.6, trained with COCO images)
-D-FINE Hugging Face port N/M/X 42.8 / 52.3 / 55.8 | YOLO11-N single-label NMS 38.7
+COCO check printed by the gate section (measured AP, then the published AP in the code at 24ba290):
+see cpu_rerun/cpu_job.log. LLMDet-T printed "55.5 None" because that code had no published value; the
+LLMDet paper reports 55.6 (Table 4, trained with COCO images), which scripts/analyze.py and
+results/gate.json carry.
 
-Comparison with the release's results files computed on the GPU machine (cmp, byte for byte):
+Byte-for-byte comparison with the results computed on the GPU machine (cpu_rerun/check.txt):
 identical: main.json, reproduction.json, audit.json, stability.json, fusion.json,
-           finetune.json, prompts.json, contrasts.json
-new or changed by this run (analysis code at 24ba290 differs for these sections):
-           gate.json (added rows), errors.json, subgroups.json, robustness.json (new)
-The unified_nms entries of robustness.json come from scripts/analyze.py unified_nms, run on a
-separate CPU machine from the same release.
+           finetune.json, prompts.json, contrasts.json.
+gate.json, errors.json, subgroups.json and robustness.json come from this run's analysis code.
+
+The unified_nms entries of results/robustness.json come from `scripts/analyze.py unified_nms`, run
+on a second CPU machine from the same release (cpu_rerun/unified_nms_job.log).

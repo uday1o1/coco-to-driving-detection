@@ -1,0 +1,4 @@
+setup ok
+detections.tar: OK
+wrote /root/coco-to-driving-detection/results/robustness.json
+NMS DONE

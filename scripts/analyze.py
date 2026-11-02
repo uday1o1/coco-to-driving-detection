@@ -1,4 +1,4 @@
-"""Compute every result in results/ from stored detections.
+"""Compute every analysis result in results/ from stored detections.
 
     python scripts/analyze.py main      --runs $RUNS --data $DATA
     python scripts/analyze.py audit     --runs $RUNS --data $DATA

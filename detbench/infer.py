@@ -1,7 +1,7 @@
 """Run one detector over one dataset and store every detection.
 
     python -m detbench.infer --model yolo:yolo11m.pt --native data/native/kitti_val.json \
-        --images $DATA/kitti --out runs/dets/yolo11m__kitti_val.npz
+        --images $DATA/kitti --out runs/dets/yolo_yolo11m.pt__kitti_val.npz
 
 Detections are stored in the model's own label vocabulary at score >= 0.001,
 up to 300 per image, so any protocol can be applied afterwards. A JSON file

@@ -34,7 +34,8 @@ class TorchvisionDetector:
 
     Preprocessing is torchvision's GeneralizedRCNNTransform: resize so the
     short side is 800 px, capped at 1333 px on the long side. Class-wise NMS
-    at IoU 0.5 (torchvision default).
+    at torchvision's default IoU (0.5 for Faster R-CNN and RetinaNet, 0.6 for
+    FCOS).
     """
 
     def __init__(self, name, device, checkpoint=None, num_classes=None):
@@ -79,9 +80,11 @@ class YoloDetector:
 
     By default NMS is multi-label, as in Ultralytics' own COCO validation
     (models/yolo/detect/val.py): a box may be kept for several classes. Its
-    prediction mode keeps one label per box, which costs about 0.8 COCO AP;
+    prediction mode keeps one label per box, which costs about 0.6 COCO AP on
+    YOLO11-N (results/gate.json);
     every other detector here also scores each box per class. `single_label`
-    restores prediction mode, used only to match the ngdet harness.
+    restores prediction mode, used to match the ngdet harness and for the COCO
+    check of that difference.
     """
 
     def __init__(self, weights, device, imgsz=640, single_label=False):
