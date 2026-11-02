@@ -9,7 +9,7 @@ DATA="${DATA:-$HOME/data}"; RUNS="${RUNS:-$HOME/runs}"
 # Each worker holds a dataset's ground truth and one detection file (about 3 GB
 # for nuImages), so keep PROCS within memory / 3 GB.
 PROCS="${PROCS:-12}"
-SECTIONS="${SECTIONS:-gate reproduction main audit stability fusion subgroups finetune errors prompts contrasts}"
+SECTIONS="${SECTIONS:-gate reproduction main audit stability fusion subgroups finetune errors prompts contrasts robustness}"
 cd "$REPO"
 for s in $SECTIONS; do
   echo "[$(date +%H:%M:%S)] $s"

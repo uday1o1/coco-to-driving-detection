@@ -35,6 +35,10 @@ class _Images(torch.utils.data.Dataset):
         return r["id"], Image.open(self.root / r["file_name"]).convert("RGB")
 
 
+def _collate(batch):
+    return list(zip(*batch))   # module level so worker processes can pickle it (spawn on macOS)
+
+
 def environment() -> dict:
     import torchvision, transformers, ultralytics
     env = {"python": platform.python_version(), "torch": torch.__version__,
@@ -64,7 +68,7 @@ def main():
         records = records[: a.limit]
     det = build(a.model, a.device)
     loader = torch.utils.data.DataLoader(_Images(records, a.images), batch_size=a.batch,
-                                         num_workers=a.workers, collate_fn=lambda b: list(zip(*b)))
+                                         num_workers=a.workers, collate_fn=_collate)
     ids, boxes, scores, labels = [], [], [], []
     t0, n = time.time(), 0
     for img_ids, ims in loader:

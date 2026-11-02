@@ -11,6 +11,7 @@
     python scripts/analyze.py reproduction --runs $RUNS --data $DATA
     python scripts/analyze.py prompts   --runs $RUNS --data $DATA
     python scripts/analyze.py contrasts --runs $RUNS --data $DATA
+    python scripts/analyze.py robustness --runs $RUNS --data $DATA
 
 Needs only CPU. Each section writes results/<section>.json.
 """
@@ -318,6 +319,29 @@ def _group_recall(found, groups, heights, w_obj, std_ref=None):
     return out
 
 
+SG_B = 20000   # enough resamples for Holm-corrected p-values over the test family
+
+
+def _threshold_fn(m):
+    """Fast F1-optimal threshold for weighted resamples (order computed once)."""
+    o = np.argsort(-m.score, kind="mergesort")
+    sc, tp, fp, img = m.score[o], m.tp[0, o].astype(float), m.fp[0, o].astype(float), m.det_img[o]
+
+    def f(w):
+        wd = w[img]
+        t, p = np.cumsum(wd * tp), np.cumsum(wd * fp)
+        f1 = 2 * t / np.maximum(t + p + float(np.dot(w, m.npig)), 1e-9)
+        return float(sc[int(np.argmax(f1))])
+    return f
+
+
+def _boot_p(gap):
+    """Two-sided bootstrap p-value with the (k + 1) / (B + 1) correction."""
+    g = np.asarray(gap)
+    k = min((g <= 0).sum(), (g >= 0).sum())
+    return float(min(1.0, 2 * (k + 1) / (len(g) + 1)))
+
+
 def _subgroup_job(runs, data, spec, name):
     f = det_path(runs, spec, "nuimages_val")
     if not f.exists():
@@ -333,12 +357,13 @@ def _subgroup_job(runs, data, spec, name):
     cl = {im["id"]: im["cluster"] for im in nat["images"]}
     clusters = np.array([cl[i] for i in ids])
     res = {"model": name, "n": {g: int((groups == g).sum()) for g in PERSON_GROUPS}}
-    thr, f1 = A.operating_threshold(p)
-    res["threshold"], res["f1"] = thr, f1
+    thr_fn = _threshold_fn(p)
+    thr = thr_fn(np.ones(len(ids)))
+    res["threshold"] = thr
     res["recall"] = _group_recall(score50 >= thr, groups, heights, np.ones(len(groups)))
     boot = []
-    for w in cluster_weights(clusters, 1000, seed=2):
-        t, _ = A.operating_threshold(p, w)                    # threshold re-estimated
+    for w in cluster_weights(clusters, SG_B, seed=2):
+        t = thr_fn(w)                                   # threshold re-estimated
         boot.append(_group_recall(score50 >= t, groups, heights, w[obj_img]))
     res["ci95"] = {k: ci([b[k] for b in boot]) for k in boot[0]}
     for g in PERSON_GROUPS[1:]:
@@ -346,9 +371,9 @@ def _subgroup_job(runs, data, spec, name):
             gap = [b["human.pedestrian.adult"] - b[g + suffix] for b in boot]
             res.setdefault("gap_vs_adult", {})[g + suffix] = {
                 "gap": res["recall"]["human.pedestrian.adult"] - res["recall"][g + suffix],
-                "ci95": ci(gap), "p_two_sided": float(min(1, 2 * min(np.mean(np.array(gap) <= 0),
-                                                                     np.mean(np.array(gap) >= 0))))}
+                "ci95": ci(gap), "p_two_sided": _boot_p(gap)}
     res["heights_median"] = {g: float(np.median(heights[groups == g])) for g in PERSON_GROUPS}
+    res["bootstrap_resamples"] = SG_B
     return res
 
 
@@ -364,12 +389,19 @@ def holm(pvals):
 def section_subgroups(a):
     specs = [(s, n) for s, n, _ in MODELS] + [(s, n) for s, n, _ in FT_MODELS]
     rows = [r for r in pool_map(_subgroup_job, [(a.runs, a.data, s, n) for s, n in specs], a.procs) if r]
-    keys = [(i, k) for i, r in enumerate(rows) for k in r["gap_vs_adult"]]
-    adj = holm([rows[i]["gap_vs_adult"][k]["p_two_sided"] for i, k in keys])
-    for (i, k), p in zip(keys, adj):
-        rows[i]["gap_vs_adult"][k]["p_holm"] = p
+    # Holm within two pre-declared families: the zero-shot models (child and
+    # construction worker, raw and at matched height) and the fine-tuned models.
+    tested = ("human.pedestrian.child", "human.pedestrian.child/height_std",
+              "human.pedestrian.construction_worker", "human.pedestrian.construction_worker/height_std")
+    for family in (lambda r: "fine-tuned" not in r["model"], lambda r: "fine-tuned" in r["model"]):
+        keys = [(i, k) for i, r in enumerate(rows) if family(r) for k in tested]
+        for (i, k), p in zip(keys, holm([rows[i]["gap_vs_adult"][k]["p_two_sided"] for i, k in keys])):
+            rows[i]["gap_vs_adult"][k]["p_holm"] = p
     save("subgroups", {"operating_point": "F1-optimal score threshold for person at IoU 0.5, "
                                           "re-estimated in every bootstrap resample",
+                       "bootstrap_resamples": SG_B,
+                       "holm_families": ["zero-shot models: child and construction worker, raw and at matched height",
+                                         "fine-tuned models: same four tests"],
                        "height_bins": SG_HEIGHT_BINS, "rows": rows})
 
 
@@ -396,9 +428,10 @@ def section_finetune(a):
 # ------------------------------------------------------------------- errors
 
 def _error_job(runs, data, spec, name, ds):
-    """At each class's F1-optimal threshold (IoU 0.5), sort false positives
-    into duplicate / localisation / class confusion / background and count
-    misses by object height."""
+    """At each class's F1-optimal threshold (IoU 0.5), sort the evaluator's own
+    false positives (ignore regions and size rules already applied) into
+    duplicate / class confusion / localisation / background, following the
+    TIDE categories, and count misses by object height."""
     from detbench.evaluate import _iou
     f = det_path(runs, spec, ds)
     if not f.exists():
@@ -406,57 +439,42 @@ def _error_job(runs, data, spec, name, ds):
     nat, gt, dets = A.prepare(f, native_path(data, ds), spec, A.settings())
     m, ids = match(gt, dets)
     anns = gt["annotations"]
-    by_img = {}
+    real = {}
     for k, an in enumerate(anns):
         if not an["iscrowd"]:
-            by_img.setdefault(an["image_id"], []).append(k)
+            x, y, w, h = an["bbox"]
+            real.setdefault(an["image_id"], []).append((an["category_id"], [x, y, x + w, y + h]))
     out = {"model": name, "dataset": ds, "classes": {}}
     for c, mc in m.items():
         if mc.npig.sum() == 0:
             continue
         thr, f1 = A.operating_threshold(mc)
-        sel = (dets["category_id"] == c) & (dets["scores"] >= thr)
-        fp_types = {"duplicate": 0, "localization": 0, "confusion": 0, "background": 0}
-        o = np.argsort(-mc.score, kind="mergesort")
-        n_tp = int(mc.tp[0, o][mc.score[o] >= thr].sum())
-        n_fp = int(mc.fp[0, o][mc.score[o] >= thr].sum())
-        # recompute per image: which kept detections are false positives and why
-        for ii, iid in enumerate(ids):
-            ds_i = np.nonzero(sel & (dets["image_id"] == iid))[0]
-            if not len(ds_i):
-                continue
-            ds_i = ds_i[np.argsort(-dets["scores"][ds_i], kind="mergesort")][:100]
-            gk = by_img.get(iid, [])
-            same = [k for k in gk if anns[k]["category_id"] == c]
-            other = [k for k in gk if anns[k]["category_id"] != c]
-            box = lambda ks: np.array([[anns[k]["bbox"][0], anns[k]["bbox"][1],
-                                        anns[k]["bbox"][0] + anns[k]["bbox"][2],
-                                        anns[k]["bbox"][1] + anns[k]["bbox"][3]] for k in ks], np.float64).reshape(-1, 4)
-            db = dets["boxes"][ds_i]
-            iou_s = _iou(db, box(same), np.zeros(len(same), np.bool_)) if same else np.zeros((len(ds_i), 0))
-            iou_o = _iou(db, box(other), np.zeros(len(other), np.bool_)) if other else np.zeros((len(ds_i), 0))
-            taken = np.zeros(len(same), bool)
-            for i in range(len(ds_i)):
-                j = int(iou_s[i].argmax()) if len(same) else -1
-                if j >= 0 and iou_s[i, j] >= 0.5 and not taken[j]:
-                    taken[j] = True
-                    continue
-                if j >= 0 and iou_s[i, j] >= 0.5:
-                    fp_types["duplicate"] += 1
-                elif len(other) and iou_o[i].max() >= 0.5:
-                    fp_types["confusion"] += 1
-                elif j >= 0 and iou_s[i, j] >= 0.1:
-                    fp_types["localization"] += 1
-                else:
-                    fp_types["background"] += 1
+        kept = mc.score >= thr
+        fp = np.nonzero(kept & mc.fp[0])[0]
+        types = {"duplicate": 0, "confusion": 0, "localization": 0, "background": 0}
+        for i in fp:
+            box = dets["boxes"][mc.det_idx[i]][None].astype(np.float64)
+            gts = real.get(int(dets["image_id"][mc.det_idx[i]]), [])
+            same = np.array([g for cc, g in gts if cc == c], np.float64).reshape(-1, 4)
+            other = np.array([g for cc, g in gts if cc != c], np.float64).reshape(-1, 4)
+            iou_s = _iou(box, same, np.zeros(len(same), np.bool_))[0] if len(same) else np.zeros(0)
+            iou_o = _iou(box, other, np.zeros(len(other), np.bool_))[0] if len(other) else np.zeros(0)
+            if len(iou_s) and iou_s.max() >= 0.5:
+                types["duplicate"] += 1          # overlaps a box that a higher-scoring detection took
+            elif len(iou_o) and iou_o.max() >= 0.5:
+                types["confusion"] += 1
+            elif len(iou_s) and iou_s.max() >= 0.1:
+                types["localization"] += 1
+            else:
+                types["background"] += 1
         h = np.array([anns[k]["height"] for k in mc.gt_ann])
         keep = ~mc.gt_ignored
         missed = keep & (mc.gt_score50 < thr)
         bins = {f"{lo}-{int(hi) if hi < 1e9 else 'inf'}": [int((missed & (h >= lo) & (h < hi)).sum()),
                                                             int((keep & (h >= lo) & (h < hi)).sum())]
                 for lo, hi in A.HEIGHT_BINS}
-        out["classes"][tx.CLASSES[c - 1]] = {"threshold": thr, "f1": f1, "tp": n_tp, "fp_matcher": n_fp,
-                                             "fp_types": fp_types, "missed_by_height": bins}
+        out["classes"][tx.CLASSES[c - 1]] = {"threshold": thr, "f1": f1, "tp": int((kept & mc.tp[0]).sum()),
+                                             "fp": int(len(fp)), "fp_types": types, "missed_by_height": bins}
     return out
 
 
@@ -475,6 +493,7 @@ PUBLISHED_COCO_AP = {  # COCO val2017 box AP from the model's own documentation 
     "hfdfine:ustc-community/dfine-nano-coco": 42.8, "hfdfine:ustc-community/dfine-medium-coco": 52.3,
     "hfdfine:ustc-community/dfine-xlarge-coco": 55.8,
     "gdino:IDEA-Research/grounding-dino-tiny@coco80": 48.4,
+    "yolo:yolo11n.pt@single": 39.5,
     "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det@coco80": 50.4,
     # LLMDet is trained on GroundingCap-1M, which contains COCO images: no zero-shot reference
 }
@@ -486,15 +505,108 @@ def section_gate(a):
     rows = []
     hf = [(f"hfdfine:ustc-community/dfine-{v}-coco", f"D-FINE-{k} (Hugging Face port)", "real-time DETR")
           for k, v in (("N", "nano"), ("M", "medium"), ("X", "xlarge"))]
-    for s, name, fam in MODELS + hf:
+    extra = [("yolo:yolo11n.pt@single", "YOLO11-N, single-label NMS (prediction mode)", "YOLO")]
+    for s, name, fam in MODELS + hf + extra:
         spec = s + "@coco80" if s.startswith("gdino") else s
         f = det_path(a.runs, spec, "coco_val")
         if f.exists():
             r = coco_ap(f, ann)
             rows.append({"model": name, "spec": spec, "measured_AP": round(100 * r["AP"], 1),
                          "published_AP": PUBLISHED_COCO_AP.get(spec), **r})
+            if spec.startswith("hfdfine"):        # the same file mapped by name without the VOC aliases
+                rows[-1]["AP_without_voc_aliases"] = coco_ap(f, ann, aliases=False)["AP"]
             print(rows[-1]["model"], rows[-1]["measured_AP"], rows[-1]["published_AP"])
     save("gate", rows)
+
+
+# --------------------------------------------------------------- robustness
+
+ROBUST_PAIRS = [("tv:fcos_resnet50_fpn", "tv:fasterrcnn_resnet50_fpn"),
+                ("tv:retinanet_resnet50_fpn", "tv:fasterrcnn_resnet50_fpn"),
+                ("yolo:yolo11x.pt", "tv:fasterrcnn_resnet50_fpn_v2"),
+                ("yolo:yolo11x.pt", "dfine:x"),
+                ("gdino:IDEA-Research/grounding-dino-tiny", "tv:fasterrcnn_resnet50_fpn_v2")]
+
+
+def _class_contrast_job(runs, data, a_spec, b_spec, ds, cls, fusion):
+    s = A.settings(fusion=fusion)
+    r = A.paired_diff(det_path(runs, a_spec, ds), det_path(runs, b_spec, ds), native_path(data, ds),
+                      a_spec, b_spec, s, s, cls=cls)
+    return {"a": a_spec, "b": b_spec, "dataset": ds, "class": tx.CLASSES[cls - 1], "fusion": fusion, **r}
+
+
+def _unified_nms(dets, thr=0.7):
+    import torch, torchvision
+    keep = []
+    order = np.argsort(dets["image_id"], kind="mergesort")
+    img = dets["image_id"][order]
+    for sl in np.split(order, np.flatnonzero(np.diff(img)) + 1):
+        if len(sl):
+            k = torchvision.ops.batched_nms(torch.tensor(dets["boxes"][sl], dtype=torch.float32),
+                                            torch.tensor(dets["scores"][sl], dtype=torch.float32),
+                                            torch.tensor(dets["category_id"][sl]), thr).numpy()
+            keep.append(sl[k])
+    keep = np.sort(np.concatenate(keep))
+    return {k: v[keep] for k, v in dets.items()}
+
+
+def _nms_job(runs, data, spec, ds):
+    _, gt, dets = A.prepare(det_path(runs, spec, ds), native_path(data, ds), spec, A.settings())
+    return {"spec": spec, "dataset": ds, "AP": A.coco_stats(gt, dets)["AP"],
+            "AP_unified_nms_0.7": A.coco_stats(gt, _unified_nms(dets))["AP"]}
+
+
+def section_robustness(a):
+    """Checks behind statements in the write-up that other sections do not cover."""
+    from scipy.stats import kendalltau, spearmanr
+    out = {}
+    # 1. ranking agreement between datasets on matched classes, with a bootstrap over models
+    rows = json.loads((REPO / "results" / "main.json").read_text())
+    get = {(r["spec"], r["dataset"]): r for r in rows}
+    specs = [s for s, _, _ in MODELS]
+    agree = {}
+    for basis, classes in (("vehicle", ["vehicle"]), ("person", ["person"]), ("vehicle+person", ["vehicle", "person"])):
+        v = {ds: np.array([np.mean([get[(s, ds)]["per_class"][c]["AP"] for c in classes]) for s in specs])
+             for ds in DATASETS}
+        rng = np.random.default_rng(0)
+        res = {}
+        for x, y in (("coco_val", "kitti_val"), ("coco_val", "nuimages_val"), ("kitti_val", "nuimages_val")):
+            boot = []
+            for _ in range(5000):
+                i = rng.integers(0, len(specs), len(specs))
+                if len(set(i)) > 2:
+                    boot.append(spearmanr(v[x][i], v[y][i]).statistic)
+            res[f"{x}~{y}"] = {"spearman": float(spearmanr(v[x], v[y]).statistic),
+                               "kendall": float(kendalltau(v[x], v[y]).statistic), "spearman_ci95": ci(boot)}
+        for ds in ("kitti_val", "nuimages_val"):
+            slope = np.polyfit(v["coco_val"], v[ds], 1)[0]
+            bs = []
+            for _ in range(5000):
+                i = rng.integers(0, len(specs), len(specs))
+                if np.ptp(v["coco_val"][i]) > 0:
+                    bs.append(np.polyfit(v["coco_val"][i], v[ds][i], 1)[0])
+            res[f"slope_{ds}_on_coco"] = {"slope": float(slope), "ci95": ci(bs)}
+        agree[basis] = res
+    out["ranking_agreement"] = agree
+    # 2. architecture contrasts per class, with and without rider fusion
+    jobs = [(a.runs, a.data, x, y, ds, cls, fu) for x, y in ROBUST_PAIRS for ds in ("kitti_val", "nuimages_val")
+            for cls in (1, 2) for fu in ("rider", "none")]
+    jobs += [(a.runs, a.data, x, y, "coco_val", cls, "none") for x, y in ROBUST_PAIRS for cls in (1, 2)]
+    out["class_contrasts"] = pool_map(_class_contrast_job, jobs, a.procs)
+    # 3. NMS after merging COCO classes into the unified ones
+    out["unified_nms"] = pool_map(_nms_job, [(a.runs, a.data, s, ds) for s in
+                                             ("yolo:yolo11x.pt", "dfine:x", "tv:fasterrcnn_resnet50_fpn_v2",
+                                              "tv:retinanet_resnet50_fpn") for ds in ("kitti_val", "nuimages_val")],
+                                  a.procs)
+    # 4. YOLO NMS mode under the tutorial protocol, same 500 nuImages frames
+    nm = {}
+    for spec, ds in (("yolo:yolo11x.pt@single", "nuimages_ngdet500"), ("yolo:yolo11x.pt", "nuimages_val")):
+        f = det_path(a.runs, spec, ds)
+        if f.exists():
+            _, gt, dets = A.prepare(f, native_path(a.data, "nuimages_ngdet500"), spec, TUTORIAL)
+            nm[spec] = A.coco_stats(gt, dets)["AP"]
+    out["yolo_nms_mode_tutorial_protocol_nuimages500"] = nm
+    save("robustness", out)
 
 
 # ---------------------------------------------------------------- contrasts

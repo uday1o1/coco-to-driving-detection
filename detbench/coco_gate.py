@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 
 
-def coco_ap(npz: Path, ann: Path, image_ids=None) -> dict:
+def coco_ap(npz: Path, ann: Path, image_ids=None, aliases=True) -> dict:
     from pycocotools.coco import COCO
     from pycocotools.cocoeval import COCOeval
     d = np.load(npz)
@@ -27,7 +27,8 @@ def coco_ap(npz: Path, ann: Path, image_ids=None) -> dict:
         gt = COCO(str(ann))
     name_to_cat = {c["name"]: c["id"] for c in gt.dataset["categories"]}
     from .taxonomy import COCO_ALIASES
-    cats = np.array([name_to_cat.get(COCO_ALIASES.get(str(n), str(n)), -1) for n in d["names"]])
+    alias = COCO_ALIASES if aliases else {}
+    cats = np.array([name_to_cat.get(alias.get(str(n), str(n)), -1) for n in d["names"]])
     c = cats[d["labels"]]
     keep = c > 0
     b = d["boxes"][keep]

@@ -1,0 +1,17 @@
+{
+ "model": "yolo:yolo11n.pt@single",
+ "native": "/Users/uday1o1/hwdet_data/native/coco_val.json",
+ "images": 5000,
+ "seconds": 162.6,
+ "img_per_s": 30.75,
+ "batch": 8,
+ "fp16": false,
+ "command": "/Users/uday1o1/Documents/SJSU/Sem3/IAS/coco-to-driving-detection/detbench/infer.py --model yolo:yolo11n.pt@single --native /Users/uday1o1/hwdet_data/native/coco_val.json --images /Users/uday1o1/hwdet_data/coco/val2017 --out /Users/uday1o1/hwdet_data/runs/local/yolo_yolo11n.pt_single__coco_val.npz --batch 8 --workers 4 --device mps",
+ "time": "2026-11-02 06:40:23 PST",
+ "python": "3.12.9",
+ "torch": "2.15.0",
+ "torchvision": "0.29.2",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "Udays-MacBook-Pro.local"
+}

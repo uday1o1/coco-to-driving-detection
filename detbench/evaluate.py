@@ -88,6 +88,7 @@ class Matched:
     tp: np.ndarray         # T x D, matched to a non-ignored gt
     fp: np.ndarray         # T x D, unmatched and not ignored
     det_img: np.ndarray    # D, index into image_ids
+    det_idx: np.ndarray    # D, index into the detection arrays passed to match()
     npig: np.ndarray       # images, non-ignored gt count
     gt_ann: np.ndarray     # G, annotation index into the gt list
     gt_img: np.ndarray     # G
@@ -118,7 +119,7 @@ def match(gt: dict, dets: dict, size="area", lo=0.0, hi=1e10, cat_ids=None):
         sel, d_img = sel[order], d_img[order]
         starts = np.searchsorted(d_img, image_ids, "left")
         ends = np.searchsorted(d_img, image_ids, "right")
-        scores, tps, fps, dimg = [], [], [], []
+        scores, tps, fps, dimg, didx = [], [], [], [], []
         npig = np.zeros(len(image_ids), np.int64)
         gt_ann, gt_img, gt_ign, gt_s50 = [], [], [], []
         for ii, iid in enumerate(image_ids):
@@ -135,7 +136,7 @@ def match(gt: dict, dets: dict, size="area", lo=0.0, hi=1e10, cat_ids=None):
             dsize = (db[:, 2] - db[:, 0]) * (db[:, 3] - db[:, 1]) if size == "area" else db[:, 3] - db[:, 1]
             tp, dig, gm, gig = _match_one(db, dsize, gb, gsize, crowd, lo, hi, IOU_THRS)
             scores.append(dets["scores"][di]); tps.append(tp); fps.append(~tp & ~dig)
-            dimg.append(np.full(len(di), ii))
+            dimg.append(np.full(len(di), ii)); didx.append(di)
             npig[ii] = int((~gig).sum())
             s = dets["scores"][di]
             gt_ann += gk; gt_img += [ii] * len(gk); gt_ign += list(gig)
@@ -143,7 +144,8 @@ def match(gt: dict, dets: dict, size="area", lo=0.0, hi=1e10, cat_ids=None):
         T = len(IOU_THRS)
         cat = lambda xs, shape: np.concatenate(xs, axis=-1) if xs else np.zeros(shape)
         out[c] = Matched(cat(scores, (0,)).astype(np.float64), cat(tps, (T, 0)).astype(bool),
-                         cat(fps, (T, 0)).astype(bool), cat(dimg, (0,)).astype(np.int64), npig,
+                         cat(fps, (T, 0)).astype(bool), cat(dimg, (0,)).astype(np.int64),
+                         cat(didx, (0,)).astype(np.int64), npig,
                          np.array(gt_ann, np.int64), np.array(gt_img, np.int64),
                          np.array(gt_ign, bool), np.array(gt_s50))
     return out, image_ids
