@@ -1,0 +1,164 @@
+[
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "synonyms",
+  "dataset": "kitti_val",
+  "AP": 0.31335594869023414,
+  "vehicle": 0.4958560693271029,
+  "person": 0.20016562088539694,
+  "cyclist": 0.24404615585820266
+ },
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "synonyms",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.3395800469117469,
+  "vehicle": 0.4681607322034078,
+  "person": 0.25148640614091916,
+  "cyclist": 0.2990930023909138
+ },
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "bare",
+  "dataset": "kitti_val",
+  "AP": 0.1989763698904429,
+  "vehicle": 0.2271989156440163,
+  "person": 0.2339916788454588,
+  "cyclist": 0.13573851518185368
+ },
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "bare",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.18699485894543932,
+  "vehicle": 0.18307680117347278,
+  "person": 0.36576670012475593,
+  "cyclist": 0.012141075538089286
+ },
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "rider",
+  "dataset": "kitti_val",
+  "AP": 0.32802067702502985,
+  "vehicle": 0.520775611349138,
+  "person": 0.2110874097586662,
+  "cyclist": 0.2521990099672854
+ },
+ {
+  "model": "Grounding DINO-T",
+  "prompt": "rider",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.30177947308502234,
+  "vehicle": 0.45383714233869454,
+  "person": 0.18976481447546809,
+  "cyclist": 0.26173646244090437
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "synonyms",
+  "dataset": "kitti_val",
+  "AP": 0.26940085947728437,
+  "vehicle": 0.47558575527088437,
+  "person": 0.1575019887197153,
+  "cyclist": 0.17511483444125345
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "synonyms",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.3042366299987733,
+  "vehicle": 0.4628566207513528,
+  "person": 0.22678805146023168,
+  "cyclist": 0.22306521778473548
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "bare",
+  "dataset": "kitti_val",
+  "AP": 0.27270404172505186,
+  "vehicle": 0.4993293575907555,
+  "person": 0.22005866790551395,
+  "cyclist": 0.0987240996788861
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "bare",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.28551075178600743,
+  "vehicle": 0.4379386412932656,
+  "person": 0.35064896388189937,
+  "cyclist": 0.06794465018285735
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "rider",
+  "dataset": "kitti_val",
+  "AP": 0.3026617268170679,
+  "vehicle": 0.5168536405277024,
+  "person": 0.1985684932958954,
+  "cyclist": 0.19256304662760565
+ },
+ {
+  "model": "MM-GDINO-T",
+  "prompt": "rider",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.2120505543185629,
+  "vehicle": 0.3996758678877227,
+  "person": 0.1815119587767807,
+  "cyclist": 0.05496383629118528
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "synonyms",
+  "dataset": "kitti_val",
+  "AP": 0.2872859085360622,
+  "vehicle": 0.4780872569631282,
+  "person": 0.21696596245987212,
+  "cyclist": 0.1668045061851861
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "synonyms",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.31375828095604685,
+  "vehicle": 0.4549282593734979,
+  "person": 0.2725708063693687,
+  "cyclist": 0.2137757771252739
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "bare",
+  "dataset": "kitti_val",
+  "AP": 0.28001674150558237,
+  "vehicle": 0.5340750632942618,
+  "person": 0.2557699158286879,
+  "cyclist": 0.05020524539379734
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "bare",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.27698869039699014,
+  "vehicle": 0.47348644730542727,
+  "person": 0.34112699936554636,
+  "cyclist": 0.016352624519996885
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "rider",
+  "dataset": "kitti_val",
+  "AP": 0.2734171029312862,
+  "vehicle": 0.4867516913544427,
+  "person": 0.19230188134535064,
+  "cyclist": 0.1411977360940653
+ },
+ {
+  "model": "LLMDet-T",
+  "prompt": "rider",
+  "dataset": "nuimages_val_sub",
+  "AP": 0.23272328743372306,
+  "vehicle": 0.4575252062058762,
+  "person": 0.23266558684657218,
+  "cyclist": 0.007979069248720745
+ }
+]

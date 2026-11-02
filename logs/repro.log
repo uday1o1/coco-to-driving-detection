@@ -1,0 +1,5 @@
+[32mActivated conda/uv virtual environment at [36m/venv/main[0m
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+/root/data/native/kitti_ngdet120.json: 120 images, 907 native boxes
+/root/data/native/kitti_train120.json: 120 images, 888 native boxes
+tutorial reproduction done

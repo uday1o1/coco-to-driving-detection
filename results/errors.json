@@ -1,0 +1,3356 @@
+[
+ {
+  "model": "Faster R-CNN",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6880496144294739,
+    "f1": 0.7112635791881075,
+    "tp": 1866,
+    "fp_matcher": 576,
+    "fp_types": {
+     "duplicate": 56,
+     "localization": 288,
+     "confusion": 3,
+     "background": 334
+    },
+    "missed_by_height": {
+     "0-40": [
+      673,
+      1508
+     ],
+     "40-80": [
+      119,
+      518
+     ],
+     "80-160": [
+      74,
+      365
+     ],
+     "160-inf": [
+      73,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.7499316930770874,
+    "f1": 0.7892349862945427,
+    "tp": 7918,
+    "fp_matcher": 1370,
+    "fp_types": {
+     "duplicate": 84,
+     "localization": 1093,
+     "confusion": 1,
+     "background": 1233
+    },
+    "missed_by_height": {
+     "0-40": [
+      1678,
+      2989
+     ],
+     "40-80": [
+      618,
+      2280
+     ],
+     "80-160": [
+      328,
+      2273
+     ],
+     "160-inf": [
+      235,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Faster R-CNN",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.7494682669639587,
+    "f1": 0.8155684533970639,
+    "tp": 11944,
+    "fp_matcher": 2340,
+    "fp_types": {
+     "duplicate": 152,
+     "localization": 2138,
+     "confusion": 0,
+     "background": 1125
+    },
+    "missed_by_height": {
+     "0-40": [
+      1163,
+      4470
+     ],
+     "40-80": [
+      1190,
+      5550
+     ],
+     "80-160": [
+      540,
+      3133
+     ],
+     "160-inf": [
+      169,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.9520416259765625,
+    "f1": 0.5891793942531711,
+    "tp": 1138,
+    "fp_matcher": 477,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 203,
+     "confusion": 131,
+     "background": 291
+    },
+    "missed_by_height": {
+     "0-40": [
+      108,
+      123
+     ],
+     "40-80": [
+      510,
+      762
+     ],
+     "80-160": [
+      367,
+      861
+     ],
+     "160-inf": [
+      125,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5122896432876587,
+    "f1": 0.39707078925956063,
+    "tp": 244,
+    "fp_matcher": 173,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 45,
+     "confusion": 27,
+     "background": 121
+    },
+    "missed_by_height": {
+     "0-40": [
+      204,
+      219
+     ],
+     "40-80": [
+      268,
+      342
+     ],
+     "80-160": [
+      58,
+      156
+     ],
+     "160-inf": [
+      38,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Faster R-CNN",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6602814793586731,
+    "f1": 0.6662068138195777,
+    "tp": 33321,
+    "fp_matcher": 10647,
+    "fp_types": {
+     "duplicate": 804,
+     "localization": 6866,
+     "confusion": 12,
+     "background": 3616
+    },
+    "missed_by_height": {
+     "0-40": [
+      12953,
+      22387
+     ],
+     "40-80": [
+      6915,
+      18164
+     ],
+     "80-160": [
+      2346,
+      9818
+     ],
+     "160-inf": [
+      529,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.546111524105072,
+    "f1": 0.5345310356491835,
+    "tp": 14222,
+    "fp_matcher": 6807,
+    "fp_types": {
+     "duplicate": 256,
+     "localization": 3407,
+     "confusion": 32,
+     "background": 3727
+    },
+    "missed_by_height": {
+     "0-40": [
+      6472,
+      7516
+     ],
+     "40-80": [
+      7623,
+      13245
+     ],
+     "80-160": [
+      3178,
+      8390
+     ],
+     "160-inf": [
+      689,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.7018099427223206,
+    "f1": 0.5301837270341208,
+    "tp": 101,
+    "fp_matcher": 47,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 1,
+     "confusion": 55,
+     "background": 88
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      51,
+      67
+     ],
+     "80-160": [
+      46,
+      100
+     ],
+     "160-inf": [
+      9,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "RetinaNet",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.4444013237953186,
+    "f1": 0.6839792249300839,
+    "tp": 1712,
+    "fp_matcher": 489,
+    "fp_types": {
+     "duplicate": 133,
+     "localization": 242,
+     "confusion": 7,
+     "background": 204
+    },
+    "missed_by_height": {
+     "0-40": [
+      813,
+      1508
+     ],
+     "40-80": [
+      138,
+      518
+     ],
+     "80-160": [
+      75,
+      365
+     ],
+     "160-inf": [
+      67,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.40101173520088196,
+    "f1": 0.7604017216642754,
+    "tp": 7685,
+    "fp_matcher": 1751,
+    "fp_types": {
+     "duplicate": 249,
+     "localization": 1473,
+     "confusion": 5,
+     "background": 1246
+    },
+    "missed_by_height": {
+     "0-40": [
+      1862,
+      2989
+     ],
+     "40-80": [
+      630,
+      2280
+     ],
+     "80-160": [
+      366,
+      2273
+     ],
+     "160-inf": [
+      234,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "RetinaNet",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5153142809867859,
+    "f1": 0.8241816076628891,
+    "tp": 11745,
+    "fp_matcher": 1750,
+    "fp_types": {
+     "duplicate": 372,
+     "localization": 1432,
+     "confusion": 0,
+     "background": 818
+    },
+    "missed_by_height": {
+     "0-40": [
+      1401,
+      4470
+     ],
+     "40-80": [
+      1192,
+      5550
+     ],
+     "80-160": [
+      510,
+      3133
+     ],
+     "160-inf": [
+      158,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5007978677749634,
+    "f1": 0.5601875977071391,
+    "tp": 1075,
+    "fp_matcher": 515,
+    "fp_types": {
+     "duplicate": 5,
+     "localization": 236,
+     "confusion": 88,
+     "background": 416
+    },
+    "missed_by_height": {
+     "0-40": [
+      111,
+      123
+     ],
+     "40-80": [
+      494,
+      762
+     ],
+     "80-160": [
+      400,
+      861
+     ],
+     "160-inf": [
+      168,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.40357324481010437,
+    "f1": 0.403387220939184,
+    "tp": 262,
+    "fp_matcher": 225,
+    "fp_types": {
+     "duplicate": 8,
+     "localization": 47,
+     "confusion": 64,
+     "background": 129
+    },
+    "missed_by_height": {
+     "0-40": [
+      213,
+      219
+     ],
+     "40-80": [
+      261,
+      342
+     ],
+     "80-160": [
+      42,
+      156
+     ],
+     "160-inf": [
+      34,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "RetinaNet",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.42145270109176636,
+    "f1": 0.6405985796415286,
+    "tp": 30308,
+    "fp_matcher": 8252,
+    "fp_types": {
+     "duplicate": 2431,
+     "localization": 4623,
+     "confusion": 14,
+     "background": 1772
+    },
+    "missed_by_height": {
+     "0-40": [
+      15727,
+      22387
+     ],
+     "40-80": [
+      7231,
+      18164
+     ],
+     "80-160": [
+      2348,
+      9818
+     ],
+     "160-inf": [
+      450,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3140142560005188,
+    "f1": 0.47821897063740243,
+    "tp": 12158,
+    "fp_matcher": 6505,
+    "fp_types": {
+     "duplicate": 406,
+     "localization": 3502,
+     "confusion": 51,
+     "background": 3116
+    },
+    "missed_by_height": {
+     "0-40": [
+      7031,
+      7516
+     ],
+     "40-80": [
+      8756,
+      13245
+     ],
+     "80-160": [
+      3490,
+      8390
+     ],
+     "160-inf": [
+      749,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.4964110851287842,
+    "f1": 0.5195530726256983,
+    "tp": 93,
+    "fp_matcher": 32,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 3,
+     "confusion": 38,
+     "background": 67
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      60,
+      67
+     ],
+     "80-160": [
+      49,
+      100
+     ],
+     "160-inf": [
+      5,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "FCOS",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5324584245681763,
+    "f1": 0.6978488257351491,
+    "tp": 1768,
+    "fp_matcher": 494,
+    "fp_types": {
+     "duplicate": 121,
+     "localization": 237,
+     "confusion": 3,
+     "background": 216
+    },
+    "missed_by_height": {
+     "0-40": [
+      749,
+      1508
+     ],
+     "40-80": [
+      136,
+      518
+     ],
+     "80-160": [
+      78,
+      365
+     ],
+     "160-inf": [
+      74,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5205717086791992,
+    "f1": 0.7875104984931575,
+    "tp": 7970,
+    "fp_matcher": 1494,
+    "fp_types": {
+     "duplicate": 179,
+     "localization": 1185,
+     "confusion": 1,
+     "background": 1326
+    },
+    "missed_by_height": {
+     "0-40": [
+      1646,
+      2989
+     ],
+     "40-80": [
+      551,
+      2280
+     ],
+     "80-160": [
+      355,
+      2273
+     ],
+     "160-inf": [
+      255,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "FCOS",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5652515888214111,
+    "f1": 0.8263661007276359,
+    "tp": 11584,
+    "fp_matcher": 1446,
+    "fp_types": {
+     "duplicate": 211,
+     "localization": 1259,
+     "confusion": 0,
+     "background": 755
+    },
+    "missed_by_height": {
+     "0-40": [
+      1380,
+      4470
+     ],
+     "40-80": [
+      1310,
+      5550
+     ],
+     "80-160": [
+      553,
+      3133
+     ],
+     "160-inf": [
+      179,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.47422611713409424,
+    "f1": 0.4461805555555556,
+    "tp": 771,
+    "fp_matcher": 437,
+    "fp_types": {
+     "duplicate": 9,
+     "localization": 208,
+     "confusion": 7,
+     "background": 403
+    },
+    "missed_by_height": {
+     "0-40": [
+      120,
+      123
+     ],
+     "40-80": [
+      596,
+      762
+     ],
+     "80-160": [
+      519,
+      861
+     ],
+     "160-inf": [
+      242,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.4401608407497406,
+    "f1": 0.43064729194187584,
+    "tp": 326,
+    "fp_matcher": 376,
+    "fp_types": {
+     "duplicate": 18,
+     "localization": 62,
+     "confusion": 142,
+     "background": 191
+    },
+    "missed_by_height": {
+     "0-40": [
+      206,
+      219
+     ],
+     "40-80": [
+      215,
+      342
+     ],
+     "80-160": [
+      32,
+      156
+     ],
+     "160-inf": [
+      33,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "FCOS",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.503572404384613,
+    "f1": 0.6555528215223098,
+    "tp": 31970,
+    "fp_matcher": 9502,
+    "fp_types": {
+     "duplicate": 2743,
+     "localization": 4935,
+     "confusion": 27,
+     "background": 2531
+    },
+    "missed_by_height": {
+     "0-40": [
+      14385,
+      22387
+     ],
+     "40-80": [
+      6936,
+      18164
+     ],
+     "80-160": [
+      2319,
+      9818
+     ],
+     "160-inf": [
+      454,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3845103979110718,
+    "f1": 0.3229014205768403,
+    "tp": 7501,
+    "fp_matcher": 6775,
+    "fp_types": {
+     "duplicate": 323,
+     "localization": 2967,
+     "confusion": 54,
+     "background": 3746
+    },
+    "missed_by_height": {
+     "0-40": [
+      7212,
+      7516
+     ],
+     "40-80": [
+      10880,
+      13245
+     ],
+     "80-160": [
+      5346,
+      8390
+     ],
+     "160-inf": [
+      1245,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5874034762382507,
+    "f1": 0.5,
+    "tp": 85,
+    "fp_matcher": 22,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 2,
+     "confusion": 31,
+     "background": 37
+    },
+    "missed_by_height": {
+     "0-40": [
+      27,
+      27
+     ],
+     "40-80": [
+      62,
+      67
+     ],
+     "80-160": [
+      52,
+      100
+     ],
+     "160-inf": [
+      7,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Faster R-CNN v2",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6744223237037659,
+    "f1": 0.7618534482758621,
+    "tp": 2121,
+    "fp_matcher": 642,
+    "fp_types": {
+     "duplicate": 45,
+     "localization": 294,
+     "confusion": 2,
+     "background": 424
+    },
+    "missed_by_height": {
+     "0-40": [
+      503,
+      1508
+     ],
+     "40-80": [
+      84,
+      518
+     ],
+     "80-160": [
+      56,
+      365
+     ],
+     "160-inf": [
+      41,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.6912059783935547,
+    "f1": 0.8210055653332065,
+    "tp": 8630,
+    "fp_matcher": 1616,
+    "fp_types": {
+     "duplicate": 70,
+     "localization": 1177,
+     "confusion": 0,
+     "background": 1657
+    },
+    "missed_by_height": {
+     "0-40": [
+      1326,
+      2989
+     ],
+     "40-80": [
+      454,
+      2280
+     ],
+     "80-160": [
+      235,
+      2273
+     ],
+     "160-inf": [
+      132,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Faster R-CNN v2",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.7071903347969055,
+    "f1": 0.8330850958196803,
+    "tp": 12585,
+    "fp_matcher": 2622,
+    "fp_types": {
+     "duplicate": 180,
+     "localization": 2291,
+     "confusion": 0,
+     "background": 1300
+    },
+    "missed_by_height": {
+     "0-40": [
+      907,
+      4470
+     ],
+     "40-80": [
+      939,
+      5550
+     ],
+     "80-160": [
+      460,
+      3133
+     ],
+     "160-inf": [
+      115,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.8955441117286682,
+    "f1": 0.6240108523626497,
+    "tp": 1380,
+    "fp_matcher": 795,
+    "fp_types": {
+     "duplicate": 2,
+     "localization": 341,
+     "confusion": 181,
+     "background": 753
+    },
+    "missed_by_height": {
+     "0-40": [
+      75,
+      123
+     ],
+     "40-80": [
+      366,
+      762
+     ],
+     "80-160": [
+      314,
+      861
+     ],
+     "160-inf": [
+      113,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.3374652564525604,
+    "f1": 0.5134155184916607,
+    "tp": 354,
+    "fp_matcher": 213,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 36,
+     "confusion": 25,
+     "background": 210
+    },
+    "missed_by_height": {
+     "0-40": [
+      162,
+      219
+     ],
+     "40-80": [
+      213,
+      342
+     ],
+     "80-160": [
+      53,
+      156
+     ],
+     "160-inf": [
+      30,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Faster R-CNN v2",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6653253436088562,
+    "f1": 0.7200817223367962,
+    "tp": 37360,
+    "fp_matcher": 10342,
+    "fp_types": {
+     "duplicate": 781,
+     "localization": 6533,
+     "confusion": 3,
+     "background": 3725
+    },
+    "missed_by_height": {
+     "0-40": [
+      10681,
+      22387
+     ],
+     "40-80": [
+      5744,
+      18164
+     ],
+     "80-160": [
+      1957,
+      9818
+     ],
+     "160-inf": [
+      322,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5971791744232178,
+    "f1": 0.6128169929918359,
+    "tp": 16964,
+    "fp_matcher": 6216,
+    "fp_types": {
+     "duplicate": 111,
+     "localization": 3521,
+     "confusion": 31,
+     "background": 3060
+    },
+    "missed_by_height": {
+     "0-40": [
+      5601,
+      7516
+     ],
+     "40-80": [
+      6266,
+      13245
+     ],
+     "80-160": [
+      2731,
+      8390
+     ],
+     "160-inf": [
+      622,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.7955930233001709,
+    "f1": 0.6098901098901099,
+    "tp": 111,
+    "fp_matcher": 20,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 1,
+     "confusion": 30,
+     "background": 69
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      50,
+      67
+     ],
+     "80-160": [
+      39,
+      100
+     ],
+     "160-inf": [
+      7,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-N",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.25243082642555237,
+    "f1": 0.6531932093775262,
+    "tp": 1616,
+    "fp_matcher": 527,
+    "fp_types": {
+     "duplicate": 221,
+     "localization": 214,
+     "confusion": 3,
+     "background": 166
+    },
+    "missed_by_height": {
+     "0-40": [
+      910,
+      1508
+     ],
+     "40-80": [
+      148,
+      518
+     ],
+     "80-160": [
+      75,
+      365
+     ],
+     "160-inf": [
+      56,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.23436899483203888,
+    "f1": 0.7451976826913305,
+    "tp": 7332,
+    "fp_matcher": 1569,
+    "fp_types": {
+     "duplicate": 478,
+     "localization": 1028,
+     "confusion": 2,
+     "background": 850
+    },
+    "missed_by_height": {
+     "0-40": [
+      2090,
+      2989
+     ],
+     "40-80": [
+      767,
+      2280
+     ],
+     "80-160": [
+      389,
+      2273
+     ],
+     "160-inf": [
+      199,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-N",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3677562177181244,
+    "f1": 0.7660971424307991,
+    "tp": 10268,
+    "fp_matcher": 1532,
+    "fp_types": {
+     "duplicate": 471,
+     "localization": 1115,
+     "confusion": 5,
+     "background": 594
+    },
+    "missed_by_height": {
+     "0-40": [
+      2375,
+      4470
+     ],
+     "40-80": [
+      1694,
+      5550
+     ],
+     "80-160": [
+      543,
+      3133
+     ],
+     "160-inf": [
+      126,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.2970855236053467,
+    "f1": 0.5246221355436372,
+    "tp": 1076,
+    "fp_matcher": 778,
+    "fp_types": {
+     "duplicate": 37,
+     "localization": 235,
+     "confusion": 122,
+     "background": 555
+    },
+    "missed_by_height": {
+     "0-40": [
+      123,
+      123
+     ],
+     "40-80": [
+      550,
+      762
+     ],
+     "80-160": [
+      377,
+      861
+     ],
+     "160-inf": [
+      122,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.20137415826320648,
+    "f1": 0.21509433962264152,
+    "tp": 114,
+    "fp_matcher": 134,
+    "fp_types": {
+     "duplicate": 12,
+     "localization": 27,
+     "confusion": 42,
+     "background": 62
+    },
+    "missed_by_height": {
+     "0-40": [
+      219,
+      219
+     ],
+     "40-80": [
+      341,
+      342
+     ],
+     "80-160": [
+      96,
+      156
+     ],
+     "160-inf": [
+      42,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-N",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.2207116335630417,
+    "f1": 0.5513774770420493,
+    "tp": 25668,
+    "fp_matcher": 11373,
+    "fp_types": {
+     "duplicate": 4180,
+     "localization": 5220,
+     "confusion": 35,
+     "background": 2696
+    },
+    "missed_by_height": {
+     "0-40": [
+      17730,
+      22387
+     ],
+     "40-80": [
+      9256,
+      18164
+     ],
+     "80-160": [
+      2921,
+      9818
+     ],
+     "160-inf": [
+      489,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.11646211892366409,
+    "f1": 0.3766678280830481,
+    "tp": 9189,
+    "fp_matcher": 7418,
+    "fp_types": {
+     "duplicate": 1489,
+     "localization": 3030,
+     "confusion": 90,
+     "background": 4080
+    },
+    "missed_by_height": {
+     "0-40": [
+      7447,
+      7516
+     ],
+     "40-80": [
+      10806,
+      13245
+     ],
+     "80-160": [
+      3989,
+      8390
+     ],
+     "160-inf": [
+      753,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.2437293380498886,
+    "f1": 0.334384858044164,
+    "tp": 53,
+    "fp_matcher": 31,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 1,
+     "confusion": 26,
+     "background": 85
+    },
+    "missed_by_height": {
+     "0-40": [
+      27,
+      27
+     ],
+     "40-80": [
+      67,
+      67
+     ],
+     "80-160": [
+      78,
+      100
+     ],
+     "160-inf": [
+      8,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-M",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3097444176673889,
+    "f1": 0.7546215216968282,
+    "tp": 1939,
+    "fp_matcher": 395,
+    "fp_types": {
+     "duplicate": 131,
+     "localization": 131,
+     "confusion": 2,
+     "background": 183
+    },
+    "missed_by_height": {
+     "0-40": [
+      690,
+      1508
+     ],
+     "40-80": [
+      94,
+      518
+     ],
+     "80-160": [
+      45,
+      365
+     ],
+     "160-inf": [
+      37,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.2188074141740799,
+    "f1": 0.8136291752527914,
+    "tp": 8489,
+    "fp_matcher": 1601,
+    "fp_types": {
+     "duplicate": 323,
+     "localization": 1063,
+     "confusion": 0,
+     "background": 1181
+    },
+    "missed_by_height": {
+     "0-40": [
+      1522,
+      2989
+     ],
+     "40-80": [
+      447,
+      2280
+     ],
+     "80-160": [
+      208,
+      2273
+     ],
+     "160-inf": [
+      111,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-M",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3731708824634552,
+    "f1": 0.8354028697571744,
+    "tp": 12110,
+    "fp_matcher": 1876,
+    "fp_types": {
+     "duplicate": 362,
+     "localization": 1533,
+     "confusion": 0,
+     "background": 885
+    },
+    "missed_by_height": {
+     "0-40": [
+      1250,
+      4470
+     ],
+     "40-80": [
+      1070,
+      5550
+     ],
+     "80-160": [
+      465,
+      3133
+     ],
+     "160-inf": [
+      111,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5056936740875244,
+    "f1": 0.6110969061621069,
+    "tp": 1195,
+    "fp_matcher": 468,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 224,
+     "confusion": 99,
+     "background": 335
+    },
+    "missed_by_height": {
+     "0-40": [
+      119,
+      123
+     ],
+     "40-80": [
+      501,
+      762
+     ],
+     "80-160": [
+      319,
+      861
+     ],
+     "160-inf": [
+      114,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.19336408376693726,
+    "f1": 0.4308466051969824,
+    "tp": 257,
+    "fp_matcher": 124,
+    "fp_types": {
+     "duplicate": 9,
+     "localization": 26,
+     "confusion": 20,
+     "background": 89
+    },
+    "missed_by_height": {
+     "0-40": [
+      205,
+      219
+     ],
+     "40-80": [
+      273,
+      342
+     ],
+     "80-160": [
+      52,
+      156
+     ],
+     "160-inf": [
+      25,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-M",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.23296253383159637,
+    "f1": 0.6595323190033697,
+    "tp": 32294,
+    "fp_matcher": 9572,
+    "fp_types": {
+     "duplicate": 3536,
+     "localization": 4496,
+     "confusion": 12,
+     "background": 2271
+    },
+    "missed_by_height": {
+     "0-40": [
+      14681,
+      22387
+     ],
+     "40-80": [
+      6796,
+      18164
+     ],
+     "80-160": [
+      2010,
+      9818
+     ],
+     "160-inf": [
+      283,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.09258376806974411,
+    "f1": 0.5111106901320401,
+    "tp": 13490,
+    "fp_matcher": 7113,
+    "fp_types": {
+     "duplicate": 1092,
+     "localization": 3447,
+     "confusion": 84,
+     "background": 3405
+    },
+    "missed_by_height": {
+     "0-40": [
+      7050,
+      7516
+     ],
+     "40-80": [
+      8221,
+      13245
+     ],
+     "80-160": [
+      2835,
+      8390
+     ],
+     "160-inf": [
+      588,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.3712826371192932,
+    "f1": 0.5373134328358209,
+    "tp": 90,
+    "fp_matcher": 12,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 16,
+     "background": 36
+    },
+    "missed_by_height": {
+     "0-40": [
+      27,
+      27
+     ],
+     "40-80": [
+      62,
+      67
+     ],
+     "80-160": [
+      48,
+      100
+     ],
+     "160-inf": [
+      6,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-X",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3416292667388916,
+    "f1": 0.7729375481881264,
+    "tp": 2005,
+    "fp_matcher": 378,
+    "fp_types": {
+     "duplicate": 79,
+     "localization": 137,
+     "confusion": 2,
+     "background": 198
+    },
+    "missed_by_height": {
+     "0-40": [
+      644,
+      1508
+     ],
+     "40-80": [
+      79,
+      518
+     ],
+     "80-160": [
+      38,
+      365
+     ],
+     "160-inf": [
+      39,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.2689032554626465,
+    "f1": 0.8309183473663599,
+    "tp": 8487,
+    "fp_matcher": 1164,
+    "fp_types": {
+     "duplicate": 178,
+     "localization": 837,
+     "confusion": 0,
+     "background": 929
+    },
+    "missed_by_height": {
+     "0-40": [
+      1497,
+      2989
+     ],
+     "40-80": [
+      481,
+      2280
+     ],
+     "80-160": [
+      202,
+      2273
+     ],
+     "160-inf": [
+      110,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-X",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.4251047372817993,
+    "f1": 0.8384406920992287,
+    "tp": 12066,
+    "fp_matcher": 1710,
+    "fp_types": {
+     "duplicate": 193,
+     "localization": 1504,
+     "confusion": 1,
+     "background": 868
+    },
+    "missed_by_height": {
+     "0-40": [
+      1269,
+      4470
+     ],
+     "40-80": [
+      1090,
+      5550
+     ],
+     "80-160": [
+      469,
+      3133
+     ],
+     "160-inf": [
+      112,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.4521496593952179,
+    "f1": 0.6221055144425878,
+    "tp": 1303,
+    "fp_matcher": 638,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 299,
+     "confusion": 145,
+     "background": 475
+    },
+    "missed_by_height": {
+     "0-40": [
+      109,
+      123
+     ],
+     "40-80": [
+      421,
+      762
+     ],
+     "80-160": [
+      305,
+      861
+     ],
+     "160-inf": [
+      110,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.2842291295528412,
+    "f1": 0.4616695059625213,
+    "tp": 271,
+    "fp_matcher": 91,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 26,
+     "confusion": 16,
+     "background": 62
+    },
+    "missed_by_height": {
+     "0-40": [
+      201,
+      219
+     ],
+     "40-80": [
+      251,
+      342
+     ],
+     "80-160": [
+      56,
+      156
+     ],
+     "160-inf": [
+      33,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "YOLO11-X",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.24677257239818573,
+    "f1": 0.6856754784301006,
+    "tp": 33823,
+    "fp_matcher": 8769,
+    "fp_types": {
+     "duplicate": 2817,
+     "localization": 4280,
+     "confusion": 11,
+     "background": 2420
+    },
+    "missed_by_height": {
+     "0-40": [
+      13863,
+      22387
+     ],
+     "40-80": [
+      6257,
+      18164
+     ],
+     "80-160": [
+      1859,
+      9818
+     ],
+     "160-inf": [
+      262,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.09524652361869812,
+    "f1": 0.5496380268252988,
+    "tp": 14691,
+    "fp_matcher": 6582,
+    "fp_types": {
+     "duplicate": 852,
+     "localization": 3494,
+     "confusion": 63,
+     "background": 3001
+    },
+    "missed_by_height": {
+     "0-40": [
+      6831,
+      7516
+     ],
+     "40-80": [
+      7490,
+      13245
+     ],
+     "80-160": [
+      2625,
+      8390
+     ],
+     "160-inf": [
+      547,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.19781360030174255,
+    "f1": 0.5729166666666666,
+    "tp": 110,
+    "fp_matcher": 41,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 1,
+     "confusion": 47,
+     "background": 94
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      55,
+      67
+     ],
+     "80-160": [
+      37,
+      100
+     ],
+     "160-inf": [
+      5,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-N",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5190357565879822,
+    "f1": 0.6772126551862234,
+    "tp": 1691,
+    "fp_matcher": 498,
+    "fp_types": {
+     "duplicate": 109,
+     "localization": 235,
+     "confusion": 4,
+     "background": 205
+    },
+    "missed_by_height": {
+     "0-40": [
+      866,
+      1508
+     ],
+     "40-80": [
+      131,
+      518
+     ],
+     "80-160": [
+      68,
+      365
+     ],
+     "160-inf": [
+      49,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.49010151624679565,
+    "f1": 0.7618517581583607,
+    "tp": 7529,
+    "fp_matcher": 1459,
+    "fp_types": {
+     "duplicate": 270,
+     "localization": 998,
+     "confusion": 1,
+     "background": 919
+    },
+    "missed_by_height": {
+     "0-40": [
+      1971,
+      2989
+     ],
+     "40-80": [
+      722,
+      2280
+     ],
+     "80-160": [
+      352,
+      2273
+     ],
+     "160-inf": [
+      203,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-N",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5849528908729553,
+    "f1": 0.8177674045439627,
+    "tp": 11212,
+    "fp_matcher": 1203,
+    "fp_types": {
+     "duplicate": 235,
+     "localization": 958,
+     "confusion": 2,
+     "background": 578
+    },
+    "missed_by_height": {
+     "0-40": [
+      1823,
+      4470
+     ],
+     "40-80": [
+      1338,
+      5550
+     ],
+     "80-160": [
+      500,
+      3133
+     ],
+     "160-inf": [
+      133,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.48190250992774963,
+    "f1": 0.4166666666666667,
+    "tp": 740,
+    "fp_matcher": 564,
+    "fp_types": {
+     "duplicate": 28,
+     "localization": 238,
+     "confusion": 54,
+     "background": 425
+    },
+    "missed_by_height": {
+     "0-40": [
+      118,
+      123
+     ],
+     "40-80": [
+      622,
+      762
+     ],
+     "80-160": [
+      550,
+      861
+     ],
+     "160-inf": [
+      218,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.4303704500198364,
+    "f1": 0.3094098883572568,
+    "tp": 194,
+    "fp_matcher": 248,
+    "fp_types": {
+     "duplicate": 9,
+     "localization": 26,
+     "confusion": 113,
+     "background": 135
+    },
+    "missed_by_height": {
+     "0-40": [
+      207,
+      219
+     ],
+     "40-80": [
+      301,
+      342
+     ],
+     "80-160": [
+      73,
+      156
+     ],
+     "160-inf": [
+      37,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-N",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5051051378250122,
+    "f1": 0.6175568631275533,
+    "tp": 28495,
+    "fp_matcher": 7724,
+    "fp_types": {
+     "duplicate": 2446,
+     "localization": 3811,
+     "confusion": 1,
+     "background": 2077
+    },
+    "missed_by_height": {
+     "0-40": [
+      16660,
+      22387
+     ],
+     "40-80": [
+      8013,
+      18164
+     ],
+     "80-160": [
+      2491,
+      9818
+     ],
+     "160-inf": [
+      405,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3697904944419861,
+    "f1": 0.3626940865543442,
+    "tp": 8783,
+    "fp_matcher": 7465,
+    "fp_types": {
+     "duplicate": 693,
+     "localization": 3576,
+     "confusion": 43,
+     "background": 3694
+    },
+    "missed_by_height": {
+     "0-40": [
+      7354,
+      7516
+     ],
+     "40-80": [
+      10584,
+      13245
+     ],
+     "80-160": [
+      4491,
+      8390
+     ],
+     "160-inf": [
+      972,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5679927468299866,
+    "f1": 0.3976945244956772,
+    "tp": 69,
+    "fp_matcher": 45,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 50,
+     "background": 72
+    },
+    "missed_by_height": {
+     "0-40": [
+      27,
+      27
+     ],
+     "40-80": [
+      64,
+      67
+     ],
+     "80-160": [
+      65,
+      100
+     ],
+     "160-inf": [
+      8,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-M",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5766367316246033,
+    "f1": 0.7541812524309607,
+    "tp": 1939,
+    "fp_matcher": 398,
+    "fp_types": {
+     "duplicate": 95,
+     "localization": 146,
+     "confusion": 0,
+     "background": 194
+    },
+    "missed_by_height": {
+     "0-40": [
+      674,
+      1508
+     ],
+     "40-80": [
+      111,
+      518
+     ],
+     "80-160": [
+      45,
+      365
+     ],
+     "160-inf": [
+      36,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5193894505500793,
+    "f1": 0.8144651026963886,
+    "tp": 8367,
+    "fp_matcher": 1402,
+    "fp_types": {
+     "duplicate": 185,
+     "localization": 944,
+     "confusion": 0,
+     "background": 1045
+    },
+    "missed_by_height": {
+     "0-40": [
+      1535,
+      2989
+     ],
+     "40-80": [
+      515,
+      2280
+     ],
+     "80-160": [
+      229,
+      2273
+     ],
+     "160-inf": [
+      131,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-M",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6452392339706421,
+    "f1": 0.8482621022786937,
+    "tp": 12117,
+    "fp_matcher": 1446,
+    "fp_types": {
+     "duplicate": 237,
+     "localization": 1255,
+     "confusion": 0,
+     "background": 723
+    },
+    "missed_by_height": {
+     "0-40": [
+      1313,
+      4470
+     ],
+     "40-80": [
+      1004,
+      5550
+     ],
+     "80-160": [
+      459,
+      3133
+     ],
+     "160-inf": [
+      113,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5723409056663513,
+    "f1": 0.5209431345353676,
+    "tp": 939,
+    "fp_matcher": 418,
+    "fp_types": {
+     "duplicate": 10,
+     "localization": 203,
+     "confusion": 52,
+     "background": 358
+    },
+    "missed_by_height": {
+     "0-40": [
+      118,
+      123
+     ],
+     "40-80": [
+      572,
+      762
+     ],
+     "80-160": [
+      460,
+      861
+     ],
+     "160-inf": [
+      159,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.4480261206626892,
+    "f1": 0.44756277695716395,
+    "tp": 303,
+    "fp_matcher": 239,
+    "fp_types": {
+     "duplicate": 6,
+     "localization": 21,
+     "confusion": 107,
+     "background": 173
+    },
+    "missed_by_height": {
+     "0-40": [
+      174,
+      219
+     ],
+     "40-80": [
+      243,
+      342
+     ],
+     "80-160": [
+      55,
+      156
+     ],
+     "160-inf": [
+      37,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-M",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5297269225120544,
+    "f1": 0.6842491726767052,
+    "tp": 34013,
+    "fp_matcher": 9340,
+    "fp_types": {
+     "duplicate": 3082,
+     "localization": 4339,
+     "confusion": 8,
+     "background": 2592
+    },
+    "missed_by_height": {
+     "0-40": [
+      13289,
+      22387
+     ],
+     "40-80": [
+      6377,
+      18164
+     ],
+     "80-160": [
+      2067,
+      9818
+     ],
+     "160-inf": [
+      318,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3694290220737457,
+    "f1": 0.45333386220300664,
+    "tp": 11429,
+    "fp_matcher": 6809,
+    "fp_types": {
+     "duplicate": 404,
+     "localization": 3282,
+     "confusion": 32,
+     "background": 3531
+    },
+    "missed_by_height": {
+     "0-40": [
+      6997,
+      7516
+     ],
+     "40-80": [
+      9244,
+      13245
+     ],
+     "80-160": [
+      3758,
+      8390
+     ],
+     "160-inf": [
+      756,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.6937898397445679,
+    "f1": 0.48148148148148145,
+    "tp": 78,
+    "fp_matcher": 13,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 20,
+     "background": 35
+    },
+    "missed_by_height": {
+     "0-40": [
+      27,
+      27
+     ],
+     "40-80": [
+      64,
+      67
+     ],
+     "80-160": [
+      56,
+      100
+     ],
+     "160-inf": [
+      8,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-X",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5731372833251953,
+    "f1": 0.769811320754717,
+    "tp": 2040,
+    "fp_matcher": 455,
+    "fp_types": {
+     "duplicate": 110,
+     "localization": 171,
+     "confusion": 4,
+     "background": 226
+    },
+    "missed_by_height": {
+     "0-40": [
+      604,
+      1508
+     ],
+     "40-80": [
+      88,
+      518
+     ],
+     "80-160": [
+      42,
+      365
+     ],
+     "160-inf": [
+      31,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5306141972541809,
+    "f1": 0.8262480499219969,
+    "tp": 8474,
+    "fp_matcher": 1261,
+    "fp_types": {
+     "duplicate": 136,
+     "localization": 874,
+     "confusion": 0,
+     "background": 1004
+    },
+    "missed_by_height": {
+     "0-40": [
+      1490,
+      2989
+     ],
+     "40-80": [
+      463,
+      2280
+     ],
+     "80-160": [
+      230,
+      2273
+     ],
+     "160-inf": [
+      120,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-X",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.6746118664741516,
+    "f1": 0.851585623678647,
+    "tp": 12084,
+    "fp_matcher": 1290,
+    "fp_types": {
+     "duplicate": 181,
+     "localization": 1151,
+     "confusion": 0,
+     "background": 669
+    },
+    "missed_by_height": {
+     "0-40": [
+      1340,
+      4470
+     ],
+     "40-80": [
+      1019,
+      5550
+     ],
+     "80-160": [
+      453,
+      3133
+     ],
+     "160-inf": [
+      110,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.5865530371665955,
+    "f1": 0.5506294471811713,
+    "tp": 1006,
+    "fp_matcher": 400,
+    "fp_types": {
+     "duplicate": 3,
+     "localization": 212,
+     "confusion": 66,
+     "background": 342
+    },
+    "missed_by_height": {
+     "0-40": [
+      118,
+      123
+     ],
+     "40-80": [
+      570,
+      762
+     ],
+     "80-160": [
+      409,
+      861
+     ],
+     "160-inf": [
+      145,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.45986562967300415,
+    "f1": 0.4520848573518654,
+    "tp": 309,
+    "fp_matcher": 246,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 26,
+     "confusion": 101,
+     "background": 212
+    },
+    "missed_by_height": {
+     "0-40": [
+      169,
+      219
+     ],
+     "40-80": [
+      242,
+      342
+     ],
+     "80-160": [
+      60,
+      156
+     ],
+     "160-inf": [
+      32,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "D-FINE-X",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.5545212030410767,
+    "f1": 0.6952412061327399,
+    "tp": 34055,
+    "fp_matcher": 7847,
+    "fp_types": {
+     "duplicate": 2645,
+     "localization": 3728,
+     "confusion": 3,
+     "background": 2082
+    },
+    "missed_by_height": {
+     "0-40": [
+      13509,
+      22387
+     ],
+     "40-80": [
+      6247,
+      18164
+     ],
+     "80-160": [
+      1971,
+      9818
+     ],
+     "160-inf": [
+      282,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3961724638938904,
+    "f1": 0.48164244557629154,
+    "tp": 12246,
+    "fp_matcher": 6421,
+    "fp_types": {
+     "duplicate": 279,
+     "localization": 3264,
+     "confusion": 34,
+     "background": 3234
+    },
+    "missed_by_height": {
+     "0-40": [
+      6986,
+      7516
+     ],
+     "40-80": [
+      8792,
+      13245
+     ],
+     "80-160": [
+      3462,
+      8390
+     ],
+     "160-inf": [
+      698,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5851786136627197,
+    "f1": 0.518918918918919,
+    "tp": 96,
+    "fp_matcher": 41,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 48,
+     "background": 109
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      56,
+      67
+     ],
+     "80-160": [
+      47,
+      100
+     ],
+     "160-inf": [
+      8,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Grounding DINO-T",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3605530560016632,
+    "f1": 0.6999636759898292,
+    "tp": 1927,
+    "fp_matcher": 774,
+    "fp_types": {
+     "duplicate": 112,
+     "localization": 163,
+     "confusion": 3,
+     "background": 622
+    },
+    "missed_by_height": {
+     "0-40": [
+      621,
+      1508
+     ],
+     "40-80": [
+      124,
+      518
+     ],
+     "80-160": [
+      75,
+      365
+     ],
+     "160-inf": [
+      58,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3874552547931671,
+    "f1": 0.7935912240184757,
+    "tp": 8247,
+    "fp_matcher": 1760,
+    "fp_types": {
+     "duplicate": 280,
+     "localization": 862,
+     "confusion": 1,
+     "background": 2306
+    },
+    "missed_by_height": {
+     "0-40": [
+      1398,
+      2989
+     ],
+     "40-80": [
+      528,
+      2280
+     ],
+     "80-160": [
+      332,
+      2273
+     ],
+     "160-inf": [
+      272,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Grounding DINO-T",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3738463222980499,
+    "f1": 0.8236249788458284,
+    "tp": 12167,
+    "fp_matcher": 2372,
+    "fp_types": {
+     "duplicate": 500,
+     "localization": 1657,
+     "confusion": 1,
+     "background": 1115
+    },
+    "missed_by_height": {
+     "0-40": [
+      1061,
+      4470
+     ],
+     "40-80": [
+      1136,
+      5550
+     ],
+     "80-160": [
+      502,
+      3133
+     ],
+     "160-inf": [
+      140,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.45885735750198364,
+    "f1": 0.5794294687254645,
+    "tp": 1107,
+    "fp_matcher": 466,
+    "fp_types": {
+     "duplicate": 7,
+     "localization": 237,
+     "confusion": 13,
+     "background": 405
+    },
+    "missed_by_height": {
+     "0-40": [
+      111,
+      123
+     ],
+     "40-80": [
+      525,
+      762
+     ],
+     "80-160": [
+      364,
+      861
+     ],
+     "160-inf": [
+      141,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.45495107769966125,
+    "f1": 0.695898161244696,
+    "tp": 492,
+    "fp_matcher": 110,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 22,
+     "confusion": 39,
+     "background": 96
+    },
+    "missed_by_height": {
+     "0-40": [
+      126,
+      219
+     ],
+     "40-80": [
+      137,
+      342
+     ],
+     "80-160": [
+      34,
+      156
+     ],
+     "160-inf": [
+      23,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "Grounding DINO-T",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3349768817424774,
+    "f1": 0.6956904047756295,
+    "tp": 35603,
+    "fp_matcher": 10686,
+    "fp_types": {
+     "duplicate": 2427,
+     "localization": 4081,
+     "confusion": 8,
+     "background": 4941
+    },
+    "missed_by_height": {
+     "0-40": [
+      12000,
+      22387
+     ],
+     "40-80": [
+      6168,
+      18164
+     ],
+     "80-160": [
+      1954,
+      9818
+     ],
+     "160-inf": [
+      339,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.37368592619895935,
+    "f1": 0.4690085613977457,
+    "tp": 11422,
+    "fp_matcher": 5101,
+    "fp_types": {
+     "duplicate": 1487,
+     "localization": 1925,
+     "confusion": 2,
+     "background": 1826
+    },
+    "missed_by_height": {
+     "0-40": [
+      6909,
+      7516
+     ],
+     "40-80": [
+      9328,
+      13245
+     ],
+     "80-160": [
+      3809,
+      8390
+     ],
+     "160-inf": [
+      716,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5952844023704529,
+    "f1": 0.6455026455026455,
+    "tp": 122,
+    "fp_matcher": 23,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 30,
+     "background": 38
+    },
+    "missed_by_height": {
+     "0-40": [
+      25,
+      27
+     ],
+     "40-80": [
+      44,
+      67
+     ],
+     "80-160": [
+      35,
+      100
+     ],
+     "160-inf": [
+      7,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "MM-GDINO-T",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.370035856962204,
+    "f1": 0.7094709094332518,
+    "tp": 1884,
+    "fp_matcher": 622,
+    "fp_types": {
+     "duplicate": 103,
+     "localization": 121,
+     "confusion": 4,
+     "background": 590
+    },
+    "missed_by_height": {
+     "0-40": [
+      635,
+      1508
+     ],
+     "40-80": [
+      137,
+      518
+     ],
+     "80-160": [
+      72,
+      365
+     ],
+     "160-inf": [
+      77,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.37962305545806885,
+    "f1": 0.7675639557082856,
+    "tp": 8041,
+    "fp_matcher": 2134,
+    "fp_types": {
+     "duplicate": 655,
+     "localization": 762,
+     "confusion": 0,
+     "background": 2360
+    },
+    "missed_by_height": {
+     "0-40": [
+      1467,
+      2989
+     ],
+     "40-80": [
+      611,
+      2280
+     ],
+     "80-160": [
+      382,
+      2273
+     ],
+     "160-inf": [
+      276,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "MM-GDINO-T",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3850967586040497,
+    "f1": 0.8120321406496807,
+    "tp": 11824,
+    "fp_matcher": 2292,
+    "fp_types": {
+     "duplicate": 370,
+     "localization": 1794,
+     "confusion": 0,
+     "background": 975
+    },
+    "missed_by_height": {
+     "0-40": [
+      1231,
+      4470
+     ],
+     "40-80": [
+      1249,
+      5550
+     ],
+     "80-160": [
+      531,
+      3133
+     ],
+     "160-inf": [
+      171,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.4467017650604248,
+    "f1": 0.5325836953743931,
+    "tp": 1042,
+    "fp_matcher": 623,
+    "fp_types": {
+     "duplicate": 203,
+     "localization": 237,
+     "confusion": 16,
+     "background": 301
+    },
+    "missed_by_height": {
+     "0-40": [
+      110,
+      123
+     ],
+     "40-80": [
+      555,
+      762
+     ],
+     "80-160": [
+      396,
+      861
+     ],
+     "160-inf": [
+      145,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.42670169472694397,
+    "f1": 0.5960082587749483,
+    "tp": 433,
+    "fp_matcher": 208,
+    "fp_types": {
+     "duplicate": 35,
+     "localization": 73,
+     "confusion": 43,
+     "background": 106
+    },
+    "missed_by_height": {
+     "0-40": [
+      154,
+      219
+     ],
+     "40-80": [
+      160,
+      342
+     ],
+     "80-160": [
+      38,
+      156
+     ],
+     "160-inf": [
+      27,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "MM-GDINO-T",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3541284501552582,
+    "f1": 0.6897586200090788,
+    "tp": 34948,
+    "fp_matcher": 10322,
+    "fp_types": {
+     "duplicate": 2600,
+     "localization": 3801,
+     "confusion": 4,
+     "background": 4613
+    },
+    "missed_by_height": {
+     "0-40": [
+      12350,
+      22387
+     ],
+     "40-80": [
+      6296,
+      18164
+     ],
+     "80-160": [
+      2073,
+      9818
+     ],
+     "160-inf": [
+      397,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.309086412191391,
+    "f1": 0.4532283964777921,
+    "tp": 12842,
+    "fp_matcher": 11643,
+    "fp_types": {
+     "duplicate": 5847,
+     "localization": 2520,
+     "confusion": 8,
+     "background": 3630
+    },
+    "missed_by_height": {
+     "0-40": [
+      6543,
+      7516
+     ],
+     "40-80": [
+      8594,
+      13245
+     ],
+     "80-160": [
+      3521,
+      8390
+     ],
+     "160-inf": [
+      684,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5053556561470032,
+    "f1": 0.5869074492099323,
+    "tp": 130,
+    "fp_matcher": 80,
+    "fp_types": {
+     "duplicate": 3,
+     "localization": 1,
+     "confusion": 76,
+     "background": 66
+    },
+    "missed_by_height": {
+     "0-40": [
+      24,
+      27
+     ],
+     "40-80": [
+      35,
+      67
+     ],
+     "80-160": [
+      34,
+      100
+     ],
+     "160-inf": [
+      10,
+      39
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "LLMDet-T",
+  "dataset": "coco_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.38719436526298523,
+    "f1": 0.681893534720943,
+    "tp": 1851,
+    "fp_matcher": 773,
+    "fp_types": {
+     "duplicate": 48,
+     "localization": 121,
+     "confusion": 0,
+     "background": 641
+    },
+    "missed_by_height": {
+     "0-40": [
+      642,
+      1508
+     ],
+     "40-80": [
+      154,
+      518
+     ],
+     "80-160": [
+      85,
+      365
+     ],
+     "160-inf": [
+      73,
+      414
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.374293714761734,
+    "f1": 0.7761755485893417,
+    "tp": 8047,
+    "fp_matcher": 1911,
+    "fp_types": {
+     "duplicate": 103,
+     "localization": 505,
+     "confusion": 0,
+     "background": 1728
+    },
+    "missed_by_height": {
+     "0-40": [
+      1497,
+      2989
+     ],
+     "40-80": [
+      634,
+      2280
+     ],
+     "80-160": [
+      369,
+      2273
+     ],
+     "160-inf": [
+      230,
+      3235
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "LLMDet-T",
+  "dataset": "kitti_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.3756811320781708,
+    "f1": 0.8183681836818368,
+    "tp": 11976,
+    "fp_matcher": 2286,
+    "fp_types": {
+     "duplicate": 381,
+     "localization": 1836,
+     "confusion": 0,
+     "background": 942
+    },
+    "missed_by_height": {
+     "0-40": [
+      1133,
+      4470
+     ],
+     "40-80": [
+      1230,
+      5550
+     ],
+     "80-160": [
+      529,
+      3133
+     ],
+     "160-inf": [
+      138,
+      1853
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.46292948722839355,
+    "f1": 0.5903175429463821,
+    "tp": 1134,
+    "fp_matcher": 460,
+    "fp_types": {
+     "duplicate": 1,
+     "localization": 219,
+     "confusion": 44,
+     "background": 371
+    },
+    "missed_by_height": {
+     "0-40": [
+      107,
+      123
+     ],
+     "40-80": [
+      513,
+      762
+     ],
+     "80-160": [
+      364,
+      861
+     ],
+     "160-inf": [
+      130,
+      502
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.3669256865978241,
+    "f1": 0.6078167115902965,
+    "tp": 451,
+    "fp_matcher": 221,
+    "fp_types": {
+     "duplicate": 2,
+     "localization": 26,
+     "confusion": 74,
+     "background": 244
+    },
+    "missed_by_height": {
+     "0-40": [
+      122,
+      219
+     ],
+     "40-80": [
+      163,
+      342
+     ],
+     "80-160": [
+      48,
+      156
+     ],
+     "160-inf": [
+      28,
+      95
+     ]
+    }
+   }
+  }
+ },
+ {
+  "model": "LLMDet-T",
+  "dataset": "nuimages_val",
+  "classes": {
+   "vehicle": {
+    "threshold": 0.35884323716163635,
+    "f1": 0.6922939317445489,
+    "tp": 34830,
+    "fp_matcher": 9728,
+    "fp_types": {
+     "duplicate": 2704,
+     "localization": 3935,
+     "confusion": 3,
+     "background": 3653
+    },
+    "missed_by_height": {
+     "0-40": [
+      12024,
+      22387
+     ],
+     "40-80": [
+      6614,
+      18164
+     ],
+     "80-160": [
+      2203,
+      9818
+     ],
+     "160-inf": [
+      393,
+      5695
+     ]
+    }
+   },
+   "person": {
+    "threshold": 0.3474999666213989,
+    "f1": 0.5049399724463688,
+    "tp": 12828,
+    "fp_matcher": 5798,
+    "fp_types": {
+     "duplicate": 286,
+     "localization": 2646,
+     "confusion": 7,
+     "background": 3104
+    },
+    "missed_by_height": {
+     "0-40": [
+      6524,
+      7516
+     ],
+     "40-80": [
+      8578,
+      13245
+     ],
+     "80-160": [
+      3561,
+      8390
+     ],
+     "160-inf": [
+      693,
+      3033
+     ]
+    }
+   },
+   "cyclist": {
+    "threshold": 0.5002435445785522,
+    "f1": 0.5753424657534246,
+    "tp": 105,
+    "fp_matcher": 27,
+    "fp_types": {
+     "duplicate": 0,
+     "localization": 0,
+     "confusion": 32,
+     "background": 37
+    },
+    "missed_by_height": {
+     "0-40": [
+      26,
+      27
+     ],
+     "40-80": [
+      49,
+      67
+     ],
+     "80-160": [
+      44,
+      100
+     ],
+     "160-inf": [
+      9,
+      39
+     ]
+    }
+   }
+  }
+ }
+]

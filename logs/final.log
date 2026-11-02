@@ -1,0 +1,9 @@
+[32mActivated conda/uv virtual environment at [36m/venv/main[0m
+[13:55:31] fusion
+wrote /root/coco-to-driving-detection/results/fusion.json
+[13:56:32] contrasts
+wrote /root/coco-to-driving-detection/results/contrasts.json
+wrote /root/coco-to-driving-detection/figures/qualitative.jpg: kitti 134, 5949; nuimages samples/CAM_FRONT_RIGHT/n005-2018-06-14-20-04-04+0800__CAM_FRONT_RIGHT__1528977949170418.jpg
+figures in /root/coco-to-driving-detection/figures
+[14:02:25] analysis done
+FINAL DONE

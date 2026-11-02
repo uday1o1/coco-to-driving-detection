@@ -1,0 +1,266 @@
+[
+ {
+  "a": "yolo:yolo11m.pt@1280",
+  "b": "yolo:yolo11m.pt",
+  "dataset": "kitti_val",
+  "diff": 0.01810890973881385,
+  "ci95": [
+   0.007485948862769725,
+   0.03973533015325043
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "yolo:yolo11m.pt@1280",
+  "b": "yolo:yolo11m.pt",
+  "dataset": "nuimages_val",
+  "diff": 0.07184934396852505,
+  "ci95": [
+   0.06131349127485987,
+   0.08380308084260649
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "dfine:m@letterbox",
+  "b": "dfine:m",
+  "dataset": "kitti_val",
+  "diff": -0.012814117492819133,
+  "ci95": [
+   -0.027019897937177514,
+   -0.0032572559882066143
+  ],
+  "p_le_0": 0.996
+ },
+ {
+  "a": "dfine:m@letterbox",
+  "b": "dfine:m",
+  "dataset": "nuimages_val",
+  "diff": -0.03702900881601706,
+  "ci95": [
+   -0.04579504446023116,
+   -0.031005580804553068
+  ],
+  "p_le_0": 1.0
+ },
+ {
+  "a": "gdino:iSEE-Laboratory/llmdet_tiny",
+  "b": "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+  "dataset": "coco_val",
+  "diff": 0.00722856626219448,
+  "ci95": [
+   0.0012477723680989975,
+   0.012163888166294535
+  ],
+  "p_le_0": 0.006
+ },
+ {
+  "a": "gdino:iSEE-Laboratory/llmdet_tiny",
+  "b": "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+  "dataset": "kitti_val",
+  "diff": 0.017885049058777802,
+  "ci95": [
+   0.006206536229488958,
+   0.04114608734976679
+  ],
+  "p_le_0": 0.005
+ },
+ {
+  "a": "gdino:iSEE-Laboratory/llmdet_tiny",
+  "b": "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+  "dataset": "nuimages_val",
+  "diff": 0.028542635405374495,
+  "ci95": [
+   0.013750594017696618,
+   0.038435004701227175
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "gdino:IDEA-Research/grounding-dino-tiny",
+  "b": "tv:fasterrcnn_resnet50_fpn_v2",
+  "dataset": "kitti_val",
+  "diff": 0.026883309327355998,
+  "ci95": [
+   -0.0027530271171038634,
+   0.04430061006403025
+  ],
+  "p_le_0": 0.042
+ },
+ {
+  "a": "gdino:IDEA-Research/grounding-dino-tiny",
+  "b": "tv:fasterrcnn_resnet50_fpn_v2",
+  "dataset": "nuimages_val",
+  "diff": -0.001029681761190837,
+  "ci95": [
+   -0.015892600574192627,
+   0.010959230878751345
+  ],
+  "p_le_0": 0.569
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "dfine:x",
+  "dataset": "coco_val",
+  "diff": 0.016066141968528957,
+  "ci95": [
+   0.010938225598440283,
+   0.020585557635979197
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "dfine:x",
+  "dataset": "kitti_val",
+  "diff": -0.010660159128434765,
+  "ci95": [
+   -0.022269809730442493,
+   0.0031192686273667776
+  ],
+  "p_le_0": 0.942
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "dfine:x",
+  "dataset": "nuimages_val",
+  "diff": 0.02475908967121332,
+  "ci95": [
+   0.013047087828632642,
+   0.03515616335521077
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "tv:fasterrcnn_resnet50_fpn_v2",
+  "dataset": "coco_val",
+  "diff": 0.05866704025443581,
+  "ci95": [
+   0.053243380379717924,
+   0.0642186571777388
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "tv:fasterrcnn_resnet50_fpn_v2",
+  "dataset": "kitti_val",
+  "diff": -0.014079672156374567,
+  "ci95": [
+   -0.030471994192322976,
+   -0.005097868543246095
+  ],
+  "p_le_0": 1.0
+ },
+ {
+  "a": "yolo:yolo11x.pt",
+  "b": "tv:fasterrcnn_resnet50_fpn_v2",
+  "dataset": "nuimages_val",
+  "diff": -0.023472749791028813,
+  "ci95": [
+   -0.038599834778900895,
+   -0.009427060362347667
+  ],
+  "p_le_0": 1.0
+ },
+ {
+  "a": "tv:fcos_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "coco_val",
+  "diff": 0.01694351190302662,
+  "ci95": [
+   0.012724180269789848,
+   0.021488855078313805
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "tv:fcos_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "kitti_val",
+  "diff": -0.01095027339071733,
+  "ci95": [
+   -0.04616813670127063,
+   -0.00041328151363356704
+  ],
+  "p_le_0": 0.979
+ },
+ {
+  "a": "tv:fcos_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "nuimages_val",
+  "diff": -0.03113155852061833,
+  "ci95": [
+   -0.04292459812129086,
+   -0.019656218274619233
+  ],
+  "p_le_0": 1.0
+ },
+ {
+  "a": "tv:retinanet_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "coco_val",
+  "diff": -0.01690848344610657,
+  "ci95": [
+   -0.021125147493622966,
+   -0.011995277373456306
+  ],
+  "p_le_0": 1.0
+ },
+ {
+  "a": "tv:retinanet_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "kitti_val",
+  "diff": 0.0029220702459750725,
+  "ci95": [
+   -0.010504230735347245,
+   0.00801732634598732
+  ],
+  "p_le_0": 0.336
+ },
+ {
+  "a": "tv:retinanet_resnet50_fpn",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "nuimages_val",
+  "diff": -0.015683229281153843,
+  "ci95": [
+   -0.02475676718083287,
+   -0.0071169302302449815
+  ],
+  "p_le_0": 0.999
+ },
+ {
+  "a": "tv:fasterrcnn_resnet50_fpn_v2",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "coco_val",
+  "diff": 0.08741284350276485,
+  "ci95": [
+   0.0820710774696806,
+   0.09292438413988803
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "tv:fasterrcnn_resnet50_fpn_v2",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "kitti_val",
+  "diff": 0.030049060274363715,
+  "ci95": [
+   0.01987943388895398,
+   0.049261806123895475
+  ],
+  "p_le_0": 0.0
+ },
+ {
+  "a": "tv:fasterrcnn_resnet50_fpn_v2",
+  "b": "tv:fasterrcnn_resnet50_fpn",
+  "dataset": "nuimages_val",
+  "diff": 0.0781303779083653,
+  "ci95": [
+   0.06776955092300474,
+   0.08574773984748117
+  ],
+  "p_le_0": 0.0
+ }
+]

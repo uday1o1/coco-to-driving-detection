@@ -1,0 +1,19 @@
+{
+ "model": "tv:retinanet_resnet50_fpn",
+ "native": "/root/data/native/coco_val.json",
+ "images": 5000,
+ "seconds": 653.4,
+ "img_per_s": 7.65,
+ "batch": 8,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model tv:retinanet_resnet50_fpn --native /root/data/native/coco_val.json --images /root/data/coco/val2017 --out /root/runs/dets/tv_retinanet_resnet50_fpn__coco_val.npz --batch 8 --workers 12",
+ "time": "2026-11-02 01:52:50 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}

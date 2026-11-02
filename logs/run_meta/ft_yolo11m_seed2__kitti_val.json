@@ -1,0 +1,19 @@
+{
+ "model": "yolo:ft_yolo11m_seed2#/root/runs/ft/yolo11m_seed2/weights/last.pt",
+ "native": "/root/data/native/kitti_val.json",
+ "images": 3769,
+ "seconds": 27.0,
+ "img_per_s": 139.75,
+ "batch": 8,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model yolo:ft_yolo11m_seed2#/root/runs/ft/yolo11m_seed2/weights/last.pt --native /root/data/native/kitti_val.json --images /root/data/kitti --out /root/runs/dets/ft_yolo11m_seed2__kitti_val.npz --batch 8 --workers 12",
+ "time": "2026-11-02 06:18:27 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}

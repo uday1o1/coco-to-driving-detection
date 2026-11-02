@@ -1,0 +1,158 @@
+{
+ "ngdet_commit": "e347f6ff4468cc33442f38277119bb7bdc18a8d1",
+ "note": "kitti = ngdet's own seed-42 split; kitti_train120 = first 120 images of ImageSets/train.txt, the images behind the tutorial table",
+ "rows": [
+  {
+   "model": "torchvision:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti",
+   "images": 120,
+   "ngdet_AP": 0.23624379782079877,
+   "tutorial_table_AP": null,
+   "per_class": {
+    "vehicle": 0.4626786758705677,
+    "person": 0.24598935125519483,
+    "cyclist": 6.336633663366337e-05
+   },
+   "this_repo_tutorial_mode_AP": 0.23624379782079877
+  },
+  {
+   "model": "torchvision:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "coco",
+   "images": 120,
+   "ngdet_AP": 0.5807079913642377,
+   "tutorial_table_AP": 0.581,
+   "per_class": {
+    "vehicle": 0.5665094430698686,
+    "person": 0.5385423952378374,
+    "cyclist": 0.637072135785007
+   },
+   "this_repo_tutorial_mode_AP": 0.5807079913642377
+  },
+  {
+   "model": "yolo:yolo11x.pt",
+   "dataset": "kitti",
+   "images": 120,
+   "ngdet_AP": 0.23507378367439016,
+   "tutorial_table_AP": null,
+   "per_class": {
+    "vehicle": 0.4682719948124756,
+    "person": 0.23694935621069474,
+    "cyclist": 0.0
+   },
+   "this_repo_tutorial_mode_AP": 0.23507159076406925
+  },
+  {
+   "model": "yolo:yolo11x.pt",
+   "dataset": "coco",
+   "images": 120,
+   "ngdet_AP": 0.5727128359012243,
+   "tutorial_table_AP": 0.573,
+   "per_class": {
+    "vehicle": 0.5801564228440407,
+    "person": 0.5468081103193211,
+    "cyclist": 0.5911739745403111
+   },
+   "this_repo_tutorial_mode_AP": 0.5727128359012243
+  },
+  {
+   "model": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "kitti",
+   "images": 120,
+   "ngdet_AP": 0.186120853724207,
+   "tutorial_table_AP": null,
+   "per_class": {
+    "vehicle": 0.3433353842571501,
+    "person": 0.21070317589267992,
+    "cyclist": 0.004324001022791126
+   }
+  },
+  {
+   "model": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "coco",
+   "images": 120,
+   "ngdet_AP": 0.531002499956226,
+   "tutorial_table_AP": 0.527,
+   "per_class": {
+    "vehicle": 0.3729881850375617,
+    "person": 0.5283644350574244,
+    "cyclist": 0.6916548797736916
+   }
+  },
+  {
+   "model": "torchvision:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages",
+   "images": 500,
+   "ngdet_AP": 0.2986661276232669,
+   "tutorial_table_AP": 0.299,
+   "per_class": {
+    "vehicle": 0.41683348549731447,
+    "person": 0.25723770593233597,
+    "cyclist": 0.22192719144015022
+   },
+   "this_repo_tutorial_mode_AP": 0.2986661276232669
+  },
+  {
+   "model": "yolo:yolo11x.pt",
+   "dataset": "nuimages",
+   "images": 500,
+   "ngdet_AP": 0.24858093827180464,
+   "tutorial_table_AP": 0.249,
+   "per_class": {
+    "vehicle": 0.40001637712355376,
+    "person": 0.17020196327977405,
+    "cyclist": 0.17552447441208605
+   },
+   "this_repo_tutorial_mode_AP": 0.24858093827180464
+  },
+  {
+   "model": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "nuimages",
+   "images": 500,
+   "ngdet_AP": 0.30305720929685426,
+   "tutorial_table_AP": 0.306,
+   "per_class": {
+    "vehicle": 0.349371276432607,
+    "person": 0.2873559070891713,
+    "cyclist": 0.2724444443687843
+   }
+  },
+  {
+   "model": "torchvision:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_train120",
+   "images": 120,
+   "ngdet_AP": 0.2791837504111612,
+   "tutorial_table_AP": 0.279,
+   "per_class": {
+    "vehicle": 0.4411134886647163,
+    "person": 0.39587199170596676,
+    "cyclist": 0.0005657708628005657
+   },
+   "this_repo_tutorial_mode_AP": 0.2791837504111612
+  },
+  {
+   "model": "yolo:yolo11x.pt",
+   "dataset": "kitti_train120",
+   "images": 120,
+   "ngdet_AP": 0.2607152357853143,
+   "tutorial_table_AP": 0.26,
+   "per_class": {
+    "vehicle": 0.4536186471283473,
+    "person": 0.3280870162231952,
+    "cyclist": 0.00044004400440044003
+   },
+   "this_repo_tutorial_mode_AP": 0.2607152357853143
+  },
+  {
+   "model": "gdino:IDEA-Research/grounding-dino-tiny",
+   "dataset": "kitti_train120",
+   "images": 120,
+   "ngdet_AP": 0.22604740896918507,
+   "tutorial_table_AP": 0.223,
+   "per_class": {
+    "vehicle": 0.3489521913614821,
+    "person": 0.30334937709422405,
+    "cyclist": 0.025840658451849068
+   }
+  }
+ ]
+}

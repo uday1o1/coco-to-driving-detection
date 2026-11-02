@@ -1,0 +1,20 @@
+[32mActivated conda/uv virtual environment at [36m/venv/main[0m
+[12:51:45] audit
+wrote /root/coco-to-driving-detection/results/audit.json
+[13:19:16] stability
+wrote /root/coco-to-driving-detection/results/stability.json
+[13:35:02] fusion
+set protocol.FUSION = {'ioa': 0.6, 'bike_min': 0.1} in detbench/protocol.py and re-run
+wrote /root/coco-to-driving-detection/results/fusion.json
+[13:35:59] subgroups
+wrote /root/coco-to-driving-detection/results/subgroups.json
+[13:39:31] finetune
+wrote /root/coco-to-driving-detection/results/finetune.json
+[13:52:46] errors
+wrote /root/coco-to-driving-detection/results/errors.json
+[13:54:02] prompts
+wrote /root/coco-to-driving-detection/results/prompts.json
+wrote /root/coco-to-driving-detection/figures/qualitative.jpg: kitti 134, 5949; nuimages samples/CAM_FRONT_RIGHT/n005-2018-06-14-20-04-04+0800__CAM_FRONT_RIGHT__1528977949170418.jpg
+figures in /root/coco-to-driving-detection/figures
+[13:54:25] analysis done
+[13:54:25] ALL DONE

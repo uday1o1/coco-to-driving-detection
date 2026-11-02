@@ -1,0 +1,19 @@
+{
+ "model": "gdino:IDEA-Research/grounding-dino-tiny",
+ "native": "/root/data/native/nuimages_ngdet500.json",
+ "images": 500,
+ "seconds": 177.6,
+ "img_per_s": 2.82,
+ "batch": 2,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model gdino:IDEA-Research/grounding-dino-tiny --native /root/data/native/nuimages_ngdet500.json --images /root/data/nuimages --out /root/runs/dets/gdino_IDEA-Research_grounding-dino-tiny__nuimages_ngdet500.npz --batch 2 --workers 8",
+ "time": "2026-11-02 01:53:56 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}

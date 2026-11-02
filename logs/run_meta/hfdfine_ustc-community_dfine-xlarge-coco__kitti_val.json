@@ -1,0 +1,19 @@
+{
+ "model": "dfine:ustc-community/dfine-xlarge-coco",
+ "native": "/root/data/native/kitti_val.json",
+ "images": 3769,
+ "seconds": 177.3,
+ "img_per_s": 21.26,
+ "batch": 8,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model dfine:ustc-community/dfine-xlarge-coco --native /root/data/native/kitti_val.json --images /root/data/kitti --out /root/runs/dets/dfine_ustc-community_dfine-xlarge-coco__kitti_val.npz --batch 8 --workers 12",
+ "time": "2026-11-02 01:12:23 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}

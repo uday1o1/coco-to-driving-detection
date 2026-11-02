@@ -1,0 +1,1652 @@
+{
+ "tuned_on": "kitti_train / tv:fasterrcnn_resnet50_fpn_v2",
+ "grid": [
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.31862438080002536,
+   "cyclist": 0.15191486066280524,
+   "objective": 0.2352696207314153
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.32649762010060623,
+   "cyclist": 0.1466353500397138,
+   "objective": 0.23656648507016004
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.3303583084350147,
+   "cyclist": 0.14272197415627155,
+   "objective": 0.2365401412956431
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.3339367108166863,
+   "cyclist": 0.14117012358783174,
+   "objective": 0.23755341720225903
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3385017680971351,
+   "cyclist": 0.13739817215015304,
+   "objective": 0.23794997012364408
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3433621422898286,
+   "cyclist": 0.1330422956789663,
+   "objective": 0.23820221898439745
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.34731341552323547,
+   "cyclist": 0.12968882747683175,
+   "objective": 0.2385011215000336
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.3482714266961782,
+   "cyclist": 0.12610019042064416,
+   "objective": 0.2371858085584112
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.1,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.3521544257115462,
+   "cyclist": 0.11159860974350884,
+   "objective": 0.23187651772752751
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3195444438301216,
+   "cyclist": 0.15250733950401732,
+   "objective": 0.23602589166706944
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.3266910708669408,
+   "cyclist": 0.14711512732982995,
+   "objective": 0.2369030990983854
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.33088715685200787,
+   "cyclist": 0.14328169414857292,
+   "objective": 0.2370844255002904
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.3344464487305892,
+   "cyclist": 0.14170236361398933,
+   "objective": 0.23807440617228925
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.33880277826892774,
+   "cyclist": 0.1378365373793085,
+   "objective": 0.23831965782411813
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.34329172746197223,
+   "cyclist": 0.13339782409958778,
+   "objective": 0.23834477578078
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3472445461457546,
+   "cyclist": 0.12998872479478676,
+   "objective": 0.23861663547027068
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.34820190198873063,
+   "cyclist": 0.12636545892168302,
+   "objective": 0.2372836804552068
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.2,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35207928058879606,
+   "cyclist": 0.11173840977041083,
+   "objective": 0.23190884517960345
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3212703409337766,
+   "cyclist": 0.152549479697033,
+   "objective": 0.23690991031540481
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.32791377548667255,
+   "cyclist": 0.1468957420984436,
+   "objective": 0.23740475879255807
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.3317144911670762,
+   "cyclist": 0.14275959073626565,
+   "objective": 0.23723704095167092
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.335061124294732,
+   "cyclist": 0.14133077031468658,
+   "objective": 0.23819594730470928
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.33894999207691406,
+   "cyclist": 0.13784371258564834,
+   "objective": 0.23839685233128122
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3434726831270892,
+   "cyclist": 0.13296873236686538,
+   "objective": 0.2382207077469773
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.34715940740892653,
+   "cyclist": 0.12986198010998848,
+   "objective": 0.2385106937594575
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.3481245148159302,
+   "cyclist": 0.1260760884406484,
+   "objective": 0.23710030162828932
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.3,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.3520289077547775,
+   "cyclist": 0.11170355209951538,
+   "objective": 0.23186622992714645
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3259206160791319,
+   "cyclist": 0.1524419786914024,
+   "objective": 0.23918129738526717
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.331003129106687,
+   "cyclist": 0.14654570964742622,
+   "objective": 0.23877441937705662
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.33401641995416625,
+   "cyclist": 0.14200199645189018,
+   "objective": 0.23800920820302823
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.33724384228378607,
+   "cyclist": 0.1401409184985374,
+   "objective": 0.23869238039116175
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3410198501293346,
+   "cyclist": 0.13688443586221663,
+   "objective": 0.2389521429957756
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3442445386606033,
+   "cyclist": 0.1323329282732537,
+   "objective": 0.2382887334669285
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3483162981911012,
+   "cyclist": 0.1292930997371501,
+   "objective": 0.23880469896412565
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.3488462207933993,
+   "cyclist": 0.12520282941865227,
+   "objective": 0.23702452510602579
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.4,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.3522397930534702,
+   "cyclist": 0.11157183607764307,
+   "objective": 0.23190581456555664
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3312575503264314,
+   "cyclist": 0.1543450255691857,
+   "objective": 0.24280128794780853
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.3356823940664207,
+   "cyclist": 0.1481666604693716,
+   "objective": 0.24192452726789615
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.33916234116655586,
+   "cyclist": 0.14310420562581455,
+   "objective": 0.2411332733961852
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.342459557524789,
+   "cyclist": 0.14078061789989824,
+   "objective": 0.2416200877123436
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3451593668802388,
+   "cyclist": 0.13714252979760982,
+   "objective": 0.2411509483389243
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3470985953532992,
+   "cyclist": 0.13166569721043656,
+   "objective": 0.23938214628186788
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.35111573289135944,
+   "cyclist": 0.1288361437884158,
+   "objective": 0.23997593833988762
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.35211988346830136,
+   "cyclist": 0.12481612773480454,
+   "objective": 0.23846800560155296
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.5,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35379121760814736,
+   "cyclist": 0.111256465171781,
+   "objective": 0.23252384138996418
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.33802117460444847,
+   "cyclist": 0.1545033877653417,
+   "objective": 0.24626228118489507
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.3424582719052912,
+   "cyclist": 0.14784441435711382,
+   "objective": 0.24515134313120251
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.3455551619457523,
+   "cyclist": 0.14285366329314145,
+   "objective": 0.24420441261944686
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.34819417113147255,
+   "cyclist": 0.14088468735050141,
+   "objective": 0.24453942924098698
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3503870119930675,
+   "cyclist": 0.13676661061149764,
+   "objective": 0.24357681130228256
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3516718720381093,
+   "cyclist": 0.13086755753393842,
+   "objective": 0.24126971478602385
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3537077945584674,
+   "cyclist": 0.12792590693034686,
+   "objective": 0.24081685074440712
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.3546150018444586,
+   "cyclist": 0.1239213956503214,
+   "objective": 0.23926819874739
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.6,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35536412360078795,
+   "cyclist": 0.11155876916789523,
+   "objective": 0.23346144638434158
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3433523626576634,
+   "cyclist": 0.14945379985624208,
+   "objective": 0.24640308125695273
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.34757689657015156,
+   "cyclist": 0.1426305571548566,
+   "objective": 0.2451037268625041
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.3504510288104008,
+   "cyclist": 0.13838216265803335,
+   "objective": 0.2444165957342171
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.3522288675222023,
+   "cyclist": 0.13661369853230826,
+   "objective": 0.24442128302725527
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3541474073454688,
+   "cyclist": 0.13301714347968627,
+   "objective": 0.24358227541257754
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3543165888967712,
+   "cyclist": 0.12735853841236244,
+   "objective": 0.24083756365456682
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3563080976580754,
+   "cyclist": 0.12389305919244638,
+   "objective": 0.2401005784252609
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.35736491712299,
+   "cyclist": 0.12135464337267553,
+   "objective": 0.23935978024783278
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35706620717763093,
+   "cyclist": 0.11008203983026084,
+   "objective": 0.23357412350394588
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.34924506924753457,
+   "cyclist": 0.1379161051632535,
+   "objective": 0.24358058720539405
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.35191910679956995,
+   "cyclist": 0.13175211939576695,
+   "objective": 0.24183561309766843
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.35461726566846014,
+   "cyclist": 0.12877091988080927,
+   "objective": 0.24169409277463472
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.355838891712891,
+   "cyclist": 0.12771604288948823,
+   "objective": 0.24177746730118962
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.3570790686388903,
+   "cyclist": 0.12419231423906821,
+   "objective": 0.24063569143897923
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.35719335612597064,
+   "cyclist": 0.11885251881117231,
+   "objective": 0.23802293746857148
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3581668598264073,
+   "cyclist": 0.11667159818403597,
+   "objective": 0.2374192290052216
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.3585076701095678,
+   "cyclist": 0.1137094588337422,
+   "objective": 0.236108564471655
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.8,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35823606403786157,
+   "cyclist": 0.10520399627907491,
+   "objective": 0.23172003015846823
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.35371871013196565,
+   "cyclist": 0.12316252269797913,
+   "objective": 0.23844061641497238
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.2,
+   "stretch": 1.0,
+   "person": 0.35487979565419064,
+   "cyclist": 0.11748918688241333,
+   "objective": 0.236184491268302
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.3,
+   "stretch": 1.0,
+   "person": 0.35599781610899883,
+   "cyclist": 0.11463551892739467,
+   "objective": 0.23531666751819674
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.4,
+   "stretch": 1.0,
+   "person": 0.3568889764544501,
+   "cyclist": 0.11376183134970587,
+   "objective": 0.23532540390207798
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.35727193953960346,
+   "cyclist": 0.11033230698087504,
+   "objective": 0.23380212326023925
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.6,
+   "stretch": 1.0,
+   "person": 0.3572604366271176,
+   "cyclist": 0.10567040615724317,
+   "objective": 0.23146542139218038
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.7,
+   "stretch": 1.0,
+   "person": 0.3573405997037267,
+   "cyclist": 0.10407304611341463,
+   "objective": 0.23070682290857067
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.8,
+   "stretch": 1.0,
+   "person": 0.35726772194963724,
+   "cyclist": 0.10180177623896737,
+   "objective": 0.2295347490943023
+  },
+  {
+   "fusion": "rider",
+   "ioa": 0.9,
+   "bike_min": 0.9,
+   "stretch": 1.0,
+   "person": 0.35691656516116993,
+   "cyclist": 0.09518719831807074,
+   "objective": 0.22605188173962032
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 0.25,
+   "person": 0.33351549653136364,
+   "cyclist": 0.021691445692485323,
+   "objective": 0.17760347111192448
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 0.5,
+   "person": 0.33351549653136364,
+   "cyclist": 0.05091923715371646,
+   "objective": 0.19221736684254004
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 0.75,
+   "person": 0.33351549653136364,
+   "cyclist": 0.062138354666624075,
+   "objective": 0.19782692559899387
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.33351549653136364,
+   "cyclist": 0.04490954161567809,
+   "objective": 0.18921251907352088
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 1.25,
+   "person": 0.33351549653136364,
+   "cyclist": 0.026735233926102508,
+   "objective": 0.18012536522873307
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 1.5,
+   "person": 0.33351549653136364,
+   "cyclist": 0.014781099389752961,
+   "objective": 0.1741482979605583
+  },
+  {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 2.0,
+   "person": 0.33351549653136364,
+   "cyclist": 0.003123914961776345,
+   "objective": 0.16831970574657
+  },
+  {
+   "fusion": "none",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 1.0,
+   "person": 0.33351549653136364,
+   "cyclist": 0.0025370220602293123,
+   "objective": 0.16802625929579648
+  }
+ ],
+ "best": {
+  "rider": {
+   "fusion": "rider",
+   "ioa": 0.7,
+   "bike_min": 0.1,
+   "stretch": 1.0,
+   "person": 0.3433523626576634,
+   "cyclist": 0.14945379985624208,
+   "objective": 0.24640308125695273
+  },
+  "stretch": {
+   "fusion": "stretch",
+   "ioa": 0.3,
+   "bike_min": 0.5,
+   "stretch": 0.75,
+   "person": 0.33351549653136364,
+   "cyclist": 0.062138354666624075,
+   "objective": 0.19782692559899387
+  }
+ },
+ "held_out": [
+  {
+   "model": "Faster R-CNN",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.22896240007386137,
+   "vehicle": 0.4753103651123995,
+   "person": 0.2110512635459223,
+   "cyclist": 0.0005255715632623008
+  },
+  {
+   "model": "Faster R-CNN",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.23455715262244473,
+   "vehicle": 0.4753103651123995,
+   "person": 0.2110512635459223,
+   "cyclist": 0.01730982920901232
+  },
+  {
+   "model": "Faster R-CNN",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.25642357908851443,
+   "vehicle": 0.4753103651123995,
+   "person": 0.22492449376410606,
+   "cyclist": 0.06903587838903777
+  },
+  {
+   "model": "Faster R-CNN",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.22772406618691152,
+   "vehicle": 0.3849299128093201,
+   "person": 0.2565099473838586,
+   "cyclist": 0.04173233836755571
+  },
+  {
+   "model": "Faster R-CNN",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2330734814303798,
+   "vehicle": 0.3849299128093201,
+   "person": 0.2565099473838586,
+   "cyclist": 0.057780584097960656
+  },
+  {
+   "model": "Faster R-CNN",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.31273849339734544,
+   "vehicle": 0.3849299128093201,
+   "person": 0.2503624270292806,
+   "cyclist": 0.3029231403534357
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.23942332984648795,
+   "vehicle": 0.49119579815171294,
+   "person": 0.22470951576312753,
+   "cyclist": 0.0023646756246233527
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2452835270769017,
+   "vehicle": 0.49119579815171294,
+   "person": 0.22470951576312753,
+   "cyclist": 0.019945267315864622
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.2593456493344895,
+   "vehicle": 0.49119579815171294,
+   "person": 0.20754737875105472,
+   "cyclist": 0.07929377110070095
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.22056095763742886,
+   "vehicle": 0.38086552076083413,
+   "person": 0.2233753285689311,
+   "cyclist": 0.05744202358252123
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.21683252867686667,
+   "vehicle": 0.38086552076083413,
+   "person": 0.2233753285689311,
+   "cyclist": 0.04625673670083479
+  },
+  {
+   "model": "RetinaNet",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.2970552641161916,
+   "vehicle": 0.38086552076083413,
+   "person": 0.2094790890490474,
+   "cyclist": 0.3008211825386933
+  },
+  {
+   "model": "FCOS",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.23533790042380776,
+   "vehicle": 0.4945698951654047,
+   "person": 0.20568834663363122,
+   "cyclist": 0.005755459472387299
+  },
+  {
+   "model": "FCOS",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2407330349588611,
+   "vehicle": 0.4945698951654047,
+   "person": 0.20568834663363122,
+   "cyclist": 0.021940863077547314
+  },
+  {
+   "model": "FCOS",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.2454733056977971,
+   "vehicle": 0.4945698951654047,
+   "person": 0.13969117476283271,
+   "cyclist": 0.10215884716515386
+  },
+  {
+   "model": "FCOS",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.2343755293010538,
+   "vehicle": 0.401099791256895,
+   "person": 0.24477720884950863,
+   "cyclist": 0.0572495877967578
+  },
+  {
+   "model": "FCOS",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.23327781902972045,
+   "vehicle": 0.401099791256895,
+   "person": 0.24477720884950863,
+   "cyclist": 0.053956456982757715
+  },
+  {
+   "model": "FCOS",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.2816069348767271,
+   "vehicle": 0.401099791256895,
+   "person": 0.13141585500016215,
+   "cyclist": 0.31230515837312406
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24509678190136522,
+   "vehicle": 0.5044633055984706,
+   "person": 0.22942738800952925,
+   "cyclist": 0.0013996520960958114
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2564974096473515,
+   "vehicle": 0.5044633055984706,
+   "person": 0.22942738800952925,
+   "cyclist": 0.035601535334054676
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.28647263936287815,
+   "vehicle": 0.5044633055984706,
+   "person": 0.24743136107354993,
+   "cyclist": 0.10752325141661391
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.2755239294542926,
+   "vehicle": 0.45310333502149086,
+   "person": 0.3193186191658749,
+   "cyclist": 0.054149834175512036
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2836967440872522,
+   "vehicle": 0.45310333502149086,
+   "person": 0.3193186191658749,
+   "cyclist": 0.07866827807439082
+  },
+  {
+   "model": "Faster R-CNN v2",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.39086887130571074,
+   "vehicle": 0.45310333502149086,
+   "person": 0.3147872134869445,
+   "cyclist": 0.40471606540869703
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.21273892640400702,
+   "vehicle": 0.4501535827074638,
+   "person": 0.1870231315271055,
+   "cyclist": 0.0010400649774516691
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.21583822668915034,
+   "vehicle": 0.4501535827074638,
+   "person": 0.1870231315271055,
+   "cyclist": 0.010337965832881718
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.22352034924889144,
+   "vehicle": 0.4501535827074638,
+   "person": 0.19113968893824942,
+   "cyclist": 0.029267776100961044
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.17193059993869017,
+   "vehicle": 0.32948803592376574,
+   "person": 0.15720791908055162,
+   "cyclist": 0.029095844811753143
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.17211846002021436,
+   "vehicle": 0.32948803592376574,
+   "person": 0.15720791908055162,
+   "cyclist": 0.029659425056325656
+  },
+  {
+   "model": "YOLO11-N",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.22103452241347407,
+   "vehicle": 0.32948803592376574,
+   "person": 0.15698441111274689,
+   "cyclist": 0.17663112020390964
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.23891865782674485,
+   "vehicle": 0.49869597080822015,
+   "person": 0.21676922613942926,
+   "cyclist": 0.001290776532585186
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.24428006626387475,
+   "vehicle": 0.49869597080822015,
+   "person": 0.21676922613942926,
+   "cyclist": 0.01737500184397475
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.26761205297121465,
+   "vehicle": 0.49869597080822015,
+   "person": 0.22995020648277764,
+   "cyclist": 0.0741899816226461
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.24425691258454627,
+   "vehicle": 0.43094123811913615,
+   "person": 0.24797358619977597,
+   "cyclist": 0.05385591343472664
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2468258053106396,
+   "vehicle": 0.43094123811913615,
+   "person": 0.24797358619977597,
+   "cyclist": 0.06156259161300671
+  },
+  {
+   "model": "YOLO11-M",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.332532035064886,
+   "vehicle": 0.43094123811913615,
+   "person": 0.24793372461552937,
+   "cyclist": 0.31872114245999245
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24041718212192761,
+   "vehicle": 0.5041669147189162,
+   "person": 0.2160465528651941,
+   "cyclist": 0.001038078781672544
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.24624439361519743,
+   "vehicle": 0.5041669147189162,
+   "person": 0.2160465528651941,
+   "cyclist": 0.018519713261481992
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.2723929672065036,
+   "vehicle": 0.5041669147189162,
+   "person": 0.23249176783076766,
+   "cyclist": 0.08052021906982691
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.2609899680355909,
+   "vehicle": 0.45662902259744637,
+   "person": 0.27602186111617694,
+   "cyclist": 0.05031902039314942
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2706199753713527,
+   "vehicle": 0.45662902259744637,
+   "person": 0.27602186111617694,
+   "cyclist": 0.07920904240043472
+  },
+  {
+   "model": "YOLO11-X",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.36739612151468193,
+   "vehicle": 0.45662902259744637,
+   "person": 0.2765093440369547,
+   "cyclist": 0.3690499979096447
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.22238996105200623,
+   "vehicle": 0.48934387137397495,
+   "person": 0.17640753756215333,
+   "cyclist": 0.001418474219890375
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.22847344225429322,
+   "vehicle": 0.48934387137397495,
+   "person": 0.17640753756215333,
+   "cyclist": 0.019668917826751425
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.2323914706287261,
+   "vehicle": 0.48934387137397495,
+   "person": 0.14013703845423084,
+   "cyclist": 0.06769350205797246
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.18819878259407552,
+   "vehicle": 0.3671480288864197,
+   "person": 0.15753309753961223,
+   "cyclist": 0.03991522135619468
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.19008704385468397,
+   "vehicle": 0.3671480288864197,
+   "person": 0.15753309753961223,
+   "cyclist": 0.045580005138019956
+  },
+  {
+   "model": "D-FINE-N",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.2477165366779647,
+   "vehicle": 0.3671480288864197,
+   "person": 0.14092404519503285,
+   "cyclist": 0.23507753595244169
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24669395527754312,
+   "vehicle": 0.5231354198936574,
+   "person": 0.21563647791943236,
+   "cyclist": 0.0013099680195396242
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.25586628808823075,
+   "vehicle": 0.5231354198936574,
+   "person": 0.21563647791943236,
+   "cyclist": 0.028826966451602598
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.27623849350783153,
+   "vehicle": 0.5231354198936574,
+   "person": 0.18770788732603727,
+   "cyclist": 0.11787217330379987
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.24536332132714858,
+   "vehicle": 0.44901120345065587,
+   "person": 0.2441018063363759,
+   "cyclist": 0.04297695419441407
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2529907457560898,
+   "vehicle": 0.44901120345065587,
+   "person": 0.2441018063363759,
+   "cyclist": 0.06585922748123774
+  },
+  {
+   "model": "D-FINE-M",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.32576271898842585,
+   "vehicle": 0.44901120345065587,
+   "person": 0.21154209508177652,
+   "cyclist": 0.31673485843284516
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24942823186660776,
+   "vehicle": 0.5279083883403914,
+   "person": 0.21974611883283074,
+   "cyclist": 0.0006301884266010957
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2599100879790612,
+   "vehicle": 0.5279083883403914,
+   "person": 0.21974611883283074,
+   "cyclist": 0.03207575676396138
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.28305312633493834,
+   "vehicle": 0.5279083883403914,
+   "person": 0.19855038613574189,
+   "cyclist": 0.12270060452868169
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.2555640104229663,
+   "vehicle": 0.4601643187468314,
+   "person": 0.2569852960530294,
+   "cyclist": 0.04954241646903805
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2616822559948023,
+   "vehicle": 0.4601643187468314,
+   "person": 0.2569852960530294,
+   "cyclist": 0.06789715318454613
+  },
+  {
+   "model": "D-FINE-X",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.3426370318434686,
+   "vehicle": 0.4601643187468314,
+   "person": 0.22892605929854976,
+   "cyclist": 0.3388207174850245
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24466990448655604,
+   "vehicle": 0.4958560693271029,
+   "person": 0.18819532255117496,
+   "cyclist": 0.04995832158139026
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2769315145811299,
+   "vehicle": 0.4958560693271029,
+   "person": 0.18819532255117496,
+   "cyclist": 0.14674315186511191
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.31335594869023414,
+   "vehicle": 0.4958560693271029,
+   "person": 0.20016562088539694,
+   "cyclist": 0.24404615585820266
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.29466680273215434,
+   "vehicle": 0.4645775718521196,
+   "person": 0.32976266706714363,
+   "cyclist": 0.08966016927719962
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.30946738532362966,
+   "vehicle": 0.4645775718521196,
+   "person": 0.32976266706714363,
+   "cyclist": 0.13406191705162568
+  },
+  {
+   "model": "Grounding DINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.3898391895445199,
+   "vehicle": 0.4645775718521196,
+   "person": 0.25343806086005327,
+   "cyclist": 0.4515019359213869
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.218555810963973,
+   "vehicle": 0.47558575527088437,
+   "person": 0.16592294286068282,
+   "cyclist": 0.014158734760351772
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.2419396676952733,
+   "vehicle": 0.47558575527088437,
+   "person": 0.16592294286068282,
+   "cyclist": 0.08431030495425271
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.26940085947728437,
+   "vehicle": 0.47558575527088437,
+   "person": 0.1575019887197153,
+   "cyclist": 0.17511483444125345
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.27951050654387144,
+   "vehicle": 0.46142974525661123,
+   "person": 0.29646178240604604,
+   "cyclist": 0.08063999196895706
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.2981012201379495,
+   "vehicle": 0.46142974525661123,
+   "person": 0.29646178240604604,
+   "cyclist": 0.1364121327511912
+  },
+  {
+   "model": "MM-GDINO-T",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.34991836435803086,
+   "vehicle": 0.46142974525661123,
+   "person": 0.22959825590200716,
+   "cyclist": 0.35872709191547436
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "kitti_val",
+   "fusion": "none",
+   "AP": 0.24128192208636542,
+   "vehicle": 0.4780872569631282,
+   "person": 0.24132197379006443,
+   "cyclist": 0.004436535505903621
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "kitti_val",
+   "fusion": "stretch",
+   "AP": 0.25471678660919256,
+   "vehicle": 0.4780872569631282,
+   "person": 0.24132197379006443,
+   "cyclist": 0.04474112907438497
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "kitti_val",
+   "fusion": "rider",
+   "AP": 0.2872859085360622,
+   "vehicle": 0.4780872569631282,
+   "person": 0.21696596245987212,
+   "cyclist": 0.1668045061851861
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "nuimages_val",
+   "fusion": "none",
+   "AP": 0.2805887572174573,
+   "vehicle": 0.45384862842357604,
+   "person": 0.33832422770030807,
+   "cyclist": 0.049593415528487866
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "nuimages_val",
+   "fusion": "stretch",
+   "AP": 0.3037274139360178,
+   "vehicle": 0.45384862842357604,
+   "person": 0.33832422770030807,
+   "cyclist": 0.11900938568416929
+  },
+  {
+   "model": "LLMDet-T",
+   "dataset": "nuimages_val",
+   "fusion": "rider",
+   "AP": 0.37846099976340536,
+   "vehicle": 0.45384862842357604,
+   "person": 0.275801189176401,
+   "cyclist": 0.4057331816902389
+  }
+ ],
+ "rider_decisions_nuimages": {
+  "Faster R-CNN": {
+   "with_rider": {
+    "detected": 141,
+    "paired": 116,
+    "rate": 0.8226950354609929
+   },
+   "without_rider": {
+    "detected": 1789,
+    "paired": 226,
+    "rate": 0.12632755729457798
+   }
+  },
+  "RetinaNet": {
+   "with_rider": {
+    "detected": 129,
+    "paired": 105,
+    "rate": 0.813953488372093
+   },
+   "without_rider": {
+    "detected": 1860,
+    "paired": 262,
+    "rate": 0.14086021505376345
+   }
+  },
+  "FCOS": {
+   "with_rider": {
+    "detected": 158,
+    "paired": 105,
+    "rate": 0.6645569620253164
+   },
+   "without_rider": {
+    "detected": 2340,
+    "paired": 786,
+    "rate": 0.33589743589743587
+   }
+  },
+  "Faster R-CNN v2": {
+   "with_rider": {
+    "detected": 155,
+    "paired": 142,
+    "rate": 0.9161290322580645
+   },
+   "without_rider": {
+    "detected": 2202,
+    "paired": 291,
+    "rate": 0.13215258855585832
+   }
+  },
+  "YOLO11-N": {
+   "with_rider": {
+    "detected": 60,
+    "paired": 40,
+    "rate": 0.6666666666666666
+   },
+   "without_rider": {
+    "detected": 901,
+    "paired": 22,
+    "rate": 0.0244173140954495
+   }
+  },
+  "YOLO11-M": {
+   "with_rider": {
+    "detected": 107,
+    "paired": 90,
+    "rate": 0.8411214953271028
+   },
+   "without_rider": {
+    "detected": 1529,
+    "paired": 46,
+    "rate": 0.030085022890778287
+   }
+  },
+  "YOLO11-X": {
+   "with_rider": {
+    "detected": 124,
+    "paired": 96,
+    "rate": 0.7741935483870968
+   },
+   "without_rider": {
+    "detected": 1718,
+    "paired": 47,
+    "rate": 0.027357392316647265
+   }
+  },
+  "D-FINE-N": {
+   "with_rider": {
+    "detected": 136,
+    "paired": 66,
+    "rate": 0.4852941176470588
+   },
+   "without_rider": {
+    "detected": 1841,
+    "paired": 435,
+    "rate": 0.2362846279196089
+   }
+  },
+  "D-FINE-M": {
+   "with_rider": {
+    "detected": 174,
+    "paired": 88,
+    "rate": 0.5057471264367817
+   },
+   "without_rider": {
+    "detected": 2139,
+    "paired": 442,
+    "rate": 0.20663861617578308
+   }
+  },
+  "D-FINE-X": {
+   "with_rider": {
+    "detected": 174,
+    "paired": 100,
+    "rate": 0.5747126436781609
+   },
+   "without_rider": {
+    "detected": 2288,
+    "paired": 440,
+    "rate": 0.19230769230769232
+   }
+  }
+ }
+}

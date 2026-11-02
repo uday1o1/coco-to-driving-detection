@@ -1,0 +1,19 @@
+{
+ "model": "dfine:x",
+ "native": "/root/data/native/nuimages_val.json",
+ "images": 16445,
+ "seconds": 511.7,
+ "img_per_s": 32.14,
+ "batch": 8,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model dfine:x --native /root/data/native/nuimages_val.json --images /root/data/nuimages --out /root/runs/dets/dfine_x__nuimages_val.npz --batch 8 --workers 12",
+ "time": "2026-11-02 07:46:38 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}

@@ -1,0 +1,19 @@
+{
+ "model": "gdino:iSEE-Laboratory/llmdet_tiny@rider",
+ "native": "/root/data/native/nuimages_val_sub.json",
+ "images": 3289,
+ "seconds": 333.0,
+ "img_per_s": 9.88,
+ "batch": 4,
+ "fp16": false,
+ "command": "/root/coco-to-driving-detection/detbench/infer.py --model gdino:iSEE-Laboratory/llmdet_tiny@rider --native /root/data/native/nuimages_val_sub.json --images /root/data/nuimages --out /root/runs/dets/gdino_iSEE-Laboratory_llmdet_tiny_rider__nuimages_val_sub.npz --batch 4 --workers 12",
+ "time": "2026-11-02 11:04:33 UTC",
+ "python": "3.12.15",
+ "torch": "2.11.0+cu128",
+ "torchvision": "0.26.0+cu128",
+ "transformers": "5.22.1",
+ "ultralytics": "8.4.197",
+ "host": "51df2c0fc643",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "cuda": "12.8"
+}
