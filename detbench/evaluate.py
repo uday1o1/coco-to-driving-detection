@@ -221,5 +221,7 @@ def cluster_weights(image_clusters: np.ndarray, B: int, seed: int = 0):
 def ci(samples, level=0.95):
     s = np.asarray(samples, float)
     s = s[~np.isnan(s)]
+    if not len(s):
+        return float("nan"), float("nan")
     a = (1 - level) / 2
     return float(np.quantile(s, a)), float(np.quantile(s, 1 - a))
