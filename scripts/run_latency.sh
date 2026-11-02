@@ -17,8 +17,15 @@ MODELS=(tv:fasterrcnn_resnet50_fpn tv:retinanet_resnet50_fpn tv:fcos_resnet50_fp
         gdino:IDEA-Research/grounding-dino-tiny
         gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det
         gdino:iSEE-Laboratory/llmdet_tiny)
-python -m detbench.latency --models "${MODELS[@]}" --native "$DATA/native/nuimages_val.json" \
-  --images "$DATA/nuimages" --out "$RUNS/latency_nuimages.json" > "$RUNS/logs/latency_nuimages.log" 2>&1
-python -m detbench.latency --models "${MODELS[@]}" --native "$DATA/native/kitti_val.json" \
-  --images "$DATA/kitti" --out "$RUNS/latency_kitti.json" > "$RUNS/logs/latency_kitti.log" 2>&1
+# one process per model: the official D-FINE code keeps configuration state
+# across builds, so two D-FINE sizes cannot be loaded in the same process
+status=0
+for ds in nuimages kitti; do
+  root=$([ $ds = kitti ] && echo "$DATA/kitti" || echo "$DATA/nuimages")
+  for m in "${MODELS[@]}"; do
+    python -m detbench.latency --models "$m" --native "$DATA/native/${ds}_val.json" --images "$root" \
+      --out "$RUNS/latency_$ds.json" >> "$RUNS/logs/latency_$ds.log" 2>&1 || { echo "FAILED latency $m on $ds"; status=1; }
+  done
+done
 echo "latency done"
+exit $status
