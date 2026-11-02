@@ -21,7 +21,9 @@ if [ ! -d "$NG" ]; then
 fi
 pip install -q opencv-python-headless pyarrow
 
-# ngdet builds its own KITTI split when ImageSets/ is absent; give it a root without one
+# The tutorial's KITTI numbers come from the first 120 images of ImageSets/train.txt
+# (the Chen et al. split used here); without ImageSets/ ngdet builds its own
+# seed-42 80/20 split instead. Both are run.
 KN="$DATA/kitti_ngdet"
 mkdir -p "$KN" && ln -sfn "$DATA/kitti/training" "$KN/training"
 
@@ -34,11 +36,16 @@ cd "$NG"
 [ -s "$OUT/nuim/metrics.json" ] || python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets nuimages \
   --nuimages-version v1.0-val --max-images 500 --score-thr 0.3 --device cuda --out-dir "$OUT/nuim" \
   --roots nuimages="$DATA/nuimages" > "$RUNS/logs/ngdet_nuimages.log" 2>&1
+[ -s "$OUT/k_train120/metrics.json" ] || python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets kitti \
+  --max-images 120 --score-thr 0.3 --device cuda --out-dir "$OUT/k_train120" \
+  --roots kitti="$DATA/kitti" > "$RUNS/logs/ngdet_kitti_train120.log" 2>&1
 
 # the same images as native records for this repo
 cd "$REPO"
 head -n 120 "$KN/ImageSets/train.txt" > "$DATA/kitti/ImageSets/ngdet120.txt"
 python -m detbench.data kitti --root "$DATA/kitti" --split ngdet120 --out "$DATA/native/kitti_ngdet120.json"
+head -n 120 "$DATA/kitti/ImageSets/train.txt" > "$DATA/kitti/ImageSets/train120.txt"
+python -m detbench.data kitti --root "$DATA/kitti" --split train120 --out "$DATA/native/kitti_train120.json"
 python - "$DATA/native" <<'EOF'
 import json, sys
 d = sys.argv[1]
@@ -52,8 +59,8 @@ keep = {im["id"] for im in [i for i in n["images"] if i["id"] in annotated][:500
 json.dump({**n, "images": [i for i in n["images"] if i["id"] in keep],
            "boxes": [b for b in n["boxes"] if b["image_id"] in keep]}, open(f"{d}/nuimages_ngdet500.json", "w"))
 EOF
-declare -A ROOT=([kitti_ngdet120]="$DATA/kitti" [coco_first120]="$DATA/coco/val2017" [nuimages_ngdet500]="$DATA/nuimages")
-for ds in kitti_ngdet120 coco_first120 nuimages_ngdet500; do
+declare -A ROOT=([kitti_ngdet120]="$DATA/kitti" [kitti_train120]="$DATA/kitti" [coco_first120]="$DATA/coco/val2017" [nuimages_ngdet500]="$DATA/nuimages")
+for ds in kitti_ngdet120 kitti_train120 coco_first120 nuimages_ngdet500; do
   for m in tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11x.pt gdino:IDEA-Research/grounding-dino-tiny; do
     tag=$(echo "$m" | sed 's#[:/@]#_#g')
     [ -s "$RUNS/dets/${tag}__$ds.npz" ] || python -m detbench.infer --model "$m" \
