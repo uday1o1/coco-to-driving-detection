@@ -40,25 +40,8 @@ cd "$NG"
   --max-images 120 --score-thr 0.3 --device cuda --out-dir "$OUT/k_train120" \
   --roots kitti="$DATA/kitti" > "$RUNS/logs/ngdet_kitti_train120.log" 2>&1
 
-# the same images as native records for this repo
+# the same images as native records for this repo (built by scripts/setup.sh)
 cd "$REPO"
-head -n 120 "$KN/ImageSets/train.txt" > "$DATA/kitti/ImageSets/ngdet120.txt"
-python -m detbench.data kitti --root "$DATA/kitti" --split ngdet120 --out "$DATA/native/kitti_ngdet120.json"
-head -n 120 "$DATA/kitti/ImageSets/train.txt" > "$DATA/kitti/ImageSets/train120.txt"
-python -m detbench.data kitti --root "$DATA/kitti" --split train120 --out "$DATA/native/kitti_train120.json"
-python - "$DATA/native" <<'EOF'
-import json, sys
-d = sys.argv[1]
-c = json.load(open(f"{d}/coco_val.json"))
-keep = set(sorted(im["id"] for im in c["images"])[:120])
-json.dump({**c, "images": [i for i in c["images"] if i["id"] in keep],
-           "boxes": [b for b in c["boxes"] if b["image_id"] in keep]}, open(f"{d}/coco_first120.json", "w"))
-n = json.load(open(f"{d}/nuimages_val.json"))
-annotated = {b["image_id"] for b in n["boxes"]}
-keep = {im["id"] for im in [i for i in n["images"] if i["id"] in annotated][:500]}
-json.dump({**n, "images": [i for i in n["images"] if i["id"] in keep],
-           "boxes": [b for b in n["boxes"] if b["image_id"] in keep]}, open(f"{d}/nuimages_ngdet500.json", "w"))
-EOF
 declare -A ROOT=([kitti_ngdet120]="$DATA/kitti" [kitti_train120]="$DATA/kitti" [coco_first120]="$DATA/coco/val2017" [nuimages_ngdet500]="$DATA/nuimages")
 for ds in kitti_ngdet120 kitti_train120 coco_first120 nuimages_ngdet500; do
   for m in tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11x.pt@single gdino:IDEA-Research/grounding-dino-tiny; do

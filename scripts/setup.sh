@@ -83,6 +83,24 @@ for s in train val; do
   python -m detbench.data kitti --root "$DATA/kitti" --split $s --out "$DATA/native/kitti_$s.json"
 done
 python -m detbench.data nuimages --root "$DATA/nuimages" --out "$DATA/native/nuimages_val.json"
+# the tutorial's evaluation subsets: KITTI first 120 of ngdet's own seed-42 split and of train.txt,
+# COCO first 120 val images, first 500 annotated nuImages val frames
+for s in ngdet120 train120; do
+  python -m detbench.data kitti --root "$DATA/kitti" --split $s --out "$DATA/native/kitti_$s.json"
+done
+python - "$DATA/native" <<'EOF'
+import json, sys
+d = sys.argv[1]
+c = json.load(open(f"{d}/coco_val.json"))
+keep = set(sorted(im["id"] for im in c["images"])[:120])
+json.dump({**c, "images": [i for i in c["images"] if i["id"] in keep],
+           "boxes": [b for b in c["boxes"] if b["image_id"] in keep]}, open(f"{d}/coco_first120.json", "w"))
+n = json.load(open(f"{d}/nuimages_val.json"))
+annotated = {b["image_id"] for b in n["boxes"]}
+keep = {im["id"] for im in [i for i in n["images"] if i["id"] in annotated][:500]}
+json.dump({**n, "images": [i for i in n["images"] if i["id"] in keep],
+           "boxes": [b for b in n["boxes"] if b["image_id"] in keep]}, open(f"{d}/nuimages_ngdet500.json", "w"))
+EOF
 # every fifth nuImages val frame (spread over all logs), for the prompt ablation
 python - "$DATA/native" <<'EOF'
 import json, sys
