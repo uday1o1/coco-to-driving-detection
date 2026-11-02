@@ -470,6 +470,8 @@ PUBLISHED_COCO_AP = {  # COCO val2017 box AP from the model's own documentation 
     "hfdfine:ustc-community/dfine-nano-coco": 42.8, "hfdfine:ustc-community/dfine-medium-coco": 52.3,
     "hfdfine:ustc-community/dfine-xlarge-coco": 55.8,
     "gdino:IDEA-Research/grounding-dino-tiny@coco80": 48.4,
+    "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det@coco80": 50.4,
+    # LLMDet is trained on GroundingCap-1M, which contains COCO images: no zero-shot reference
 }
 
 
