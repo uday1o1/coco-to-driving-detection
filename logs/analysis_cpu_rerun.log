@@ -38,5 +38,5 @@ identical: main.json, reproduction.json, audit.json, stability.json, fusion.json
            finetune.json, prompts.json, contrasts.json
 new or changed by this run (analysis code at 24ba290 differs for these sections):
            gate.json (added rows), errors.json, subgroups.json, robustness.json (new)
-robustness.json was extended afterwards with the NMS check for the open-vocabulary models
-(scripts/analyze.py unified_nms, run on a separate CPU machine from the same release).
+The unified_nms entries of robustness.json come from scripts/analyze.py unified_nms, run on a
+separate CPU machine from the same release.
