@@ -116,13 +116,13 @@ def build_coco(ann_file: Path):
 def coco_gt(native: dict, semantics="corrected", ignore=True, minsize=True, empty=True):
     """COCO-format ground truth for one protocol setting.
 
-    empty=False drops images with no native boxes, as ngdet's nuImages loader
-    does.
+    empty=False drops nuImages frames with no native boxes, as ngdet's
+    nuImages loader does (its COCO and KITTI loaders keep every image).
     """
     ds = native["dataset"]
     min_h = tx.MIN_HEIGHT[ds] if minsize else 0.0
     has_box = {b["image_id"] for b in native["boxes"]}
-    images = [im for im in native["images"] if empty or im["id"] in has_box]
+    images = [im for im in native["images"] if empty or ds != "nuimages" or im["id"] in has_box]
     keep = {im["id"] for im in images}
     anns = []
     for i, b in enumerate(native["boxes"]):
