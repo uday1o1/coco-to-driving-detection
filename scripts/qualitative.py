@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from detbench import analysis as A, protocol  # noqa: E402
@@ -38,15 +38,18 @@ def boxes_for(d, iid, thr, names_keep):
 def draw(img, gt_boxes, preds, ignore=(), title=""):
     im = img.convert("RGB").copy()
     dr = ImageDraw.Draw(im)
+    size = max(12, im.width // 45)        # readable after the panel is rescaled
+    font, small = ImageFont.load_default(size=size), ImageFont.load_default(size=int(size * 0.7))
     for b in ignore:
         dr.rectangle(list(b), outline=(150, 150, 150), width=2)
     for b in gt_boxes:
         dr.rectangle(list(b), outline=(40, 200, 40), width=3)
     for b, s, l in zip(*preds):
         dr.rectangle(list(map(float, b)), outline=COLORS.get(l, (255, 255, 255)), width=2)
-        dr.text((float(b[0]) + 2, float(b[1]) - 11), f"{l} {s:.2f}", fill=COLORS.get(l, (255, 255, 255)))
-    dr.rectangle([0, 0, im.width, 16], fill=(0, 0, 0))
-    dr.text((4, 2), title, fill=(255, 255, 255))
+        dr.text((float(b[0]) + 2, float(b[1]) - small.size - 2), f"{l} {s:.2f}",
+                fill=COLORS.get(l, (255, 255, 255)), font=small)
+    dr.rectangle([0, 0, im.width, size + 8], fill=(0, 0, 0))
+    dr.text((6, 4), title, fill=(255, 255, 255), font=font)
     return im
 
 
@@ -113,13 +116,13 @@ def main():
     gt = [b["xyxy"] for b in by[best] if b["fine"] in ("Cyclist", "Pedestrian")]
     raw = boxes_for(dk, best, thr, ["person", "bicycle"])
     fb, fs, fl = protocol.fuse_riders(raw[0], raw[1], raw[2], protocol.FUSION["ioa"], protocol.FUSION["bike_min"])
-    panel_a = draw(img, gt, raw, title="(a) KITTI, raw COCO labels: rider and bicycle are separate boxes")
-    panel_b = draw(img, gt, (fb, fs, fl), title="(b) after rider fusion: one cyclist box")
+    panel_a = draw(img, gt, raw, title="(a) KITTI, raw COCO labels: rider and bicycle are separate")
+    panel_b = draw(img, gt, (fb, fs, fl), title="(b) the same frame after rider fusion")
     img = Image.open(a.data / "kitti" / file_of[best_c])
     dc = [b["xyxy"] for b in by[best_c] if b["fine"] == "DontCare"]
     gt = [b["xyxy"] for b in by[best_c] if b["fine"] in ("Car", "Van", "Truck", "Pedestrian", "Cyclist")]
     panel_c = draw(img, gt, boxes_for(dk, best_c, thr, ["car", "truck", "person"]), dc,
-                   title="(c) KITTI: detections in unlabeled DontCare regions (grey)")
+                   title="(c) KITTI: confident detections inside DontCare regions (grey)")
     img = Image.open(a.data / "nuimages" / im_rec["file_name"])
     peds = [b for b in nat["boxes"] if b["image_id"] == iid and b["fine"].startswith("human.pedestrian")]
     workers = np.array([b["xyxy"] for b in peds if b["fine"].endswith("construction_worker")])
@@ -134,14 +137,14 @@ def main():
     shift = lambda bs: [list(np.array(b) - off) for b in bs]
     panel_d = draw(img.crop((x1, y1, x2, y2)), shift(workers), (pb[inside] - off, ps[inside], pl[inside]),
                    ignore=shift(others),
-                   title=f"(d) nuImages, crop: construction workers (green), other pedestrians (grey), "
-                         f"person detections at the F1 threshold {t:.2f} (red)")
-    W = 1600
-    rows = [p.resize((W, int(p.height * W / p.width))) for p in (panel_a, panel_b, panel_c, panel_d)]
-    canvas = Image.new("RGB", (W, sum(r.height for r in rows) + 6 * 3), (255, 255, 255))
-    y = 0
-    for r in rows:
-        canvas.paste(r, (0, y)); y += r.height + 6
+                   title=f"(d) nuImages: construction workers (green), detections at F1 threshold {t:.2f} (red)")
+    # 2 x 2 grid, every panel scaled to the same width
+    W = 1000
+    panels = [p.resize((W, int(p.height * W / p.width))) for p in (panel_a, panel_b, panel_c, panel_d)]
+    h1, h2 = max(panels[0].height, panels[1].height), max(panels[2].height, panels[3].height)
+    canvas = Image.new("RGB", (2 * W + 8, h1 + h2 + 8), (255, 255, 255))
+    for k, p in enumerate(panels):
+        canvas.paste(p, ((k % 2) * (W + 8), 0 if k < 2 else h1 + 8))
     out = REPO / "figures/qualitative.jpg"
     out.parent.mkdir(exist_ok=True)
     canvas.save(out, quality=88)
