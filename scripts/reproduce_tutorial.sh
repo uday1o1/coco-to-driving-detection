@@ -27,11 +27,11 @@ mkdir -p "$KN" && ln -sfn "$DATA/kitti/training" "$KN/training"
 
 MODELS=(torchvision:fasterrcnn_resnet50_fpn_v2 yolo:yolo11x.pt gdino:IDEA-Research/grounding-dino-tiny@0.15)
 cd "$NG"
-python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets kitti coco \
+[ -s "$OUT/k_c/metrics.json" ] || python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets kitti coco \
   --max-images 120 --score-thr 0.3 --device cuda --out-dir "$OUT/k_c" \
   --coco-ann "$DATA/coco/annotations/instances_val2017.json" \
   --roots kitti="$KN" coco="$DATA/coco/val2017" > "$RUNS/logs/ngdet_kitti_coco.log" 2>&1
-python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets nuimages \
+[ -s "$OUT/nuim/metrics.json" ] || python -m DeepDataMiningLearning.ngdet.run_eval --models "${MODELS[@]}" --datasets nuimages \
   --nuimages-version v1.0-val --max-images 500 --score-thr 0.3 --device cuda --out-dir "$OUT/nuim" \
   --roots nuimages="$DATA/nuimages" > "$RUNS/logs/ngdet_nuimages.log" 2>&1
 
@@ -58,7 +58,7 @@ for ds in kitti_ngdet120 coco_first120 nuimages_ngdet500; do
     tag=$(echo "$m" | sed 's#[:/@]#_#g')
     [ -s "$RUNS/dets/${tag}__$ds.npz" ] || python -m detbench.infer --model "$m" \
       --native "$DATA/native/$ds.json" --images "${ROOT[$ds]}" --out "$RUNS/dets/${tag}__$ds.npz" \
-      --batch 4 --workers 8 > "$RUNS/logs/${tag}__$ds.log" 2>&1
+      --batch 2 --workers 8 > "$RUNS/logs/${tag}__$ds.log" 2>&1
   done
 done
 echo "tutorial reproduction done"
