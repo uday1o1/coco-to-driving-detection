@@ -33,7 +33,7 @@ D-FINE-N 42.8 42.8 | D-FINE-M 52.3 52.3 | D-FINE-X 55.8 55.8
 Grounding DINO-T 48.5 48.4 | MM-GDINO-T 50.4 50.4 | LLMDet-T 55.5 (paper: 55.6, trained with COCO images)
 D-FINE Hugging Face port N/M/X 42.8 / 52.3 / 55.8 | YOLO11-N single-label NMS 38.7
 
-Comparison with the results files previously committed from the GPU machine (cmp, byte for byte):
+Comparison with the release's results files computed on the GPU machine (cmp, byte for byte):
 identical: main.json, reproduction.json, audit.json, stability.json, fusion.json,
            finetune.json, prompts.json, contrasts.json
 new or changed by this run (analysis code at 24ba290 differs for these sections):
