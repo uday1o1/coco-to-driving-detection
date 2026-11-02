@@ -1,0 +1,830 @@
+{
+ "ranking_agreement": {
+  "vehicle": {
+   "coco_val~kitti_val": {
+    "spearman": 0.7692307692307693,
+    "kendall": 0.5897435897435896,
+    "spearman_ci95": [
+     0.36901408450704226,
+     0.9549295774647888
+    ]
+   },
+   "coco_val~nuimages_val": {
+    "spearman": 0.6813186813186813,
+    "kendall": 0.46153846153846145,
+    "spearman_ci95": [
+     0.11107981220657288,
+     0.9079824956379803
+    ]
+   },
+   "kitti_val~nuimages_val": {
+    "spearman": 0.43956043956043955,
+    "kendall": 0.3589743589743589,
+    "spearman_ci95": [
+     -0.2022466247053313,
+     0.8935574229691877
+    ]
+   },
+   "slope_kitti_val_on_coco": {
+    "slope": 0.24129087104016228,
+    "ci95": [
+     0.093642816328734,
+     0.4064723367869988
+    ]
+   },
+   "slope_nuimages_val_on_coco": {
+    "slope": 0.6383036485380688,
+    "ci95": [
+     0.40069790810480505,
+     0.903417840774497
+    ]
+   }
+  },
+  "person": {
+   "coco_val~kitti_val": {
+    "spearman": 0.2692307692307692,
+    "kendall": 0.2051282051282051,
+    "spearman_ci95": [
+     -0.311111111111111,
+     0.7487084928755242
+    ]
+   },
+   "coco_val~nuimages_val": {
+    "spearman": 0.5,
+    "kendall": 0.33333333333333326,
+    "spearman_ci95": [
+     -0.07083161828204315,
+     0.8555555555555554
+    ]
+   },
+   "kitti_val~nuimages_val": {
+    "spearman": 0.8351648351648352,
+    "kendall": 0.6666666666666665,
+    "spearman_ci95": [
+     0.44877649923605845,
+     0.9776536312849161
+    ]
+   },
+   "slope_kitti_val_on_coco": {
+    "slope": 0.2262609188315114,
+    "ci95": [
+     -0.06927206483177248,
+     0.6542371483421007
+    ]
+   },
+   "slope_nuimages_val_on_coco": {
+    "slope": 0.5960729014224284,
+    "ci95": [
+     0.1935871023200559,
+     1.1136847990151648
+    ]
+   }
+  },
+  "vehicle+person": {
+   "coco_val~kitti_val": {
+    "spearman": 0.5054945054945055,
+    "kendall": 0.3589743589743589,
+    "spearman_ci95": [
+     -0.0647079536039768,
+     0.86034492149204
+    ]
+   },
+   "coco_val~nuimages_val": {
+    "spearman": 0.6263736263736264,
+    "kendall": 0.4358974358974358,
+    "spearman_ci95": [
+     0.08725948913821942,
+     0.8347695707070704
+    ]
+   },
+   "kitti_val~nuimages_val": {
+    "spearman": 0.5659340659340659,
+    "kendall": 0.46153846153846145,
+    "spearman_ci95": [
+     -0.03151862464183381,
+     0.9265691022171578
+    ]
+   },
+   "slope_kitti_val_on_coco": {
+    "slope": 0.22579411129421859,
+    "ci95": [
+     0.07266412219000676,
+     0.40746664169261226
+    ]
+   },
+   "slope_nuimages_val_on_coco": {
+    "slope": 0.6313221262310188,
+    "ci95": [
+     0.3513235875111039,
+     0.9595871455936148
+    ]
+   }
+  }
+ },
+ "class_contrasts": [
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": 0.019259530053005236,
+   "ci95": [
+    0.007203590267514935,
+    0.029006128168273925
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.019259530053005236,
+   "ci95": [
+    0.007203590267514935,
+    0.029006128168273925
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.08523331900127334,
+   "ci95": [
+    -0.18093649592321184,
+    -0.06121032076201574
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.005362916912291071,
+   "ci95": [
+    -0.0207819834589525,
+    0.006551838601403051
+   ],
+   "p_le_0": 0.798
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": 0.016169878447574892,
+   "ci95": [
+    0.01440823617454875,
+    0.017720370481549046
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.016169878447574892,
+   "ci95": [
+    0.01440823617454875,
+    0.017720370481549046
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.11894657202911843,
+   "ci95": [
+    -0.1267816735443993,
+    -0.11203627668224277
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.011732738534350001,
+   "ci95": [
+    -0.014075406817620996,
+    -0.010110680795566407
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": 0.015885433039313446,
+   "ci95": [
+    0.004859491240545681,
+    0.025700063865696107
+   ],
+   "p_le_0": 0.005
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.015885433039313446,
+   "ci95": [
+    0.004859491240545681,
+    0.025700063865696107
+   ],
+   "p_le_0": 0.005
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.017377115013051336,
+   "ci95": [
+    -0.04797852432028281,
+    -0.010596309703791624
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.013658252217205236,
+   "ci95": [
+    -0.00017189784893226112,
+    0.020506047126462815
+   ],
+   "p_le_0": 0.026
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": -0.004064392048485965,
+   "ci95": [
+    -0.006997784973600924,
+    -0.0017545256560103071
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.004064392048485965,
+   "ci95": [
+    -0.006997784973600924,
+    -0.0017545256560103071
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.040883337980233164,
+   "ci95": [
+    -0.04354301249635368,
+    -0.03847081392480472
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.03313461881492752,
+   "ci95": [
+    -0.03595118767994789,
+    -0.030678853593308502
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": -0.0002963908795544645,
+   "ci95": [
+    -0.013214919385575438,
+    0.009913532575921667
+   ],
+   "p_le_0": 0.499
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.0002963908795544645,
+   "ci95": [
+    -0.013214919385575438,
+    0.009913532575921667
+   ],
+   "p_le_0": 0.499
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.014939593242782268,
+   "ci95": [
+    -0.0345798289943137,
+    0.004156804169263837
+   ],
+   "p_le_0": 0.946
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.013380835144335135,
+   "ci95": [
+    -0.03461769727603461,
+    0.008156535843951497
+   ],
+   "p_le_0": 0.905
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": 0.003525687575955505,
+   "ci95": [
+    -0.000728003200395313,
+    0.007432003800141537
+   ],
+   "p_le_0": 0.044
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.003525687575955505,
+   "ci95": [
+    -0.000728003200395313,
+    0.007432003800141537
+   ],
+   "p_le_0": 0.044
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.03827786944998979,
+   "ci95": [
+    -0.042713236575284835,
+    -0.0334345993546629
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.04329675804969796,
+   "ci95": [
+    -0.0473378361244983,
+    -0.03908310284321488
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": -0.023741473621475273,
+   "ci95": [
+    -0.029891627388362065,
+    -0.016146617990429397
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.023741473621475273,
+   "ci95": [
+    -0.029891627388362065,
+    -0.016146617990429397
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": 0.03394138169502578,
+   "ci95": [
+    0.022764495223617457,
+    0.07512859166606858
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.0036995659676366255,
+   "ci95": [
+    -0.012950452985661021,
+    0.022651159183507637
+   ],
+   "p_le_0": 0.667
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": -0.0035352961493850255,
+   "ci95": [
+    -0.005975783297108642,
+    -0.0010289245783934142
+   ],
+   "p_le_0": 0.999
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.0035352961493850255,
+   "ci95": [
+    -0.005975783297108642,
+    -0.0010289245783934142
+   ],
+   "p_le_0": 0.999
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": 0.04758328473840495,
+   "ci95": [
+    0.04367815287102284,
+    0.051647942227454495
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.019036565063147548,
+   "ci95": [
+    0.016614471433968932,
+    0.021323940500204846
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": -0.008607236271367724,
+   "ci95": [
+    -0.0188980568318424,
+    0.002402797556938338
+   ],
+   "p_le_0": 0.931
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.008607236271367724,
+   "ci95": [
+    -0.0188980568318424,
+    0.002402797556938338
+   ],
+   "p_le_0": 0.931
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.047265740188152994,
+   "ci95": [
+    -0.0977396919970652,
+    -0.02224760142332982
+   ],
+   "p_le_0": 0.999
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.04123206545835428,
+   "ci95": [
+    -0.1085471638510005,
+    -0.010111301740932237
+   ],
+   "p_le_0": 0.995
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "rider",
+   "diff": 0.011474236830628759,
+   "ci95": [
+    0.008319337487093105,
+    0.014952197438723176
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.011474236830628759,
+   "ci95": [
+    0.008319337487093105,
+    0.014952197438723176
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "rider",
+   "diff": -0.061349152626891224,
+   "ci95": [
+    -0.06619206735966335,
+    -0.05653231311745612
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.010444047901268738,
+   "ci95": [
+    0.006375599783896645,
+    0.013657597665944056
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "coco_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.015904358176276612,
+   "ci95": [
+    0.008332714665653858,
+    0.02414074161386606
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:fcos_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "coco_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.017982665629776573,
+   "ci95": [
+    0.014119657304248828,
+    0.022068126989209524
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "coco_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.008306050374115581,
+   "ci95": [
+    -0.015959616939662843,
+    -5.602237624371152e-05
+   ],
+   "p_le_0": 0.975
+  },
+  {
+   "a": "tv:retinanet_resnet50_fpn",
+   "b": "tv:fasterrcnn_resnet50_fpn",
+   "dataset": "coco_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": -0.025510916518097504,
+   "ci95": [
+    -0.028919895972215594,
+    -0.02138872500616985
+   ],
+   "p_le_0": 1.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "coco_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.058159445550318045,
+   "ci95": [
+    0.04821426878760402,
+    0.06747387948431245
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "coco_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.05917463495855346,
+   "ci95": [
+    0.05458062239837934,
+    0.06387436451981579
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "coco_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": 0.011444397795321137,
+   "ci95": [
+    0.0025393211553677085,
+    0.019656045551343454
+   ],
+   "p_le_0": 0.005
+  },
+  {
+   "a": "yolo:yolo11x.pt",
+   "b": "dfine:x",
+   "dataset": "coco_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.020687886141736667,
+   "ci95": [
+    0.01632082189824644,
+    0.02452342698606186
+   ],
+   "p_le_0": 0.0
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "coco_val",
+   "class": "vehicle",
+   "fusion": "none",
+   "diff": -0.017958403267584466,
+   "ci95": [
+    -0.03052395259745459,
+    -0.006929961567109986
+   ],
+   "p_le_0": 0.996
+  },
+  {
+   "a": "gdino:IDEA-Research/grounding-dino-tiny",
+   "b": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "coco_val",
+   "class": "person",
+   "fusion": "none",
+   "diff": 0.003623085635881873,
+   "ci95": [
+    -0.002097830088244348,
+    0.010215621173855941
+   ],
+   "p_le_0": 0.113
+  }
+ ],
+ "unified_nms": [
+  {
+   "spec": "yolo:yolo11x.pt",
+   "dataset": "kitti_val",
+   "AP": 0.27239296720650347,
+   "AP_unified_nms_0.7": 0.2723519999995626
+  },
+  {
+   "spec": "yolo:yolo11x.pt",
+   "dataset": "nuimages_val",
+   "AP": 0.3673961215146815,
+   "AP_unified_nms_0.7": 0.36895158171416875
+  },
+  {
+   "spec": "dfine:x",
+   "dataset": "kitti_val",
+   "AP": 0.28305312633493807,
+   "AP_unified_nms_0.7": 0.2832395010839439
+  },
+  {
+   "spec": "dfine:x",
+   "dataset": "nuimages_val",
+   "AP": 0.3426370318434686,
+   "AP_unified_nms_0.7": 0.3442012751550307
+  },
+  {
+   "spec": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "kitti_val",
+   "AP": 0.2864726393628782,
+   "AP_unified_nms_0.7": 0.2852447685681369
+  },
+  {
+   "spec": "tv:fasterrcnn_resnet50_fpn_v2",
+   "dataset": "nuimages_val",
+   "AP": 0.39086887130571074,
+   "AP_unified_nms_0.7": 0.3904404490775133
+  },
+  {
+   "spec": "tv:retinanet_resnet50_fpn",
+   "dataset": "kitti_val",
+   "AP": 0.25934564933448945,
+   "AP_unified_nms_0.7": 0.2595678390794935
+  },
+  {
+   "spec": "tv:retinanet_resnet50_fpn",
+   "dataset": "nuimages_val",
+   "AP": 0.29705526411619143,
+   "AP_unified_nms_0.7": 0.2979562842178309
+  }
+ ],
+ "yolo_nms_mode_tutorial_protocol_nuimages500": {
+  "yolo:yolo11x.pt@single": 0.24858093827180464,
+  "yolo:yolo11x.pt": 0.24856447211267516
+ }
+}

@@ -1,0 +1,61 @@
+# Analysis from the v1.0 release on a CPU-only machine
+# repo commit 24ba290; AMD EPYC 7V12 64-Core Processor, 128 threads, 503 GB RAM; no GPU
+# setup.sh with NO_IMAGES=1, detections.tar (sha256 checked), then scripts/analyze.py per section
+
+24ba290 Analysis runs without images; the qualitative figure is drawn only when they are present
+/root/data/native/coco_val.json: 5000 images, 36781 native boxes
+/root/data/native/kitti_train.json: 3712 images, 25099 native boxes
+/root/data/native/kitti_val.json: 3769 images, 26766 native boxes
+/root/data/native/nuimages_val.json: 16445 images, 136074 native boxes
+/root/data/native/kitti_ngdet120.json: 120 images, 907 native boxes
+/root/data/native/kitti_train120.json: 120 images, 888 native boxes
+setup done: 2.9G in /root/data
+detections.tar: OK
+[14:59:28] gate
+Faster R-CNN 37.2 37.0
+RetinaNet 35.9 36.4
+FCOS 39.1 39.2
+Faster R-CNN v2 47.3 46.7
+YOLO11-N 39.3 39.5
+YOLO11-M 51.3 51.5
+YOLO11-X 54.5 54.7
+D-FINE-N 42.8 42.8
+D-FINE-M 52.3 52.3
+D-FINE-X 55.8 55.8
+Grounding DINO-T 48.5 48.4
+MM-GDINO-T 50.4 50.4
+LLMDet-T 55.5 None
+D-FINE-N (Hugging Face port) 42.8 42.8
+D-FINE-M (Hugging Face port) 52.3 52.3
+D-FINE-X (Hugging Face port) 55.8 55.8
+YOLO11-N, single-label NMS (prediction mode) 38.7 39.5
+wrote /root/coco-to-driving-detection/results/gate.json
+[15:26:12] reproduction
+wrote /root/coco-to-driving-detection/results/reproduction.json
+[15:26:13] main
+wrote /root/coco-to-driving-detection/results/main.json
+[15:54:29] audit
+wrote /root/coco-to-driving-detection/results/audit.json
+[16:21:36] stability
+wrote /root/coco-to-driving-detection/results/stability.json
+[16:50:27] fusion
+[16:42:43] subgroups, finetune, errors, prompts, contrasts, robustness started in parallel (12 workers each)
+[16:48:38] fusion: results/fusion.json
+[16:43:22] prompts: results/prompts.json
+[16:43:47] errors: results/errors.json
+[17:47:00] contrasts: results/contrasts.json
+[17:47:30] robustness: results/robustness.json
+[17:48:15] subgroups: results/subgroups.json
+[17:53:13] finetune: results/finetune.json
+figures.py, tables.py: done
+
+# results compared byte for byte with the files committed from the GPU machine:
+
+main.json: identical to the committed file
+reproduction.json: identical to the committed file
+audit.json: identical to the committed file
+stability.json: identical to the committed file
+fusion.json: identical to the committed file
+finetune.json: identical to the committed file
+prompts.json: identical to the committed file
+contrasts.json: identical to the committed file

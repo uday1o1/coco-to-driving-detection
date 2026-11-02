@@ -1,4 +1,4 @@
-"""Draw the failure examples used in the report (figures/qualitative.jpg).
+"""Draw the qualitative failure examples (figures/qualitative.jpg).
 
 Four panels, picked automatically so the selection is reproducible:
   a  KITTI: a cyclist seen as a person plus a bicycle (raw output)

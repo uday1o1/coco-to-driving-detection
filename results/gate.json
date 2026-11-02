@@ -249,7 +249,8 @@
   "AR100": 0.6348,
   "ARs": 0.398,
   "ARm": 0.6976,
-  "ARl": 0.8563
+  "ARl": 0.8563,
+  "AP_without_voc_aliases": 0.393
  },
  {
   "model": "D-FINE-M (Hugging Face port)",
@@ -267,7 +268,8 @@
   "AR100": 0.7203,
   "ARs": 0.5432,
   "ARm": 0.7648,
-  "ARl": 0.8845
+  "ARl": 0.8845,
+  "AP_without_voc_aliases": 0.4824
  },
  {
   "model": "D-FINE-X (Hugging Face port)",
@@ -285,6 +287,25 @@
   "AR100": 0.7396,
   "ARs": 0.575,
   "ARm": 0.7848,
-  "ARl": 0.8968
+  "ARl": 0.8968,
+  "AP_without_voc_aliases": 0.515
+ },
+ {
+  "model": "YOLO11-N, single-label NMS (prediction mode)",
+  "spec": "yolo:yolo11n.pt@single",
+  "measured_AP": 38.7,
+  "published_AP": 39.5,
+  "AP": 0.3873,
+  "AP50": 0.5424,
+  "AP75": 0.4214,
+  "APs": 0.1953,
+  "APm": 0.4246,
+  "APl": 0.5612,
+  "AR1": 0.3116,
+  "AR10": 0.5098,
+  "AR100": 0.561,
+  "ARs": 0.3334,
+  "ARm": 0.6249,
+  "ARl": 0.7342
  }
 ]

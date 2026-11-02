@@ -1,7 +1,7 @@
 # COCO to driving: how far do 2D detectors transfer, and how much does the protocol decide?
 
-Thirteen COCO-trained detectors from four families (two-stage CNN, one-stage CNN, real-time DETR,
-open vocabulary) evaluated zero-shot on COCO val2017, KITTI val and the full nuImages validation set,
+Thirteen COCO-trained detectors from five families (two-stage CNN, one-stage CNN, YOLO, real-time
+DETR, open vocabulary) evaluated zero-shot on COCO val2017, KITTI val and the full nuImages validation set,
 plus fine-tuning on KITTI, a latency benchmark and a pedestrian subgroup analysis. Every number comes
 with a 95% confidence interval from a bootstrap that resamples whole drives (KITTI) or logs
 (nuImages), and every comparison claimed in the text is a paired test on the same images.
@@ -16,30 +16,38 @@ as caveats (fixed score threshold, cyclist mapping, sample size) change the answ
 1. **The tutorial's numbers reproduce exactly.** Its own code at a pinned commit gives the published
    values on COCO, nuImages and KITTI (Faster R-CNN v2: 0.581, 0.299, 0.279). The KITTI column comes from
    the first 120 images of the KITTI *train* list. This repo's harness, run in tutorial mode on the same
-   images, matches ngdet to four decimals on all eight closed-set pairs.
+   images, matches ngdet to four decimals on all eight closed-set cases.
 2. **The protocol moves the numbers as much as the model does.** Going from the tutorial protocol to a
    corrected one (ignore regions, each dataset's own minimum-size rule, no score cut-off before mAP,
    consistent class definitions, rider fusion) raises mean mAP from 0.213 to 0.267 on KITTI and from 0.276
    to 0.326 on nuImages. On KITTI the model ranking changes substantially (Kendall tau 0.36 between the
    two protocols). The fixed 0.3 score cut-off alone costs YOLO models 0.04 to 0.07 mAP on nuImages
    and COCO.
-3. **COCO rankings do not carry over to driving data.** YOLO11-X leads on COCO (0.636) but loses to
-   Faster R-CNN v2 on KITTI (-0.014) and nuImages (-0.023), both significant. With backbone, input size and
-   training recipe held fixed, FCOS beats Faster R-CNN on COCO (+0.017) and loses to it on nuImages (-0.031).
+3. **COCO ranks models well for vehicles, poorly for pedestrians.** On matched classes, COCO and the
+   driving datasets agree on the vehicle ranking (Spearman 0.77 with KITTI, 0.68 with nuImages) but much
+   less on the person ranking (0.27 and 0.50), while KITTI and nuImages agree on persons at 0.84 (bootstrap
+   intervals over models in results/robustness.json). YOLO11-X leads Faster R-CNN v2 by about 0.06 AP on
+   COCO for both classes; on driving data the vehicle lead disappears and on nuImages persons it becomes a
+   -0.043 deficit. Some apparent architecture effects come from rider fusion instead: FCOS beats Faster R-CNN
+   on COCO and loses on nuImages mAP (-0.031), but without fusion it is ahead there (0.234 against 0.228); the
+   reversal comes from fusion absorbing more of FCOS's person detections.
 4. **Input resolution is a hidden confound.** YOLO11-M at 1280 px instead of its default 640 gains
    +0.072 mAP on nuImages (95% CI +0.061 to +0.084) and becomes the best model there (0.404). D-FINE's
    stretched 640x640 input beats letterboxing on wide driving frames (-0.037 when letterboxed).
 5. **Pedestrians are the class that breaks.** Vehicle AP on KITTI is close to COCO; person AP falls
    from about 0.6 to about 0.2 on both driving sets and stays low even for pedestrians taller than 160 px.
-6. **Construction workers are missed 4 to 14 recall points more often than other adult pedestrians, by
-   every model,** and the gap grows (5 to 16 points) when recall is compared at matched height, so object
-   size does not explain it. Children show no significant gap zero-shot; after fine-tuning Faster R-CNN v2
-   on KITTI a child gap of 8 to 11 points appears.
+6. **Construction workers are missed 4 to 14 recall points more often than other adult pedestrians**
+   (significant after Holm correction for 12 of 13 models, all but FCOS), and 5 to 16 points when recall is
+   compared at matched height (significant for all 13), so object size does not explain it. Children show no
+   significant gap zero-shot. After fine-tuning Faster R-CNN v2 on KITTI a raw child gap of 8 to 11 points
+   appears, but at matched height it is 2 to 5 points and not significant: the fine-tuned model loses small
+   pedestrians, and children are smaller.
 7. **Fine-tuning on one driving dataset hurts the other.** Fine-tuning on KITTI train (3 seeds, seed
    s.d. at most 0.008) raises KITTI val mAP by +0.18 (Faster R-CNN v2) and +0.10 (YOLO11-M) but lowers
    nuImages by -0.16 and -0.24 and COCO by -0.35 and -0.55.
 8. **Open-vocabulary detectors are competitive on driving data and sensitive to the prompt.** Grounding
-   DINO-T is best on KITTI (0.313). LLMDet beats its own starting point MM-GDINO on all three datasets
+   DINO-T has the highest KITTI mAP (0.313), almost entirely through cyclists after rider fusion; without
+   fusion it equals Faster R-CNN v2 (0.245). LLMDet beats its own starting point MM-GDINO on all three datasets
    (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15.
 
 ![protocol audit](figures/protocol_audit.png)
@@ -74,9 +82,10 @@ the JSON files in [results/](results).
 | YOLO11-M at 1280 px | YOLO | | 0.286 [0.261, 0.358] | 0.404 [0.380, 0.426] |
 | D-FINE-M letterboxed | real-time DETR | | 0.263 [0.246, 0.310] | 0.289 [0.265, 0.308] |
 
-Open-vocabulary COCO numbers are not strictly zero-shot: LLMDet's training data contains COCO images,
-and the GoldG grounding data used by all three contains Visual Genome images, many of which are COCO
-images.
+COCO mAP is the mean of vehicle and person AP (cyclist is not scored on COCO); KITTI and nuImages mAP
+average all three classes. Open-vocabulary COCO numbers are not zero-shot: all three were trained on
+GoldG (Flickr30k and GQA grounding data; GQA images come from Visual Genome and overlap COCO), and
+LLMDet's caption data contains COCO images.
 
 ## What is evaluated
 
@@ -88,7 +97,7 @@ v1.0-val, all 16,445 key frames from 82 logs including the 1,561 with no objects
 
 | model | source | input as deployed | post-processing |
 |---|---|---|---|
-| Faster R-CNN, RetinaNet, FCOS (v1 recipe), Faster R-CNN v2 | torchvision COCO weights | short side 800, long side at most 1333 | class-wise NMS 0.5 |
+| Faster R-CNN, RetinaNet, FCOS (matched ResNet-50 FPN recipes), Faster R-CNN v2 (BN in FPN and heads, longer recipe) | torchvision COCO weights | short side 800, long side at most 1333 | class-wise NMS 0.5 |
 | YOLO11-N/M/X | Ultralytics | letterbox to 640 (aspect kept) | NMS 0.7, multi-label as in Ultralytics validation |
 | D-FINE-N/M/X | authors' code (Peterande/D-FINE @ 956d170) and released COCO weights | stretch to 640x640 | top 300 (query, class) pairs |
 | Grounding DINO-T, MM-GDINO-T, LLMDet-T | Hugging Face transformers | short side 800, long side at most 1333 | top 300 (query, term) pairs, term score = mean token probability |
@@ -121,8 +130,8 @@ at least 70% and the person's centre lies over the bicycle; the pair becomes one
 thresholds were chosen on KITTI *train* predictions of one model (Faster R-CNN v2) and fixed for every
 model and dataset. On nuImages, whose labels say whether each bicycle has a rider, fusion confidently pairs
 49 to 92% of detected bicycles with riders and 2 to 34% of parked ones. On nuImages it raises cyclist AP
-from 0.03 to 0.09 to between 0.18 and 0.45 but lowers person AP for some models, because pedestrians standing next to parked
-bicycles are absorbed (results/fusion.json).
+from between 0.03 and 0.09 to between 0.18 and 0.45, but it lowers person AP for most models (by up to
+0.11 for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
 
 The evaluator reproduces pycocotools' matching exactly (tests/test_evaluate.py) and keeps the outcome of
 every detection, so a bootstrap resample is one weighted pass instead of a full re-evaluation. Every
@@ -131,8 +140,9 @@ must agree.
 
 ## Reproducing
 
-Hardware used: one RTX 4090 (24 GB), 32 CPU cores, 108 GB RAM, rented on vast.ai. GPU time for
-everything was about 13 hours, most of it the open-vocabulary models on nuImages. Software: Python 3.12,
+Hardware used: one RTX 4090 (24 GB), 32 CPU cores, 108 GB RAM, rented on vast.ai. The run logs record
+13.0 GPU hours of inference (most of it the open-vocabulary models on nuImages) and 3.2 hours of
+fine-tuning. Software: Python 3.12,
 torch 2.11.0+cu128, torchvision 0.26.0, transformers 5.22.1, ultralytics 8.4.197 (requirements.txt).
 
 ```bash
@@ -149,8 +159,11 @@ bash scripts/run_analysis.sh       # CPU only: every file in results/ and figure
 **Without a GPU.** The stored detections and fine-tuned checkpoints are attached to the
 [v1.0 release](https://github.com/uday1o1/coco-to-driving-detection/releases/tag/v1.0)
 (detections.tar, 1.6 GB; finetuned_checkpoints.tar, 0.6 GB; SHA-256 sums in the release notes).
-Extract detections.tar into `$RUNS`, run `NO_IMAGES=1 bash scripts/setup.sh` (annotations and metadata
+Extract detections.tar into `$RUNS`, put the two `yolo_yolo11n.pt_single__coco_val` files from the
+same release into `$RUNS/dets` (the single-label NMS check), run `NO_IMAGES=1 bash scripts/setup.sh` (annotations and metadata
 only, about 1 GB) and then `scripts/run_analysis.sh`. Images are needed only for the qualitative figure.
+[logs/analysis_cpu_rerun.log](logs/analysis_cpu_rerun.log) records this path on a fresh CPU-only machine:
+every result file that existed before it came out byte-identical.
 
 Tests: `python -m pytest tests -q` (evaluator against pycocotools, rider fusion).
 
@@ -171,7 +184,7 @@ detbench/   taxonomy.py   label mapping and ignore rules, one place
             latency.py    batch-1 latency, memory and parameter count
 scripts/    setup and run scripts, analyze.py (every result), figures.py, tables.py, qualitative.py
 results/    JSON results and tables.md
-figures/    figures used here and in the report
+figures/    every figure (scripts/figures.py, scripts/qualitative.py)
 logs/       run logs and metadata
 tests/      evaluator and fusion tests
 ```
@@ -184,7 +197,11 @@ lighting is not analysed. Police officers (96) and children (251) are small grou
 reflect that. Latency is measured with each library's PyTorch path at batch 1 without TensorRT, so it
 compares implementations as shipped, not optimised engines. The fine-tuning recipes are each library's
 standard one (YOLO: 100 epochs with mosaic; Faster R-CNN: 12 epochs), so the two fine-tuned models
-differ in recipe as well as architecture.
+differ in recipe as well as architecture. Neither trainer supports ignore regions, so KITTI's
+Person_sitting and DontCare boxes are trained as background; part of the drop on COCO and nuImages after
+fine-tuning comes from these label definitions rather than from forgetting. In the prompt comparison,
+the bare prompt (vehicle, person, cyclist) both asks for a person once instead of twice and has no
+bicycle query for rider fusion to use, and the design does not separate the two effects.
 
 ## Licences and credits
 

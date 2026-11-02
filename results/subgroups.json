@@ -1,5 +1,10 @@
 {
  "operating_point": "F1-optimal score threshold for person at IoU 0.5, re-estimated in every bootstrap resample",
+ "bootstrap_resamples": 20000,
+ "holm_families": [
+  "zero-shot models: child and construction worker, raw and at matched height",
+  "fine-tuned models: same four tests"
+ ],
  "height_bins": [
   [
    0,
@@ -24,7 +29,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.546111524105072,
-   "f1": 0.5345310356491835,
    "recall": {
     "human.pedestrian.adult": 0.45069637883008357,
     "human.pedestrian.child": 0.4342629482071713,
@@ -32,92 +36,90 @@
     "human.pedestrian.police_officer": 0.7083333333333334,
     "human.pedestrian.child/height_std": 0.4933218827512327,
     "human.pedestrian.construction_worker/height_std": 0.33459251848103044,
-    "human.pedestrian.police_officer/height_std": 0.584566266343973
+    "human.pedestrian.police_officer/height_std": 0.5845662663439731
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.43471290573125443,
-     0.46526279714354907
+     0.4340110021670124,
+     0.4645904163023303
     ],
     "human.pedestrian.child": [
-     0.3524570647931304,
-     0.5077913954209291
+     0.3584064402271216,
+     0.5045882178049608
     ],
     "human.pedestrian.construction_worker": [
-     0.3164701183577904,
-     0.384167625834476
+     0.317360170361248,
+     0.38406715561937477
     ],
     "human.pedestrian.police_officer": [
-     0.6054613120997058,
-     0.8030632411067193
+     0.6071428571428571,
+     0.8048780487804879
     ],
     "human.pedestrian.child/height_std": [
-     0.42493825731452617,
-     0.5628405106779139
+     0.4285295957995759,
+     0.5609757189224658
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.29921259547367174,
-     0.36473214041061003
+     0.2998912558679119,
+     0.3646284896231612
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.48014601981701355,
-     0.6827025727194433
+     0.48561372666370684,
+     0.6843469618653328
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.01643343062291225,
      "ci95": [
-      -0.05261461203761225,
-      0.08732049638116308
+      -0.04805254777980033,
+      0.08365428265908292
      ],
-     "p_two_sided": 0.67,
+     "p_two_sided": 0.6401679916004199,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.04262550392114911,
      "ci95": [
-      -0.10648857299373281,
-      0.013765509479915963
+      -0.10451881841704959,
+      0.012927173997602777
      ],
-     "p_two_sided": 0.148,
+     "p_two_sided": 0.1285935703214839,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.09747212473961198,
      "ci95": [
-      0.06684290580888481,
-      0.1287333492551255
+      0.06719832805096504,
+      0.12858389724293762
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.11610386034905312,
      "ci95": [
-      0.08661767522878536,
-      0.14560324449583387
+      0.08686208187747231,
+      0.14549819159558944
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.2576369545032498,
      "ci95": [
-      -0.35235373919323054,
-      -0.15750253072504558
+      -0.35340050761455444,
+      -0.16238889692786435
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
-     "gap": -0.13386988751388945,
+     "gap": -0.13386988751388956,
      "ci95": [
-      -0.23148655440587754,
-      -0.028747785264293217
+      -0.2340586404728949,
+      -0.03640750595214353
      ],
-     "p_two_sided": 0.022,
-     "p_holm": 1.0
+     "p_two_sided": 0.011699415029248537
     }
    },
    "heights_median": {
@@ -125,7 +127,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "RetinaNet",
@@ -136,100 +139,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3140142560005188,
-   "f1": 0.47821897063740243,
    "recall": {
     "human.pedestrian.adult": 0.38474930362116994,
     "human.pedestrian.child": 0.3784860557768924,
     "human.pedestrian.construction_worker": 0.3067051652229708,
     "human.pedestrian.police_officer": 0.59375,
-    "human.pedestrian.child/height_std": 0.43772633231555463,
+    "human.pedestrian.child/height_std": 0.4377263323155547,
     "human.pedestrian.construction_worker/height_std": 0.28677413004327734,
-    "human.pedestrian.police_officer/height_std": 0.4477013790584045
+    "human.pedestrian.police_officer/height_std": 0.44770137905840446
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.371611718514478,
-     0.40093500102499363
+     0.3714282968558371,
+     0.39955494288567917
     ],
     "human.pedestrian.child": [
-     0.3011921813126633,
-     0.4408614369501466
+     0.30526144907723857,
+     0.44318285880785874
     ],
     "human.pedestrian.construction_worker": [
-     0.27354647702763224,
-     0.3385080717247091
+     0.2767194958076156,
+     0.3379464907194135
     ],
     "human.pedestrian.police_officer": [
-     0.47559451219512194,
-     0.710154462242563
+     0.48905109489051096,
+     0.711864406779661
     ],
     "human.pedestrian.child/height_std": [
-     0.3689602496104455,
-     0.5121002092400015
+     0.36868555641340284,
+     0.507561645078752
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.2588404071017854,
-     0.31462945897986055
+     0.25967734340861204,
+     0.31454794168019773
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.34773842472450933,
-     0.5593294480914457
+     0.35540555944567065,
+     0.5688918122099694
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.006263247844277509,
      "ci95": [
-      -0.054199484570348955,
-      0.08062455001151744
+      -0.05601570701805374,
+      0.07744911186378811
      ],
-     "p_two_sided": 0.818,
+     "p_two_sided": 0.7991600419979001,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
-     "gap": -0.0529770286943847,
+     "gap": -0.052977028694384753,
      "ci95": [
-      -0.1257629531307291,
-      0.013983344204844603
+      -0.12091461158689719,
+      0.014769830115007753
      ],
-     "p_two_sided": 0.124,
+     "p_two_sided": 0.1271936403179841,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.07804413839819913,
      "ci95": [
-      0.05025363197475124,
-      0.10849685108928206
+      0.04918009730438999,
+      0.1065331983990101
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.0979751735778926,
      "ci95": [
-      0.07108508164082204,
-      0.12336556388990973
+      0.07240553290736976,
+      0.12321320636246287
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.20900069637883006,
      "ci95": [
-      -0.32478860717250335,
-      -0.09235000174022827
+      -0.3272916802857361,
+      -0.1039783142851357
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0006999650017499125
     },
     "human.pedestrian.police_officer/height_std": {
-     "gap": -0.06295207543723458,
+     "gap": -0.06295207543723452,
      "ci95": [
-      -0.174831361200399,
-      0.041174997682832795
+      -0.18397173760868754,
+      0.030941956093596186
      ],
-     "p_two_sided": 0.22,
-     "p_holm": 1.0
+     "p_two_sided": 0.17959102044897754
     }
    },
    "heights_median": {
@@ -237,7 +237,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "FCOS",
@@ -248,7 +249,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3845103979110718,
-   "f1": 0.3229014205768403,
    "recall": {
     "human.pedestrian.adult": 0.236525069637883,
     "human.pedestrian.child": 0.1952191235059761,
@@ -260,88 +260,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.22551498513614004,
-     0.2517773322578703
+     0.22561454906302844,
+     0.2522825010671806
     ],
     "human.pedestrian.child": [
-     0.14055429033205996,
-     0.2490618649085468
+     0.13846153846153847,
+     0.24902797151457304
     ],
     "human.pedestrian.construction_worker": [
-     0.1728351380090159,
-     0.23169051519934328
+     0.17382746816320432,
+     0.23030373611895347
     ],
     "human.pedestrian.police_officer": [
-     0.24588617383235387,
-     0.4915507209714141
+     0.24285714285714285,
+     0.49350857475857457
     ],
     "human.pedestrian.child/height_std": [
-     0.17850749981919048,
-     0.28106706067714166
+     0.17548851598302959,
+     0.2810233865543925
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.1632724910012712,
-     0.21657947070655184
+     0.16466170172412048,
+     0.21456902807156386
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.18279199782675465,
-     0.35883648426997733
+     0.1822085644708938,
+     0.35740250872689955
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.04130594613190691,
      "ci95": [
-      -0.007123126337288781,
-      0.0949768554538869
+      -0.007004637611848408,
+      0.096631357666103
      ],
-     "p_two_sided": 0.084,
+     "p_two_sided": 0.09029548522573871,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.007497117049204027,
      "ci95": [
-      -0.04097348891046616,
-      0.05698835529504415
+      -0.039795444578759505,
+      0.05938492175775348
      ],
-     "p_two_sided": 0.656,
+     "p_two_sided": 0.6705664716764161,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.036974219461431285,
      "ci95": [
-      0.011236981477028379,
-      0.06309982672926784
+      0.011617026817865734,
+      0.06311002866155743
      ],
-     "p_two_sided": 0.01,
-     "p_holm": 0.55
+     "p_two_sided": 0.005699715014249288,
+     "p_holm": 0.15389230538473075
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.04991182942940772,
      "ci95": [
-      0.027471119432095025,
-      0.06985897316745207
+      0.028948907924204157,
+      0.0706248567442555
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.14889159702878368,
      "ci95": [
-      -0.25523377112679446,
-      -0.004566843684859805
+      -0.255484015641302,
+      -0.0032120473040168304
      ],
-     "p_two_sided": 0.046,
-     "p_holm": 1.0
+     "p_two_sided": 0.04629768511574421
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.040106549766351585,
      "ci95": [
-      -0.12044412668172193,
-      0.056434449083225376
+      -0.11933424059462161,
+      0.05857341220633797
      ],
-     "p_two_sided": 0.412,
-     "p_holm": 1.0
+     "p_two_sided": 0.41387930603469825
     }
    },
    "heights_median": {
@@ -349,7 +347,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "Faster R-CNN v2",
@@ -360,7 +359,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.5971791744232178,
-   "f1": 0.6128169929918359,
    "recall": {
     "human.pedestrian.adult": 0.5359331476323119,
     "human.pedestrian.child": 0.5179282868525896,
@@ -372,88 +370,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.5189293712513131,
-     0.552262571849386
+     0.5184673231687688,
+     0.5516634220378019
     ],
     "human.pedestrian.child": [
-     0.43017693415170116,
-     0.5913050208641809
+     0.430106134046465,
+     0.5918386104441775
     ],
     "human.pedestrian.construction_worker": [
-     0.40139164740719346,
-     0.47213519688466077
+     0.40236264946776495,
+     0.4727022066704279
     ],
     "human.pedestrian.police_officer": [
-     0.7021276595744681,
-     0.8571428571428571
+     0.7073170731707317,
+     0.8607594936708861
     ],
     "human.pedestrian.child/height_std": [
-     0.4996957796975681,
-     0.6412421211109973
+     0.5011815758171263,
+     0.6415727833830003
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.38546778799070586,
-     0.4538893334749208
+     0.3861781260018701,
+     0.4536451833892036
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.5425704960797944,
-     0.8049889860670613
+     0.5487227979153008,
+     0.8091532629133718
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.018004860779722298,
      "ci95": [
-      -0.049609984319829895,
-      0.0978237557693544
+      -0.050238012681772616,
+      0.09829562321482543
      ],
-     "p_two_sided": 0.626,
+     "p_two_sided": 0.5941702914854258,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.03901618450372124,
      "ci95": [
-      -0.10330068150484514,
-      0.03070612284215934
+      -0.10109169720091124,
+      0.027411690741607424
      ],
-     "p_two_sided": 0.262,
+     "p_two_sided": 0.24828758562071895,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.09737042706766641,
      "ci95": [
-      0.0670914896020496,
-      0.12995486299214434
+      0.06480265522601311,
+      0.13011506169791415
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.11486771894454079,
      "ci95": [
-      0.0849912111875372,
-      0.1449655891865311
+      0.08385631328463995,
+      0.1451782831075047
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.24531685236768808,
      "ci95": [
-      -0.32127806506225953,
-      -0.17102177420478723
+      -0.32638012443395226,
+      -0.17517739024155188
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.13840407476749328,
      "ci95": [
-      -0.2681532556250339,
-      -0.0018231102131619824
+      -0.2741428965551261,
+      -0.00785342025967855
      ],
-     "p_two_sided": 0.038,
-     "p_holm": 1.0
+     "p_two_sided": 0.03719814009299535
     }
    },
    "heights_median": {
@@ -461,7 +457,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-N",
@@ -472,7 +469,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.11646211892366409,
-   "f1": 0.3766678280830481,
    "recall": {
     "human.pedestrian.adult": 0.2921657381615599,
     "human.pedestrian.child": 0.30677290836653387,
@@ -484,88 +480,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.2791116415443815,
-     0.3086514716291747
+     0.27866584265822103,
+     0.3099156131666528
     ],
     "human.pedestrian.child": [
-     0.22724784339747844,
-     0.37402164175585834
+     0.22613065326633167,
+     0.3740462774361805
     ],
     "human.pedestrian.construction_worker": [
-     0.18931527373005003,
-     0.24249234438945927
+     0.18856846671950947,
+     0.24398631505271293
     ],
     "human.pedestrian.police_officer": [
-     0.3625583566760038,
-     0.7027541827541828
+     0.37755102040816324,
+     0.7037037037037037
     ],
     "human.pedestrian.child/height_std": [
-     0.2891794050563823,
-     0.43888990760096425
+     0.28926599095807687,
+     0.4362692226349994
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.17618528331690864,
-     0.2195136060239235
+     0.1766243248994149,
+     0.21971060091844588
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.2646901321366581,
-     0.5632807663486021
+     0.2866064972437588,
+     0.57099800444617
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": -0.014607170204973985,
      "ci95": [
-      -0.07751178980659891,
-      0.06047425504386038
+      -0.07742090944843479,
+      0.06266636174848264
      ],
-     "p_two_sided": 0.712,
+     "p_two_sided": 0.7538623068846557,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.07492437044663625,
      "ci95": [
-      -0.14426188133042334,
-      -0.0010733521201529614
+      -0.14175868683148504,
+      -0.001043774956917043
      ],
-     "p_two_sided": 0.05,
+     "p_two_sided": 0.04759762011899405,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.07657382285838377,
      "ci95": [
-      0.050398591172493325,
-      0.10674262881818275
+      0.048648634937819055,
+      0.10690188401483733
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.095074732488281,
      "ci95": [
-      0.07533229231489715,
-      0.11711302410079566
+      0.07558820012878546,
+      0.11642873498588886
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.21825092850510674,
      "ci95": [
-      -0.40155898376508053,
-      -0.07298829193769246
+      -0.40454846680565193,
+      -0.0870406261750732
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0004999750012499375
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.10964770080825609,
      "ci95": [
-      -0.26318147265027736,
-      0.020007837366842467
+      -0.27282158970678555,
+      0.004432011113027546
      ],
-     "p_two_sided": 0.092,
-     "p_holm": 1.0
+     "p_two_sided": 0.05949702514874256
     }
    },
    "heights_median": {
@@ -573,7 +567,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-M",
@@ -584,7 +579,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.09258376806974411,
-   "f1": 0.5111106901320401,
    "recall": {
     "human.pedestrian.adult": 0.4269150417827298,
     "human.pedestrian.child": 0.450199203187251,
@@ -596,88 +590,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.40519270434702065,
-     0.4396857243821972
+     0.40554415160770746,
+     0.4395683294779467
     ],
     "human.pedestrian.child": [
-     0.3374587264150944,
-     0.5307581005586592
+     0.3456221198156682,
+     0.5301743312062828
     ],
     "human.pedestrian.construction_worker": [
-     0.29397984842866415,
-     0.36410073297646345
+     0.294210841471003,
+     0.3652284368633338
     ],
     "human.pedestrian.police_officer": [
-     0.5844119363782285,
-     0.8540128410914927
+     0.6,
+     0.8571428571428571
     ],
     "human.pedestrian.child/height_std": [
-     0.4000660046467474,
-     0.5941344001672567
+     0.40818158176026553,
+     0.5927637408013139
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.2764435718701873,
-     0.34158857912252194
+     0.2760640351442134,
+     0.33897050597417133
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.45219776017802715,
-     0.6874805125397841
+     0.4585158888889051,
+     0.68948220388045
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": -0.023284161404521164,
      "ci95": [
-      -0.10541894970372372,
-      0.07890552805642852
+      -0.10297704498345142,
+      0.0721225110561801
      ],
-     "p_two_sided": 0.64,
+     "p_two_sided": 0.6816659167041648,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.08379326213157162,
      "ci95": [
-      -0.17062442498316077,
-      0.017356001411990132
+      -0.16695325211145637,
+      0.010699457559758074
      ],
-     "p_two_sided": 0.098,
+     "p_two_sided": 0.0831958402079896,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.09101513802912059,
      "ci95": [
-      0.0623934247164317,
-      0.12470625829524484
+      0.06133165408695683,
+      0.12412520284294752
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.11350540181162944,
      "ci95": [
-      0.08792001910148199,
-      0.1408646406834055
+      0.08946243049293645,
+      0.14040758303373932
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.2918349582172702,
      "ci95": [
-      -0.4263965697756858,
-      -0.1666284029954593
+      -0.43053735317929687,
+      -0.18050754921780693
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.12986818271762784,
      "ci95": [
-      -0.26452989843576974,
-      -0.03455480483974433
+      -0.26321669100989864,
+      -0.03813372991566159
      ],
-     "p_two_sided": 0.008,
-     "p_holm": 0.448
+     "p_two_sided": 0.0050997450127493625
     }
    },
    "heights_median": {
@@ -685,7 +677,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-X",
@@ -696,7 +689,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.09524652361869812,
-   "f1": 0.5496380268252988,
    "recall": {
     "human.pedestrian.adult": 0.46497214484679666,
     "human.pedestrian.child": 0.47808764940239046,
@@ -708,88 +700,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.44648976035856447,
-     0.47880125820840286
+     0.44740934018027945,
+     0.4788235039974057
     ],
     "human.pedestrian.child": [
-     0.3881438698490412,
-     0.5489539007092199
+     0.3888828238719069,
+     0.551727021104832
     ],
     "human.pedestrian.construction_worker": [
-     0.3306116961763553,
-     0.4005466322197814
+     0.3322771753365813,
+     0.3997143547141585
     ],
     "human.pedestrian.police_officer": [
-     0.6233623832308043,
-     0.8352941176470589
+     0.6292134831460674,
+     0.8360691068400223
     ],
     "human.pedestrian.child/height_std": [
-     0.47156201332801306,
-     0.6051464849946246
+     0.47104503997702596,
+     0.6037613743091
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.3107781159539589,
-     0.3754322959332319
+     0.31168727091719617,
+     0.37436657244942606
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.501860030681263,
-     0.693165573058159
+     0.5019985432267102,
+     0.6981853927805532
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": -0.013115504555593793,
      "ci95": [
-      -0.08327871858364969,
-      0.06890653565536134
+      -0.0845739102038054,
+      0.06928108000534369
      ],
-     "p_two_sided": 0.778,
+     "p_two_sided": 0.8094595270236489,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.07762454932488777,
      "ci95": [
-      -0.1397249571345452,
-      -0.00950870318375548
+      -0.13956383948255163,
+      -0.01071707808188714
      ],
-     "p_two_sided": 0.028,
-     "p_holm": 1.0
+     "p_two_sided": 0.02449877506124694,
+     "p_holm": 0.6369681515924204
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.0973109321422731,
      "ci95": [
-      0.06482773100809092,
-      0.12924300834807703
+      0.06556029112732797,
+      0.12942384084090958
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.1197350876985695,
      "ci95": [
-      0.08979083623072207,
-      0.14601720552673983
+      0.09139404320669843,
+      0.14783275441005023
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.2746111884865367,
      "ci95": [
-      -0.37062944963883165,
-      -0.16177726328047187
+      -0.3716555873288334,
+      -0.1682421741468193
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.13680209903039714,
      "ci95": [
-      -0.22984899102412526,
-      -0.03821991920244101
+      -0.23350102360763061,
+      -0.04012939437928287
      ],
-     "p_two_sided": 0.014,
-     "p_holm": 0.742
+     "p_two_sided": 0.012199390030498474
     }
    },
    "heights_median": {
@@ -797,7 +787,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "D-FINE-N",
@@ -808,100 +799,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3697904944419861,
-   "f1": 0.3626940865543442,
    "recall": {
     "human.pedestrian.adult": 0.27782033426183844,
     "human.pedestrian.child": 0.23107569721115537,
     "human.pedestrian.construction_worker": 0.22425409047160733,
     "human.pedestrian.police_officer": 0.4895833333333333,
     "human.pedestrian.child/height_std": 0.2725338598716214,
-    "human.pedestrian.construction_worker/height_std": 0.20803388076761545,
-    "human.pedestrian.police_officer/height_std": 0.38229146688585475
+    "human.pedestrian.construction_worker/height_std": 0.20803388076761542,
+    "human.pedestrian.police_officer/height_std": 0.3822914668858548
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.2667113660722098,
-     0.2963235008279025
+     0.2668227731433256,
+     0.29591484306792637
     ],
     "human.pedestrian.child": [
-     0.16666666666666666,
-     0.28916175339656497
+     0.17261904761904762,
+     0.28994082840236685
     ],
     "human.pedestrian.construction_worker": [
-     0.19556540963931526,
-     0.2550424787160137
+     0.19671003510799898,
+     0.25385266498967596
     ],
     "human.pedestrian.police_officer": [
-     0.37978279947345334,
-     0.6400447761194029
+     0.3795620437956204,
+     0.6491228070175439
     ],
     "human.pedestrian.child/height_std": [
-     0.2074183895225851,
-     0.34652264676141226
+     0.20744449115181948,
+     0.3457088323099546
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.18320110792221408,
-     0.2347960308929859
+     0.18461915038046114,
+     0.23371261040776523
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.2773769206331708,
-     0.5301930306956807
+     0.27920779303678905,
+     0.5327826835128417
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.046744637050683074,
      "ci95": [
-      -0.00862647997866434,
-      0.10803916737213042
+      -0.008661415119744565,
+      0.10600839613803847
      ],
-     "p_two_sided": 0.098,
+     "p_two_sided": 0.09349532523373831,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.005286474390217066,
      "ci95": [
-      -0.06710852570740188,
-      0.07224509179969017
+      -0.06598288577708926,
+      0.07097599802346374
      ],
-     "p_two_sided": 0.84,
+     "p_two_sided": 0.8670566471676416,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.053566243790231116,
      "ci95": [
-      0.025745272689884743,
-      0.08515105728613913
+      0.026125130844725442,
+      0.08365368354443534
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0004999750012499375,
+     "p_holm": 0.01399930003499825
     },
     "human.pedestrian.construction_worker/height_std": {
-     "gap": 0.069786453494223,
+     "gap": 0.06978645349422302,
      "ci95": [
-      0.046281910500133715,
-      0.09563367552501169
+      0.047264240699107694,
+      0.09430456140837869
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.21176299907149487,
      "ci95": [
-      -0.3628376102294075,
-      -0.10177492811141937
+      -0.3647552016060507,
+      -0.10160887461007058
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.000199990000499975
     },
     "human.pedestrian.police_officer/height_std": {
-     "gap": -0.1044711326240163,
+     "gap": -0.10447113262401636,
      "ci95": [
-      -0.24185460053829574,
-      -5.404413681832352e-05
+      -0.24934874457165251,
+      -0.0010908415626493231
      ],
-     "p_two_sided": 0.05,
-     "p_holm": 1.0
+     "p_two_sided": 0.04699765011749413
     }
    },
    "heights_median": {
@@ -909,7 +897,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "D-FINE-M",
@@ -920,7 +909,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3694290220737457,
-   "f1": 0.45333386220300664,
    "recall": {
     "human.pedestrian.adult": 0.36142061281337046,
     "human.pedestrian.child": 0.3147410358565737,
@@ -932,88 +920,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.34629447684746156,
-     0.37937356141089346
+     0.3467641568765296,
+     0.37979244953338254
     ],
     "human.pedestrian.child": [
-     0.25183358246138515,
-     0.3950617283950617
+     0.25116279069767444,
+     0.3898305084745763
     ],
     "human.pedestrian.construction_worker": [
-     0.2578497787825859,
-     0.3273572167742571
+     0.25856695576826305,
+     0.3262469871216791
     ],
     "human.pedestrian.police_officer": [
-     0.5238095238095238,
-     0.7533811016569636
+     0.5384615384615384,
+     0.7592592592592593
     ],
     "human.pedestrian.child/height_std": [
-     0.3065587034533359,
-     0.46053906888313545
+     0.30670175782347286,
+     0.45420095568195196
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.24351301257327543,
-     0.30170610789760804
+     0.2445261097871129,
+     0.30135212155059554
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.3979574829538783,
-     0.6515295481406965
+     0.40306500530937656,
+     0.6528392031890005
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.04667957695679675,
      "ci95": [
-      -0.02491643280743993,
-      0.10685699239713742
+      -0.023534431844082545,
+      0.1073682644184528
      ],
-     "p_two_sided": 0.188,
+     "p_two_sided": 0.17079146042697865,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
      "gap": -0.007935534935673227,
      "ci95": [
-      -0.09356967103896884,
-      0.050567658352097915
+      -0.08897551816149737,
+      0.05259816615209975
      ],
-     "p_two_sided": 0.82,
+     "p_two_sided": 0.8131593420328983,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.06979404880952061,
      "ci95": [
-      0.03839246298079059,
-      0.10162306211128118
+      0.038921304009348325,
+      0.10235542991264035
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.08883505109922551,
      "ci95": [
-      0.065035092491447,
-      0.11481891060612066
+      0.06484689202915943,
+      0.1151658127897081
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.2739960538532962,
      "ci95": [
-      -0.39406161659096434,
-      -0.16819239072576486
+      -0.39451125809613935,
+      -0.17737708589214937
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.12532471041295645,
      "ci95": [
-      -0.2819767974480052,
-      -0.03688651514725651
+      -0.28394651456532394,
+      -0.042617406772380476
      ],
-     "p_two_sided": 0.006,
-     "p_holm": 0.342
+     "p_two_sided": 0.006999650017499125
     }
    },
    "heights_median": {
@@ -1021,7 +1007,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "D-FINE-X",
@@ -1032,100 +1019,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3961724638938904,
-   "f1": 0.48164244557629154,
    "recall": {
     "human.pedestrian.adult": 0.38736072423398327,
     "human.pedestrian.child": 0.3665338645418327,
     "human.pedestrian.construction_worker": 0.30991337824831566,
     "human.pedestrian.police_officer": 0.65625,
-    "human.pedestrian.child/height_std": 0.42790272830366655,
+    "human.pedestrian.child/height_std": 0.4279027283036666,
     "human.pedestrian.construction_worker/height_std": 0.2901657714641682,
     "human.pedestrian.police_officer/height_std": 0.5397863296649771
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.37325698793762957,
-     0.4008417947664828
+     0.37306857550502254,
+     0.4008775210424815
     ],
     "human.pedestrian.child": [
-     0.2821750444275197,
-     0.44090994032190006
+     0.28278617863199546,
+     0.4412701237078461
     ],
     "human.pedestrian.construction_worker": [
-     0.26962847173053595,
-     0.3451474304175532
+     0.27067438745957856,
+     0.3457844819833959
     ],
     "human.pedestrian.police_officer": [
-     0.5312430862831858,
-     0.7777777777777778
+     0.5478260869565217,
+     0.7831325301204819
     ],
     "human.pedestrian.child/height_std": [
-     0.3501103435756545,
-     0.5031839001244883
+     0.35285179167462444,
+     0.5053298341440939
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.2587221947947417,
-     0.320083874757066
+     0.2590914857082825,
+     0.31976260157546
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.41050113804057475,
-     0.6976229559597857
+     0.42065965196201327,
+     0.70464020611906
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.02082685969215059,
      "ci95": [
-      -0.05467225147855325,
-      0.10079552306893767
+      -0.05216803708316702,
+      0.1022766089286128
      ],
-     "p_two_sided": 0.592,
+     "p_two_sided": 0.5779711014449278,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
-     "gap": -0.04054200406968328,
+     "gap": -0.040542004069683335,
      "ci95": [
-      -0.11716241203511299,
-      0.031610726152368956
+      -0.11658615442847745,
+      0.03058719175937225
      ],
-     "p_two_sided": 0.274,
+     "p_two_sided": 0.27698615069246535,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.0774473459856676,
      "ci95": [
-      0.04174705477187403,
-      0.11762823310521739
+      0.04154740651404136,
+      0.11632690207911943
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.09719495276981505,
      "ci95": [
-      0.06883723706591723,
-      0.12728056693312179
+      0.06827871358374352,
+      0.12596490346578362
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.26888927576601673,
      "ci95": [
-      -0.39382089274778137,
-      -0.14878689150913116
+      -0.39503573193170344,
+      -0.16364748321544373
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.15242560543099382,
      "ci95": [
-      -0.30780035102376413,
-      -0.028161299041483037
+      -0.3172637330141274,
+      -0.0356457588761184
      ],
-     "p_two_sided": 0.016,
-     "p_holm": 0.8320000000000001
+     "p_two_sided": 0.004699765011749413
     }
    },
    "heights_median": {
@@ -1133,7 +1117,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "Grounding DINO-T",
@@ -1144,100 +1129,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.37368592619895935,
-   "f1": 0.4690085613977457,
    "recall": {
     "human.pedestrian.adult": 0.36403203342618384,
     "human.pedestrian.child": 0.32270916334661354,
     "human.pedestrian.construction_worker": 0.26499839589348734,
     "human.pedestrian.police_officer": 0.625,
-    "human.pedestrian.child/height_std": 0.38096578635439277,
-    "human.pedestrian.construction_worker/height_std": 0.2480713836397981,
+    "human.pedestrian.child/height_std": 0.3809657863543928,
+    "human.pedestrian.construction_worker/height_std": 0.24807138363979814,
     "human.pedestrian.police_officer/height_std": 0.4568593695298111
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.34816835697598153,
-     0.38270994923885404
+     0.34836614438556335,
+     0.38231301096498654
     ],
     "human.pedestrian.child": [
-     0.2460228208930631,
-     0.39656100795755966
+     0.2458088722658839,
+     0.39712952836637044
     ],
     "human.pedestrian.construction_worker": [
-     0.23320699904283723,
-     0.2980843130878116
+     0.23426958182784172,
+     0.2977127989385689
     ],
     "human.pedestrian.police_officer": [
-     0.5180515164104695,
-     0.7258431085043988
+     0.5172413793103449,
+     0.723817733990147
     ],
     "human.pedestrian.child/height_std": [
-     0.29731565817070593,
-     0.4565852886076256
+     0.30219172870542976,
+     0.458089681126909
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.21967320129575868,
-     0.2785313863976931
+     0.22174407111422803,
+     0.27733399355261906
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.38751910993298183,
-     0.5495672109447756
+     0.38732121142091586,
+     0.554805329303557
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.041322870079570306,
      "ci95": [
-      -0.02493994930411637,
-      0.11146272116922112
+      -0.026111296511195276,
+      0.11334217285125862
      ],
-     "p_two_sided": 0.19,
+     "p_two_sided": 0.19019049047547623,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
-     "gap": -0.016933752928208923,
+     "gap": -0.016933752928208978,
      "ci95": [
-      -0.08818013172271426,
-      0.057472978982172754
+      -0.08678121534049298,
+      0.055248156057571225
      ],
-     "p_two_sided": 0.736,
+     "p_two_sided": 0.7458627068646567,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.0990336375326965,
      "ci95": [
-      0.06815315841352274,
-      0.1311406090796674
+      0.06702359990477377,
+      0.13206022978186405
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
-     "gap": 0.11596064978638573,
+     "gap": 0.1159606497863857,
      "ci95": [
-      0.08939034596038725,
-      0.14237412509617667
+      0.08855749052677166,
+      0.14285643393389666
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.26096796657381616,
      "ci95": [
-      -0.3512120872791564,
-      -0.1565695604615748
+      -0.3525474219636838,
+      -0.15620193158216672
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.09282733610362726,
      "ci95": [
-      -0.18113485186892833,
-      -0.026436875351719857
+      -0.18451684411934569,
+      -0.025946442012679136
      ],
-     "p_two_sided": 0.004,
-     "p_holm": 0.232
+     "p_two_sided": 0.0073996300184990755
     }
    },
    "heights_median": {
@@ -1245,7 +1227,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "MM-GDINO-T",
@@ -1256,100 +1239,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.309086412191391,
-   "f1": 0.4532283964777921,
    "recall": {
     "human.pedestrian.adult": 0.41243036211699163,
     "human.pedestrian.child": 0.38247011952191234,
     "human.pedestrian.construction_worker": 0.2701315367340391,
     "human.pedestrian.police_officer": 0.6145833333333334,
-    "human.pedestrian.child/height_std": 0.4406107843843093,
+    "human.pedestrian.child/height_std": 0.44061078438430934,
     "human.pedestrian.construction_worker/height_std": 0.25557258998770505,
     "human.pedestrian.police_officer/height_std": 0.45917336408055165
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.38967504936920416,
-     0.4274002646939557
+     0.390032161355038,
+     0.4278359882472695
     ],
     "human.pedestrian.child": [
-     0.2962698412698413,
-     0.4649288179465056
+     0.2966507177033493,
+     0.4644577751240808
     ],
     "human.pedestrian.construction_worker": [
-     0.238336057845804,
-     0.3041985526579172
+     0.23703626703626707,
+     0.3026953863118061
     ],
     "human.pedestrian.police_officer": [
-     0.4716913746630728,
-     0.7462739121294935
+     0.4805064935064937,
+     0.7368532560214085
     ],
     "human.pedestrian.child/height_std": [
-     0.3587228443281765,
-     0.5228429115329132
+     0.35560465108563505,
+     0.5250753076572302
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.2240611600116428,
-     0.2874704908418685
+     0.22382653003463185,
+     0.28623988002146505
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.3530096052395682,
-     0.593227712825172
+     0.3597439351123498,
+     0.589102536208659
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.02996024259507929,
      "ci95": [
-      -0.04416249447076573,
-      0.10764104085335055
+      -0.04529834925860705,
+      0.10810877500248217
      ],
-     "p_two_sided": 0.386,
+     "p_two_sided": 0.4006799660016999,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
-     "gap": -0.02818042226731765,
+     "gap": -0.028180422267317706,
      "ci95": [
-      -0.10555702701209711,
-      0.047346248619640784
+      -0.10685039331780696,
+      0.04895737096574514
      ],
-     "p_two_sided": 0.462,
+     "p_two_sided": 0.48037598120093994,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.14229882538295252,
      "ci95": [
-      0.11017897543072608,
-      0.172099329661813
+      0.1107714034862944,
+      0.17265825986415154
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.1568577721292866,
      "ci95": [
-      0.12685948850882242,
-      0.1855810554834667
+      0.12723406318422062,
+      0.1853738176989809
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.20215297121634174,
      "ci95": [
-      -0.3278641593941585,
-      -0.06366521462491524
+      -0.3218588401252113,
+      -0.07122326455147444
      ],
-     "p_two_sided": 0.01,
-     "p_holm": 0.55
+     "p_two_sided": 0.0026998650067496625
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.046743001963560016,
      "ci95": [
-      -0.17459937327651884,
-      0.05942720361198839
+      -0.17272332113676678,
+      0.049927691865676346
      ],
-     "p_two_sided": 0.37,
-     "p_holm": 1.0
+     "p_two_sided": 0.37788110594470276
     }
    },
    "heights_median": {
@@ -1357,7 +1337,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "LLMDet-T",
@@ -1368,100 +1349,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.3474999666213989,
-   "f1": 0.5049399724463688,
    "recall": {
     "human.pedestrian.adult": 0.4072075208913649,
     "human.pedestrian.child": 0.3904382470119522,
     "human.pedestrian.construction_worker": 0.31055502085338466,
     "human.pedestrian.police_officer": 0.6979166666666666,
-    "human.pedestrian.child/height_std": 0.4522256752697987,
-    "human.pedestrian.construction_worker/height_std": 0.29265132226871887,
+    "human.pedestrian.child/height_std": 0.45222567526979873,
+    "human.pedestrian.construction_worker/height_std": 0.2926513222687188,
     "human.pedestrian.police_officer/height_std": 0.6042993211257743
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.3921076707245311,
-     0.4191082915852445
+     0.39161903002647386,
+     0.41949846192035645
     ],
     "human.pedestrian.child": [
-     0.3163077116092339,
-     0.4510775566231983
+     0.31343111630786163,
+     0.45564516129032256
     ],
     "human.pedestrian.construction_worker": [
-     0.2748677325581395,
-     0.34625439448097317
+     0.2735845287842882,
+     0.3456708766903681
     ],
     "human.pedestrian.police_officer": [
-     0.5565835051546393,
-     0.7938144329896907
+     0.5673076923076923,
+     0.7978723404255319
     ],
     "human.pedestrian.child/height_std": [
-     0.3859613635482177,
-     0.5162192770459836
+     0.384377433076735,
+     0.5141394524822809
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.26142113674827433,
-     0.3257021963717296
+     0.26157806092195607,
+     0.3241303795594642
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.4973215145287313,
-     0.739378606502956
+     0.4982091846701167,
+     0.7500449614838741
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.01676927387941274,
      "ci95": [
-      -0.041898876787485814,
-      0.08456867264729638
+      -0.04585727753267768,
+      0.08702277219733329
      ],
-     "p_two_sided": 0.594,
+     "p_two_sided": 0.575971201439928,
      "p_holm": 1.0
     },
     "human.pedestrian.child/height_std": {
-     "gap": -0.04501815437843376,
+     "gap": -0.04501815437843382,
      "ci95": [
-      -0.10988555923340135,
-      0.015607193687763836
+      -0.1052430912210355,
+      0.01650651781419799
      ],
-     "p_two_sided": 0.16,
+     "p_two_sided": 0.1478926053697315,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.09665250003798026,
      "ci95": [
-      0.06284945623981465,
-      0.1317206670603719
+      0.06127936261564427,
+      0.1309207044505024
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.construction_worker/height_std": {
-     "gap": 0.11455619862264604,
+     "gap": 0.1145561986226461,
      "ci95": [
-      0.08430903578282314,
-      0.1426683910930076
+      0.08377435889597638,
+      0.14153420019152768
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.005199740012999349
     },
     "human.pedestrian.police_officer": {
      "gap": -0.2907091457753017,
      "ci95": [
-      -0.38762143073408234,
-      -0.1570194029710128
+      -0.39273364602218713,
+      -0.16288376543892127
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.19709180023440942,
      "ci95": [
-      -0.33313832914639746,
-      -0.0926407709158948
+      -0.3437006588749892,
+      -0.09293900129208825
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0004999750012499375
     }
    },
    "heights_median": {
@@ -1469,7 +1447,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-M fine-tuned (seed 0)",
@@ -1480,100 +1459,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.0017940880497917533,
-   "f1": 0.16584183415816584,
    "recall": {
     "human.pedestrian.adult": 0.1099233983286908,
     "human.pedestrian.child": 0.0796812749003984,
     "human.pedestrian.construction_worker": 0.02823227462303497,
     "human.pedestrian.police_officer": 0.19791666666666666,
-    "human.pedestrian.child/height_std": 0.10211118746754512,
+    "human.pedestrian.child/height_std": 0.10211118746754513,
     "human.pedestrian.construction_worker/height_std": 0.024982059016627166,
     "human.pedestrian.police_officer/height_std": 0.13313381889584
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.09973320138875105,
-     0.12077399802373912
+     0.09902828584975311,
+     0.12044566285018495
     ],
     "human.pedestrian.child": [
-     0.04563843832516032,
-     0.11113116726835136
+     0.045454545454545456,
+     0.11151112567195312
     ],
     "human.pedestrian.construction_worker": [
-     0.018804418076411273,
-     0.04041807720295328
+     0.018944471798803524,
+     0.03959515373758778
     ],
     "human.pedestrian.police_officer": [
-     0.0918135435992579,
-     0.33342696629213475
+     0.09701492537313433,
+     0.33695652173913043
     ],
     "human.pedestrian.child/height_std": [
-     0.06544419336441941,
-     0.14255809682210413
+     0.06520274919329289,
+     0.14067659321349882
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.0163498895223995,
-     0.03659493314896004
+     0.016675035169508315,
+     0.03575668594605208
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.06384593656874173,
-     0.23502756622230053
+     0.06428274689821226,
+     0.23465602909440625
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.030242123428292397,
      "ci95": [
-      -0.0014042469957757375,
-      0.062241425051574734
+      -0.002056045586268767,
+      0.06349568768305515
      ],
-     "p_two_sided": 0.058,
-     "p_holm": 1.0
+     "p_two_sided": 0.06589670516474176,
+     "p_holm": 0.5271736413179341
     },
     "human.pedestrian.child/height_std": {
-     "gap": 0.0078122108611456825,
+     "gap": 0.007812210861145669,
      "ci95": [
-      -0.032305809161066006,
-      0.04488939131752308
+      -0.03160594666744409,
+      0.04443789083009221
      ],
-     "p_two_sided": 0.676,
+     "p_two_sided": 0.6847657617119144,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.08169112370565583,
      "ci95": [
-      0.06829413952147118,
-      0.0945929804626107
+      0.06803537006990903,
+      0.09434066297747555
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.08494133931206363,
      "ci95": [
-      0.07248208285264585,
-      0.0968716584087411
+      0.07198111450320685,
+      0.09656561714526272
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.08799326833797586,
      "ci95": [
-      -0.22481548706305998,
-      0.016601374506811595
+      -0.22277672813845076,
+      0.009339300297104948
      ],
-     "p_two_sided": 0.106,
-     "p_holm": 1.0
+     "p_two_sided": 0.08299585020748962
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.023210420567149198,
      "ci95": [
-      -0.12154776070115014,
-      0.04398413558776069
+      -0.12151962450130883,
+      0.04254720576167841
      ],
-     "p_two_sided": 0.55,
-     "p_holm": 1.0
+     "p_two_sided": 0.48207589620518976
     }
    },
    "heights_median": {
@@ -1581,7 +1557,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-M fine-tuned (seed 1)",
@@ -1592,7 +1569,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.0021762694232165813,
-   "f1": 0.15910769309124245,
    "recall": {
     "human.pedestrian.adult": 0.10550139275766017,
     "human.pedestrian.child": 0.06772908366533864,
@@ -1604,88 +1580,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.09756261827198418,
-     0.11668406445125742
+     0.09696570246110153,
+     0.11670295686212177
     ],
     "human.pedestrian.child": [
-     0.03317014738815687,
-     0.10577098540145985
+     0.034334763948497854,
+     0.10239032714559217
     ],
     "human.pedestrian.construction_worker": [
-     0.012859650489470548,
-     0.031128926362348385
+     0.013175067909367429,
+     0.031364218103204174
     ],
     "human.pedestrian.police_officer": [
-     0.05404678872420809,
-     0.24593387364155458
+     0.06306306306306306,
+     0.2463768115942029
     ],
     "human.pedestrian.child/height_std": [
-     0.04585917530720271,
-     0.13078521037827578
+     0.04751155949014182,
+     0.13060066951826468
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.011367243273961592,
-     0.02797668587978117
+     0.011700672663994003,
+     0.02809883972427302
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.03630453608269754,
-     0.17070468136130998
+     0.039915784738872105,
+     0.1726700637552906
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.03777230909232153,
      "ci95": [
-      0.002923648280754159,
-      0.07234343539137778
+      0.00441486748345116,
+      0.07107922147446517
      ],
-     "p_two_sided": 0.032,
-     "p_holm": 1.0
+     "p_two_sided": 0.028198590070496476,
+     "p_holm": 0.2537873106344683
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.017889548244359066,
      "ci95": [
-      -0.02377739940141864,
-      0.05683712553224537
+      -0.02455918516231701,
+      0.05815321048305805
      ],
-     "p_two_sided": 0.398,
+     "p_two_sided": 0.36268186590670465,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.08496882939545292,
      "ci95": [
-      0.07370577106212184,
-      0.09742947633294327
+      0.07232855087916921,
+      0.09807231369798668
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.08731296181749096,
      "ci95": [
-      0.07674560701639684,
-      0.09931220111877571
+      0.07564320582963793,
+      0.0995724147741059
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.029915273909006487,
      "ci95": [
-      -0.14101326566237163,
-      0.05141420682425308
+      -0.1391909487982575,
+      0.043781089172333795
      ],
-     "p_two_sided": 0.502,
-     "p_holm": 1.0
+     "p_two_sided": 0.43397830108494573
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": 0.014833515990075652,
      "ci95": [
-      -0.06544934131620184,
-      0.07069171344646685
+      -0.06538427807500925,
+      0.06690286044005817
      ],
-     "p_two_sided": 0.7,
-     "p_holm": 1.0
+     "p_two_sided": 0.735663216839158
     }
    },
    "heights_median": {
@@ -1693,7 +1667,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "YOLO11-M fine-tuned (seed 2)",
@@ -1704,7 +1679,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.004001705441623926,
-   "f1": 0.16678775298391282,
    "recall": {
     "human.pedestrian.adult": 0.108008356545961,
     "human.pedestrian.child": 0.07569721115537849,
@@ -1712,92 +1686,90 @@
     "human.pedestrian.police_officer": 0.14583333333333334,
     "human.pedestrian.child/height_std": 0.09688886592761248,
     "human.pedestrian.construction_worker/height_std": 0.022400656580323558,
-    "human.pedestrian.police_officer/height_std": 0.10445385634047218
+    "human.pedestrian.police_officer/height_std": 0.10445385634047216
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.09862103290794282,
-     0.11873195684113735
+     0.09776478829506904,
+     0.11972160876092401
     ],
     "human.pedestrian.child": [
-     0.0331893210523916,
-     0.11703270743156739
+     0.035353089195845386,
+     0.11711711711711711
     ],
     "human.pedestrian.construction_worker": [
-     0.017334716095437117,
-     0.0372408713309641
+     0.01750307219302273,
+     0.036512520107620246
     ],
     "human.pedestrian.police_officer": [
-     0.06451612903225806,
-     0.25
+     0.07058634992458525,
+     0.25396825396825395
     ],
     "human.pedestrian.child/height_std": [
-     0.04697891654979481,
-     0.14831480878659933
+     0.04897217437744065,
+     0.14985373528610002
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.015439378117919301,
-     0.03375871876930956
+     0.015540408568063869,
+     0.032654822465645224
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.04716136981940781,
-     0.18489350780766628
+     0.04981640408714509,
+     0.19012422307178017
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.03231114539058251,
      "ci95": [
-      -0.004635693560601088,
-      0.07155301606450733
+      -0.00631346919354828,
+      0.06978776214462457
      ],
-     "p_two_sided": 0.104,
-     "p_holm": 1.0
+     "p_two_sided": 0.09639518024098795,
+     "p_holm": 0.6747662616869157
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.011119490618348521,
      "ci95": [
-      -0.03886486508397932,
-      0.05611748140163697
+      -0.04036612508292327,
+      0.05576633770817852
      ],
-     "p_two_sided": 0.68,
+     "p_two_sided": 0.6538673066346683,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.08266347364573642,
      "ci95": [
-      0.06852680698375849,
-      0.09565447187063728
+      0.06843813643979567,
+      0.09607383215051897
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.08560769996563744,
      "ci95": [
-      0.07249709199306541,
-      0.0976247713893855
+      0.07251308372247517,
+      0.09799612940650433
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.037824976787372344,
      "ci95": [
-      -0.13720070167849172,
-      0.04517823004615435
+      -0.14370913918210051,
+      0.03629945448238968
      ],
-     "p_two_sided": 0.404,
-     "p_holm": 1.0
+     "p_two_sided": 0.33548322583870804
     },
     "human.pedestrian.police_officer/height_std": {
-     "gap": 0.0035545002054888225,
+     "gap": 0.0035545002054888364,
      "ci95": [
-      -0.07548426948062283,
-      0.06002104447575725
+      -0.07841962420148531,
+      0.05770355134659121
      ],
-     "p_two_sided": 0.962,
-     "p_holm": 1.0
+     "p_two_sided": 0.9888505574721264
     }
    },
    "heights_median": {
@@ -1805,7 +1777,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "Faster R-CNN v2 fine-tuned (seed 0)",
@@ -1816,100 +1789,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.012044339440762997,
-   "f1": 0.4696960278485734,
    "recall": {
     "human.pedestrian.adult": 0.3620125348189415,
     "human.pedestrian.child": 0.2788844621513944,
     "human.pedestrian.construction_worker": 0.25826114854026305,
     "human.pedestrian.police_officer": 0.6458333333333334,
     "human.pedestrian.child/height_std": 0.33753696168192104,
-    "human.pedestrian.construction_worker/height_std": 0.2355378017770515,
+    "human.pedestrian.construction_worker/height_std": 0.23553780177705147,
     "human.pedestrian.police_officer/height_std": 0.4924813157374005
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.34407614269056147,
-     0.3761310656944988
+     0.34358564766716343,
+     0.37498224621413784
     ],
     "human.pedestrian.child": [
-     0.21133839117177292,
-     0.33663533019968667
+     0.2070278825431035,
+     0.3333333333333333
     ],
     "human.pedestrian.construction_worker": [
-     0.22662917981681277,
-     0.2837962024179562
+     0.22787664299167623,
+     0.28396205660462365
     ],
     "human.pedestrian.police_officer": [
-     0.4888888888888889,
-     0.8243773732410096
+     0.5,
+     0.8333333333333334
     ],
     "human.pedestrian.child/height_std": [
-     0.2695335389508923,
-     0.3982164914998155
+     0.2654460484503412,
+     0.3985259777015863
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.20901185762415692,
-     0.2592169823108008
+     0.21048473402859122,
+     0.25698455104415174
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.36499072612579175,
-     0.6505423554891858
+     0.37531290906061904,
+     0.65923759562006
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.08312807266754713,
      "ci95": [
-      0.026731875798523506,
-      0.1453221831753477
+      0.02987189935444594,
+      0.14646762232702548
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0018999050047497626,
+     "p_holm": 0.018999050047497627
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.02447557313702048,
      "ci95": [
-      -0.039602083631361994,
-      0.08476970934267866
+      -0.03764525860106645,
+      0.08802372865128315
      ],
-     "p_two_sided": 0.498,
+     "p_two_sided": 0.47017649117544125,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.10375138627867847,
      "ci95": [
-      0.07619480299228512,
-      0.13355268122437064
+      0.07510976843173174,
+      0.13256550478738854
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
-     "gap": 0.12647473304189003,
+     "gap": 0.12647473304189005,
      "ci95": [
-      0.10208874412666655,
-      0.1490064219843789
+      0.10239864842593835,
+      0.14860003869763946
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.28382079851439185,
      "ci95": [
-      -0.4617959101971469,
-      -0.12656933949426177
+      -0.47169829229856775,
+      -0.1455750979549468
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.13046878091845898,
      "ci95": [
-      -0.28573238478103785,
-      -0.006424305919756692
+      -0.2955963269426229,
+      -0.01908855909882737
      ],
-     "p_two_sided": 0.034,
-     "p_holm": 1.0
+     "p_two_sided": 0.020998950052497377
     }
    },
    "heights_median": {
@@ -1917,7 +1887,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "Faster R-CNN v2 fine-tuned (seed 1)",
@@ -1928,7 +1899,6 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.011201241053640842,
-   "f1": 0.4681334218813599,
    "recall": {
     "human.pedestrian.adult": 0.34958217270194986,
     "human.pedestrian.child": 0.24302788844621515,
@@ -1940,88 +1910,86 @@
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.3329114380517947,
-     0.36624249330005354
+     0.33219609154715457,
+     0.36587592671778113
     ],
     "human.pedestrian.child": [
-     0.1737050401583052,
-     0.30303328561202575
+     0.1722213024282561,
+     0.30094201151172656
     ],
     "human.pedestrian.construction_worker": [
-     0.2207126794143874,
-     0.26986501228893706
+     0.22047118003429678,
+     0.27048160395338205
     ],
     "human.pedestrian.police_officer": [
-     0.47926013380558846,
-     0.7916801948051948
+     0.4927536231884058,
+     0.8
     ],
     "human.pedestrian.child/height_std": [
-     0.2265037641000732,
-     0.3661382613214161
+     0.2266217697127371,
+     0.36565773745082386
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.20254468349080856,
-     0.24747508024315948
+     0.20311360751006063,
+     0.2456000810340473
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.34470038317250323,
-     0.6215341745562709
+     0.3594593244486497,
+     0.6379160080366755
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.10655428425573471,
      "ci95": [
-      0.05249618427265402,
-      0.16773890271207814
+      0.052241729915995225,
+      0.1706808690101304
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 0.0002999850007499625,
+     "p_holm": 0.00359982000899955
     },
     "human.pedestrian.child/height_std": {
      "gap": 0.04853488374936721,
      "ci95": [
-      -0.019539068527054886,
-      0.11064914389060011
+      -0.0166006712862213,
+      0.11598726266062963
      ],
-     "p_two_sided": 0.162,
-     "p_holm": 1.0
+     "p_two_sided": 0.15149242537873106,
+     "p_holm": 0.9089545522723863
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.10415387626306633,
      "ci95": [
-      0.07894441051162775,
-      0.13034824385521912
+      0.07736548430654394,
+      0.1303454146239928
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.12621607080473987,
      "ci95": [
-      0.10139920920614995,
-      0.14634461991932682
+      0.10327189801193579,
+      0.14616825438261016
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.27541782729805014,
      "ci95": [
-      -0.4309817493872952,
-      -0.13276899117487503
+      -0.44750198314449086,
+      -0.1476810584563994
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
      "gap": -0.12337717095148942,
      "ci95": [
-      -0.2637746458800865,
-      0.002984305123672747
+      -0.28339805740759905,
+      -0.015137833851132551
      ],
-     "p_two_sided": 0.052,
-     "p_holm": 1.0
+     "p_two_sided": 0.026598670066496674
     }
    },
    "heights_median": {
@@ -2029,7 +1997,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   },
   {
    "model": "Faster R-CNN v2 fine-tuned (seed 2)",
@@ -2040,100 +2009,97 @@
     "human.pedestrian.police_officer": 96
    },
    "threshold": 0.011145870201289654,
-   "f1": 0.46933085501858735,
    "recall": {
     "human.pedestrian.adult": 0.35557103064066853,
     "human.pedestrian.child": 0.26294820717131473,
     "human.pedestrian.construction_worker": 0.24639076034648702,
     "human.pedestrian.police_officer": 0.6666666666666666,
-    "human.pedestrian.child/height_std": 0.3236560316555841,
+    "human.pedestrian.child/height_std": 0.32365603165558415,
     "human.pedestrian.construction_worker/height_std": 0.22424846359559333,
-    "human.pedestrian.police_officer/height_std": 0.48785332663591946
+    "human.pedestrian.police_officer/height_std": 0.4878533266359195
    },
    "ci95": {
     "human.pedestrian.adult": [
-     0.33833859491031115,
-     0.3733791032905389
+     0.3382615207600613,
+     0.37271352539435776
     ],
     "human.pedestrian.child": [
-     0.1943454524140472,
-     0.3261030994403788
+     0.19339622641509435,
+     0.3211009174311927
     ],
     "human.pedestrian.construction_worker": [
-     0.21683749687968887,
-     0.275547720835337
+     0.21797529977898206,
+     0.27604345001340064
     ],
     "human.pedestrian.police_officer": [
-     0.5425028752156412,
-     0.7777777777777778
+     0.5568181818181818,
+     0.7857142857142857
     ],
     "human.pedestrian.child/height_std": [
-     0.251297844791536,
-     0.3850997073628037
+     0.25007693591915015,
+     0.3848939064215264
     ],
     "human.pedestrian.construction_worker/height_std": [
-     0.19964755633766254,
-     0.25102976681052686
+     0.20061352524944936,
+     0.24961292256287554
     ],
     "human.pedestrian.police_officer/height_std": [
-     0.4020145078896967,
-     0.5958295943091693
+     0.40557153110990024,
+     0.609343891117181
     ]
    },
    "gap_vs_adult": {
     "human.pedestrian.child": {
      "gap": 0.0926228234693538,
      "ci95": [
-      0.03464418124083521,
-      0.15301099699049145
+      0.037877675258096107,
+      0.15525687853906964
      ],
-     "p_two_sided": 0.002,
-     "p_holm": 0.12
+     "p_two_sided": 0.0006999650017499125,
+     "p_holm": 0.007699615019249037
     },
     "human.pedestrian.child/height_std": {
-     "gap": 0.03191499898508443,
+     "gap": 0.031914998985084375,
      "ci95": [
-      -0.029534880546642224,
-      0.09432279642606727
+      -0.030071401053093208,
+      0.09876070626831367
      ],
-     "p_two_sided": 0.398,
+     "p_two_sided": 0.3674816259187041,
      "p_holm": 1.0
     },
     "human.pedestrian.construction_worker": {
      "gap": 0.10918027029418151,
      "ci95": [
-      0.08040272522562657,
-      0.13943557859923675
+      0.07873797128733427,
+      0.1391066285131976
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.construction_worker/height_std": {
      "gap": 0.1313225670450752,
      "ci95": [
-      0.10444554220416644,
-      0.1562068727590382
+      0.10558963803368307,
+      0.15561454652486106
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05,
+     "p_holm": 0.0023998800059997
     },
     "human.pedestrian.police_officer": {
      "gap": -0.3110956360259981,
      "ci95": [
-      -0.4196222554221182,
-      -0.19481111836803663
+      -0.4270570691822459,
+      -0.20663151650168562
      ],
-     "p_two_sided": 0.0,
-     "p_holm": 0.0
+     "p_two_sided": 9.99950002499875e-05
     },
     "human.pedestrian.police_officer/height_std": {
-     "gap": -0.13228229599525093,
+     "gap": -0.132282295995251,
      "ci95": [
-      -0.2389018429275624,
-      -0.048214638893596104
+      -0.2488860939134885,
+      -0.05350645910946092
      ],
-     "p_two_sided": 0.002,
-     "p_holm": 0.12
+     "p_two_sided": 0.0023998800059997
     }
    },
    "heights_median": {
@@ -2141,7 +2107,8 @@
     "human.pedestrian.child": 52.0,
     "human.pedestrian.construction_worker": 67.0,
     "human.pedestrian.police_officer": 91.0
-   }
+   },
+   "bootstrap_resamples": 20000
   }
  ]
 }

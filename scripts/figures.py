@@ -1,4 +1,4 @@
-"""Figures for the README and report, from results/*.json.
+"""Figures from results/*.json.
 
     python scripts/figures.py            # writes figures/*.png
 """

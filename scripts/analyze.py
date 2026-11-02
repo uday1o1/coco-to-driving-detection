@@ -557,7 +557,9 @@ def _nms_job(runs, data, spec, ds):
 
 
 def section_robustness(a):
-    """Checks behind statements in the write-up that other sections do not cover."""
+    """Ranking agreement on matched classes, per-class contrasts with and without
+    rider fusion, NMS after class merging, and YOLO's NMS mode under the
+    tutorial protocol."""
     from scipy.stats import kendalltau, spearmanr
     out = {}
     # 1. ranking agreement between datasets on matched classes, with a bootstrap over models
