@@ -112,8 +112,9 @@ def fig_height(main):
         ax.set_xlabel("object height (px, original image)")
         ax.set_title(DS_LABEL[ds])
     axes[0].set_ylabel("AP@[.5:.95]")
-    axes[1].legend(frameon=False, fontsize=6, ncol=2)
-    fig.tight_layout()
+    h, l = axes[1].get_legend_handles_labels()
+    fig.legend(h, l, frameon=False, fontsize=6, ncol=5, loc="lower center", bbox_to_anchor=(0.5, -0.06))
+    fig.tight_layout(rect=(0, 0.1, 1, 1))
     fig.savefig(FIG / "ap_by_height.png")
     plt.close(fig)
 
@@ -133,7 +134,9 @@ def fig_speed(main, lat_nuim, lat_kitti):
             t = lat[r["spec"]]["fp16_end_to_end_ms_median"]
             pts.append((t, r["stats"]["AP"], r["model"], r["family"]))
             ax.scatter(t, r["stats"]["AP"], color=FAMILY_COLOR[r["family"]], s=16)
-            ax.annotate(r["model"], (t, r["stats"]["AP"]), fontsize=5.5, xytext=(2, 2), textcoords="offset points")
+            below = (ds, r["model"]) in {("kitti_val", "Faster R-CNN v2")}   # avoid a label collision
+            ax.annotate(r["model"], (t, r["stats"]["AP"]), fontsize=5.5, xytext=(2, -8 if below else 2),
+                        textcoords="offset points")
         pts.sort()
         front, best = [], -1
         for t, ap, *_ in pts:
@@ -142,14 +145,16 @@ def fig_speed(main, lat_nuim, lat_kitti):
         if front:
             ax.plot(*zip(*front), color="k", lw=0.7, ls=":")
         ax.set_xscale("log")
+        ax.set_xticks([5, 10, 20, 50, 100], ["5", "10", "20", "50", "100"])
+        ax.minorticks_off()
         res = "KITTI frame" if ds == "kitti_val" else "1600x900 frame"
         ax.set_xlabel(f"ms per {res} (batch 1, fp16, end to end)")
         ax.set_title(DS_LABEL[ds])
     axes[0].set_ylabel("mAP@[.5:.95]")
-    axes[0].legend(handles=[Line2D([], [], marker="o", ls="", color=c, label=f) for f, c in FAMILY_COLOR.items()]
-                   + [Line2D([], [], color="k", ls=":", lw=0.7, label="best accuracy so far")],
-                   frameon=False, fontsize=6, loc="lower right")
-    fig.tight_layout()
+    fig.legend(handles=[Line2D([], [], marker="o", ls="", color=c, label=f) for f, c in FAMILY_COLOR.items()]
+               + [Line2D([], [], color="k", ls=":", lw=0.7, label="more accurate than every faster model")],
+               frameon=False, fontsize=7, loc="lower center", ncol=6, bbox_to_anchor=(0.5, -0.04))
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     fig.savefig(FIG / "speed_accuracy.png")
     plt.close(fig)
 
