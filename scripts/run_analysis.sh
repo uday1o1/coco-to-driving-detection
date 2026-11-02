@@ -17,6 +17,8 @@ for s in $SECTIONS; do
 done
 [ -f "$RUNS/latency_nuimages.json" ] && cp "$RUNS/latency_nuimages.json" results/latency_nuimages.json
 [ -f "$RUNS/latency_kitti.json" ] && cp "$RUNS/latency_kitti.json" results/latency_kitti.json
-python scripts/qualitative.py --runs "$RUNS" --data "$DATA"
+if [ -d "$DATA/kitti/training/image_2" ] && [ -d "$DATA/nuimages/samples" ]; then
+  python scripts/qualitative.py --runs "$RUNS" --data "$DATA"     # needs images
+fi
 python scripts/figures.py
 echo "[$(date +%H:%M:%S)] analysis done"
