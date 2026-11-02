@@ -28,7 +28,6 @@ import json
 import math
 import re
 import sys
-from multiprocessing import Pool
 from pathlib import Path
 
 import numpy as np
@@ -81,8 +80,11 @@ def save(name, obj):
 
 
 def pool_map(fn, jobs, procs):
-    with Pool(procs) as p:
-        return p.starmap(fn, jobs)
+    """Parallel starmap. ProcessPoolExecutor raises if a worker is killed
+    (for example by the OOM killer) instead of waiting forever."""
+    from concurrent.futures import ProcessPoolExecutor
+    with ProcessPoolExecutor(procs) as ex:
+        return list(ex.map(fn, *zip(*jobs))) if jobs else []
 
 
 # --------------------------------------------------------------------- main
