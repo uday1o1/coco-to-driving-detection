@@ -22,8 +22,8 @@ choices, change the answer.
    (Faster R-CNN v2: 0.581, 0.299, 0.279). The KITTI column comes from
    the first 120 images of the KITTI *train* list. This repo's harness, run in tutorial mode on the same
    images, matches ngdet to four decimals on all eight closed-set cases.
-2. **On the driving sets the protocol moves the numbers by up to 0.10 mAP per model, as much as the
-   spread between models on KITTI.** Going from the tutorial protocol to a
+2. **On the driving sets the largest protocol effect on one model is 0.10 mAP (YOLO11-X on nuImages),
+   about the spread between models on KITTI.** Going from the tutorial protocol to a
    corrected one (ignore regions, each dataset's own minimum-size rule, no score cut-off before mAP,
    consistent class definitions, rider fusion, keeping nuImages frames with no objects) raises mean mAP from 0.213 to 0.267 on KITTI and from 0.276
    to 0.326 on nuImages. On KITTI the model ranking changes substantially (Kendall tau 0.36 between the
@@ -58,7 +58,7 @@ choices, change the answer.
 8. **Open-vocabulary detectors are competitive on driving data and sensitive to the prompt.** Grounding
    DINO-T has the highest KITTI mAP (0.313), almost entirely through cyclists after rider fusion; without
    fusion it matches Faster R-CNN v2 (0.245) to three decimals. LLMDet beats its own starting point MM-GDINO on all three datasets
-   (+0.007, +0.018, +0.029). Prompt wording changes mAP by up to 0.15. In plain PyTorch (fp32, end to end, on a 1600x900 nuImages frame) they are
+   (+0.007, +0.018, +0.029). The largest prompt effect is 0.15 mAP (Grounding DINO-T on nuImages). In plain PyTorch (fp32, end to end, on a 1600x900 nuImages frame) they are
    4.4 to 4.5 times slower than Faster R-CNN v2 and 12 to 17 times slower than YOLO.
 
 ![protocol audit](figures/protocol_audit.png)
@@ -146,7 +146,7 @@ thresholds were chosen on KITTI *train* predictions of one model (Faster R-CNN v
 model and dataset (0.1 is the lowest score floor in the grid). On nuImages, whose labels say whether each bicycle has a rider, fusion confidently pairs
 (for the ten closed-set models) 49 to 92% of detected bicycles with riders and 2 to 34% of parked ones. On nuImages it raises cyclist AP
 from between 0.03 and 0.09 to between 0.18 and 0.45, but it lowers person AP by more than 0.005 for 9 of the 13
-models (by up to 0.11 for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
+models (the largest drop, 0.113, for FCOS), because pedestrians standing next to parked bicycles are absorbed (results/fusion.json).
 
 The evaluator reproduces pycocotools' matching exactly (tests/test_evaluate.py) and keeps the outcome of
 every detection, so a bootstrap resample is one weighted pass instead of a full re-evaluation. The main

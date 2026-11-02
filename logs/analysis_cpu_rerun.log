@@ -13,7 +13,7 @@ The run reached the fusion section at 16:50:27, after stability had finished, an
 The remaining sections ran as separate scripts/analyze.py jobs: subgroups, finetune, errors,
 prompts, contrasts and robustness in parallel from 16:42:43 (cpu_rerun/par_job.log and par_*.log),
 fusion in a job of its own (cpu_rerun/fus_job.log, par_fusion.log). Each par_<section>.log holds the
-"wrote results/<section>.json" line; par_job.log then shows figures.py.
+"wrote .../results/<section>.json" line; par_job.log then shows figures.py.
 
 COCO check printed by the gate section (measured AP, then the published AP in the code at 24ba290):
 see cpu_rerun/cpu_job.log. LLMDet-T printed "55.5 None" because that code had no published value; the

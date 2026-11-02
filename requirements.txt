@@ -1,4 +1,4 @@
-# torch and torchvision come from the CUDA 12.8 image: all GPU results used torch 2.11.0+cu128 and
+# torch and torchvision come from the CUDA 12.8 image: all CUDA (RTX 4090) results used torch 2.11.0+cu128 and
 # torchvision 0.26.0; the CPU-only analysis also runs on torch 2.15.
 transformers==5.22.1
 ultralytics==8.4.197
