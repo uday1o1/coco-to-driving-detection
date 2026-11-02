@@ -8,6 +8,7 @@
     python scripts/analyze.py finetune  --runs $RUNS --data $DATA
     python scripts/analyze.py errors    --runs $RUNS --data $DATA
     python scripts/analyze.py gate      --runs $RUNS --data $DATA
+    python scripts/analyze.py reproduction --runs $RUNS --data $DATA
 
 Needs only CPU. Each section writes results/<section>.json.
 """
@@ -476,6 +477,46 @@ def section_gate(a):
                          "published_AP": PUBLISHED_COCO_AP.get(spec), **r})
             print(rows[-1]["model"], rows[-1]["measured_AP"], rows[-1]["published_AP"])
     save("gate", rows)
+
+
+# ------------------------------------------------------------- reproduction
+
+NG_TABLE = {  # ngdet TUTORIAL.md section 12.1, mAP@[.5:.95]
+    ("torchvision:fasterrcnn_resnet50_fpn_v2", "coco"): 0.581,
+    ("torchvision:fasterrcnn_resnet50_fpn_v2", "kitti_train120"): 0.279,
+    ("torchvision:fasterrcnn_resnet50_fpn_v2", "nuimages"): 0.299,
+    ("yolo:yolo11x.pt", "coco"): 0.573, ("yolo:yolo11x.pt", "kitti_train120"): 0.260,
+    ("yolo:yolo11x.pt", "nuimages"): 0.249,
+    ("gdino:IDEA-Research/grounding-dino-tiny", "coco"): 0.527,
+    ("gdino:IDEA-Research/grounding-dino-tiny", "kitti_train120"): 0.223,
+    ("gdino:IDEA-Research/grounding-dino-tiny", "nuimages"): 0.306,
+}
+
+
+def section_reproduction(a):
+    """ngdet's own numbers (scripts/reproduce_tutorial.sh) against the
+    tutorial table, and this repo's tutorial-mode protocol on the same
+    images and the same per-image inference."""
+    rows = []
+    for d in ("k_c", "nuim", "k_train120"):
+        for m in json.loads((Path(a.runs) / "ngdet_out" / d / "metrics.json").read_text()):
+            ds = m["_meta"]["dataset"] + ("_train120" if d == "k_train120" else "")
+            rows.append({"model": m["_meta"]["model"], "dataset": ds, "images": m["_meta"]["num_images"],
+                         "ngdet_AP": m["mAP"], "tutorial_table_AP": NG_TABLE.get((m["_meta"]["model"], ds)),
+                         "per_class": m["per_class"]})
+    ours = {"kitti": "kitti_ngdet120", "kitti_train120": "kitti_train120",
+            "coco": "coco_first120", "nuimages": "nuimages_ngdet500"}
+    specs = {"torchvision:fasterrcnn_resnet50_fpn_v2": "tv:fasterrcnn_resnet50_fpn_v2",
+             "yolo:yolo11x.pt": "yolo:yolo11x.pt"}
+    for r in rows:
+        if r["model"] in specs:
+            ds = ours[r["dataset"]]
+            _, gt, dets = A.prepare(det_path(a.runs, specs[r["model"]], ds), native_path(a.data, ds),
+                                    specs[r["model"]], TUTORIAL)
+            r["this_repo_tutorial_mode_AP"] = A.coco_stats(gt, dets)["AP"]
+    save("reproduction", {"ngdet_commit": "e347f6ff4468cc33442f38277119bb7bdc18a8d1",
+                          "note": "kitti = ngdet's own seed-42 split; kitti_train120 = first 120 images of "
+                                  "ImageSets/train.txt, the images behind the tutorial table", "rows": rows})
 
 
 def main():
