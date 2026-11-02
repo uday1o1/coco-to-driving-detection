@@ -113,10 +113,10 @@ All detections are kept down to score 0.001 (at most 300 per image; 100 per clas
 any protocol can be applied afterwards without rerunning a model. Before any cross-dataset number is
 trusted, each checkpoint must reproduce its published COCO val AP:
 
-| | FRCNN | RetinaNet | FCOS | FRCNN v2 | YOLO11 N/M/X | D-FINE N/M/X | GDINO-T | MM-GDINO-T |
-|---|---|---|---|---|---|---|---|---|
-| measured | 37.2 | 35.9 | 39.1 | 47.3 | 39.3 / 51.3 / 54.5 | 42.8 / 52.3 / 55.8 | 48.5 | 50.4 |
-| published | 37.0 | 36.4 | 39.2 | 46.7 | 39.5 / 51.5 / 54.7 | 42.8 / 52.3 / 55.8 | 48.4 | 50.4 |
+| | FRCNN | RetinaNet | FCOS | FRCNN v2 | YOLO11 N/M/X | D-FINE N/M/X | GDINO-T | MM-GDINO-T | LLMDet-T |
+|---|---|---|---|---|---|---|---|---|---|
+| measured | 37.2 | 35.9 | 39.1 | 47.3 | 39.3 / 51.3 / 54.5 | 42.8 / 52.3 / 55.8 | 48.5 | 50.4 | 55.5 |
+| published | 37.0 | 36.4 | 39.2 | 46.7 | 39.5 / 51.5 / 54.7 | 42.8 / 52.3 / 55.8 | 48.4 | 50.4 | 55.6 (trained with COCO images) |
 
 ## Evaluation protocol
 
