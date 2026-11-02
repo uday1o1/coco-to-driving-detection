@@ -507,7 +507,7 @@ def section_reproduction(a):
     ours = {"kitti": "kitti_ngdet120", "kitti_train120": "kitti_train120",
             "coco": "coco_first120", "nuimages": "nuimages_ngdet500"}
     specs = {"torchvision:fasterrcnn_resnet50_fpn_v2": "tv:fasterrcnn_resnet50_fpn_v2",
-             "yolo:yolo11x.pt": "yolo:yolo11x.pt"}
+             "yolo:yolo11x.pt": "yolo:yolo11x.pt@single"}
     for r in rows:
         if r["model"] in specs:
             ds = ours[r["dataset"]]

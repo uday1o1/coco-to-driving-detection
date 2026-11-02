@@ -61,7 +61,7 @@ json.dump({**n, "images": [i for i in n["images"] if i["id"] in keep],
 EOF
 declare -A ROOT=([kitti_ngdet120]="$DATA/kitti" [kitti_train120]="$DATA/kitti" [coco_first120]="$DATA/coco/val2017" [nuimages_ngdet500]="$DATA/nuimages")
 for ds in kitti_ngdet120 kitti_train120 coco_first120 nuimages_ngdet500; do
-  for m in tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11x.pt gdino:IDEA-Research/grounding-dino-tiny; do
+  for m in tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11x.pt@single gdino:IDEA-Research/grounding-dino-tiny; do
     tag=$(echo "$m" | sed 's#[:/@]#_#g')
     [ -s "$RUNS/dets/${tag}__$ds.npz" ] || python -m detbench.infer --model "$m" \
       --native "$DATA/native/$ds.json" --images "${ROOT[$ds]}" --out "$RUNS/dets/${tag}__$ds.npz" \

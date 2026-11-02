@@ -7,7 +7,7 @@ happens at evaluation time so one inference run serves every protocol.
 
 Model specs:
   tv:<torchvision builder>        e.g. tv:fasterrcnn_resnet50_fpn_v2
-  yolo:<weights>[@<imgsz>]        e.g. yolo:yolo11m.pt, yolo:yolo11m.pt@1280
+  yolo:<weights>[@<imgsz>|single]  e.g. yolo:yolo11m.pt, yolo:yolo11m.pt@1280
   dfine:<hf id>[@letterbox]       e.g. dfine:ustc-community/dfine-medium-coco
   gdino:<hf id>[@<prompt set>]    Grounding DINO family (GDINO, MM-GDINO, LLMDet)
   <spec>#<checkpoint>             fine-tuned weights for tv: and yolo: specs
@@ -74,11 +74,27 @@ _WEIGHTS = {
 
 
 class YoloDetector:
-    """Ultralytics YOLO. Letterbox to `imgsz` (aspect kept), NMS at IoU 0.7,
-    the settings Ultralytics uses for its own COCO validation."""
+    """Ultralytics YOLO. Letterbox to `imgsz` (aspect kept), NMS at IoU 0.7.
 
-    def __init__(self, weights, device, imgsz=640):
+    By default NMS is multi-label, as in Ultralytics' own COCO validation
+    (models/yolo/detect/val.py): a box may be kept for several classes. Its
+    prediction mode keeps one label per box, which costs about 0.8 COCO AP;
+    every other detector here also scores each box per class. `single_label`
+    restores prediction mode, used only to match the ngdet harness.
+    """
+
+    def __init__(self, weights, device, imgsz=640, single_label=False):
         from ultralytics import YOLO
+        import ultralytics.utils.nms as nms
+        if not hasattr(nms, "_nms_single"):
+            nms._nms_single = nms.non_max_suppression
+        if single_label:
+            nms.non_max_suppression = nms._nms_single
+        else:
+            def multi(*a, **k):
+                k.setdefault("multi_label", True)
+                return nms._nms_single(*a, **k)
+            nms.non_max_suppression = multi
         self.model = YOLO(weights)
         self.names = [self.model.names[i] for i in range(len(self.model.names))]
         self.device, self.imgsz = device, imgsz
@@ -213,7 +229,8 @@ def build(spec: str, device: str = "cuda"):
         return TorchvisionDetector(name, device, checkpoint=ckpt or None,
                                    num_classes=4 if ckpt else None)
     if kind == "yolo":
-        return YoloDetector(ckpt or name, device, imgsz=int(opt or 640))
+        return YoloDetector(ckpt or name, device, imgsz=int(opt) if opt.isdigit() else 640,
+                            single_label=opt == "single")
     if kind == "dfine":
         return DFineDetector(name, device, letterbox=opt == "letterbox")
     if kind == "gdino":
