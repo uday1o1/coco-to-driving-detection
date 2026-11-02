@@ -4,7 +4,8 @@ Four panels, picked automatically so the selection is reproducible:
   a  KITTI: a cyclist seen as a person plus a bicycle (raw output)
   b  the same image after rider fusion
   c  KITTI: confident detections inside DontCare regions
-  d  nuImages: missed child pedestrians at the person operating threshold
+  d  nuImages: missed construction workers (daytime frame) at the person
+     operating threshold, cropped around them
 
     python scripts/qualitative.py --runs $RUNS --data $DATA --model tv:fasterrcnn_resnet50_fpn_v2
 """
@@ -54,6 +55,7 @@ def main():
     p.add_argument("--runs", type=Path, required=True)
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--model", default="tv:fasterrcnn_resnet50_fpn_v2")
+    p.add_argument("--list-images", action="store_true", help="print the image files needed and exit")
     a = p.parse_args()
     tag = a.model.replace(":", "_").replace("/", "_")
     kitti = A.native(str(a.data / "native/kitti_val.json"))
@@ -74,12 +76,6 @@ def main():
         if n > best_n:
             best, best_n = iid, n
     file_of = {im["id"]: im["file_name"] for im in kitti["images"]}
-    img = Image.open(a.data / "kitti" / file_of[best])
-    gt = [b["xyxy"] for b in by[best] if b["fine"] in ("Cyclist", "Pedestrian")]
-    raw = boxes_for(dk, best, thr, ["person", "bicycle"])
-    fb, fs, fl = protocol.fuse_riders(raw[0], raw[1], raw[2], protocol.FUSION["ioa"], protocol.FUSION["bike_min"])
-    panel_a = draw(img, gt, raw, title="(a) KITTI, raw COCO labels: rider and bicycle are separate boxes")
-    panel_b = draw(img, gt, (fb, fs, fl), title="(b) after rider fusion: one cyclist box")
     # c: most confident detections falling inside DontCare regions
     best_c, best_v = None, 0
     for iid, bs in by.items():
@@ -93,29 +89,48 @@ def main():
         v = float(ps[inside].sum())
         if v > best_v:
             best_c, best_v = iid, v
-    img = Image.open(a.data / "kitti" / file_of[best_c])
-    dc = [b["xyxy"] for b in by[best_c] if b["fine"] == "DontCare"]
-    gt = [b["xyxy"] for b in by[best_c] if b["fine"] in ("Car", "Van", "Truck", "Pedestrian", "Cyclist")]
-    panel_c = draw(img, gt, boxes_for(dk, best_c, thr, ["car", "truck", "person"]), dc,
-                   title="(c) KITTI: detections in unlabeled DontCare regions (grey)")
-    # d: nuImages image with missed children
+    # d: daytime nuImages frame with the most missed construction workers
     nat, g, dets = A.prepare(a.runs / f"dets/{tag}__nuimages_val.npz", a.data / "native/nuimages_val.json",
                              a.model, A.settings())
     m, ids = match(g, dets, cat_ids=[2])
     pm = m[2]
     t, _ = A.operating_threshold(pm)
     anns = g["annotations"]
+    rec = {im["id"]: im for im in nat["images"]}
     miss = {}
-    for k, s, ig in zip(pm.gt_ann, pm.gt_score50, pm.gt_ignored):
-        if not ig and s < t and nat["boxes"][anns[k]["native_index"]]["fine"] == "human.pedestrian.child":
-            miss[anns[k]["image_id"]] = miss.get(anns[k]["image_id"], 0) + 1
+    for k, sc, ig in zip(pm.gt_ann, pm.gt_score50, pm.gt_ignored):
+        b = nat["boxes"][anns[k]["native_index"]]
+        if (not ig and sc < t and b["fine"] == "human.pedestrian.construction_worker"
+                and rec[b["image_id"]]["lighting"] == "day"):
+            miss[b["image_id"]] = miss.get(b["image_id"], 0) + 1
     iid = max(miss, key=miss.get)
-    im_rec = {im["id"]: im for im in nat["images"]}[iid]
+    im_rec = rec[iid]
+    if a.list_images:
+        print(f"kitti/{file_of[best]}\nkitti/{file_of[best_c]}\nnuimages/{im_rec['file_name']}")
+        return
+
+    img = Image.open(a.data / "kitti" / file_of[best])
+    gt = [b["xyxy"] for b in by[best] if b["fine"] in ("Cyclist", "Pedestrian")]
+    raw = boxes_for(dk, best, thr, ["person", "bicycle"])
+    fb, fs, fl = protocol.fuse_riders(raw[0], raw[1], raw[2], protocol.FUSION["ioa"], protocol.FUSION["bike_min"])
+    panel_a = draw(img, gt, raw, title="(a) KITTI, raw COCO labels: rider and bicycle are separate boxes")
+    panel_b = draw(img, gt, (fb, fs, fl), title="(b) after rider fusion: one cyclist box")
+    img = Image.open(a.data / "kitti" / file_of[best_c])
+    dc = [b["xyxy"] for b in by[best_c] if b["fine"] == "DontCare"]
+    gt = [b["xyxy"] for b in by[best_c] if b["fine"] in ("Car", "Van", "Truck", "Pedestrian", "Cyclist")]
+    panel_c = draw(img, gt, boxes_for(dk, best_c, thr, ["car", "truck", "person"]), dc,
+                   title="(c) KITTI: detections in unlabeled DontCare regions (grey)")
     img = Image.open(a.data / "nuimages" / im_rec["file_name"])
-    gt = [b["xyxy"] for b in nat["boxes"] if b["image_id"] == iid and "pedestrian" in b["fine"]]
-    dn = protocol.load(a.runs / f"dets/{tag}__nuimages_val.npz")
-    panel_d = draw(img, gt, boxes_for(dn, iid, t, ["person"]),
-                   title=f"(d) nuImages: pedestrians (green) and person detections at the F1 threshold {t:.2f}")
+    peds = [b for b in nat["boxes"] if b["image_id"] == iid and b["fine"].startswith("human.pedestrian")]
+    workers = np.array([b["xyxy"] for b in peds if b["fine"].endswith("construction_worker")])
+    cx, cy = workers[:, [0, 2]].mean(), workers[:, [1, 3]].mean()
+    x1 = int(np.clip(cx - 600, 0, img.width - 1200)); y1 = int(np.clip(cy - 260, 0, img.height - 520))
+    off = np.array([x1, y1, x1, y1], float)
+    pb, ps, pl = boxes_for(protocol.load(a.runs / f"dets/{tag}__nuimages_val.npz"), iid, t, ["person"])
+    panel_d = draw(img.crop((x1, y1, x1 + 1200, y1 + 520)), [list(np.array(b["xyxy"]) - off) for b in peds],
+                   (pb - off, ps, pl),
+                   title=f"(d) nuImages (crop): labelled pedestrians in green, construction workers among them; "
+                         f"person detections at the F1 threshold {t:.2f}")
     W = 1600
     rows = [p.resize((W, int(p.height * W / p.width))) for p in (panel_a, panel_b, panel_c, panel_d)]
     canvas = Image.new("RGB", (W, sum(r.height for r in rows) + 6 * 3), (255, 255, 255))

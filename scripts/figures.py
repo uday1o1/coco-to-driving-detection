@@ -31,40 +31,41 @@ def load(name):
 
 def fig_protocol(audit):
     """Tutorial vs corrected mAP per model, and the Shapley split of the change."""
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
     rows = [r for r in audit["summary"] if r["dataset"] in ("kitti_val", "nuimages_val")]
     dsets = [d for d in ("kitti_val", "nuimages_val") if any(r["dataset"] == d for r in rows)]
-    fig, axes = plt.subplots(1, 2 * len(dsets), figsize=(3.6 * len(dsets) * 2, 3.1),
-                             gridspec_kw={"width_ratios": [1.1, 1] * len(dsets)})
+    factors = audit["factors"]
+    cmap = plt.get_cmap("Set2")   # distinct from the model-family colours
+    fig, axes = plt.subplots(len(dsets), 2, figsize=(7.2, 2.7 * len(dsets)),
+                             gridspec_kw={"width_ratios": [1.05, 1]}, squeeze=False)
     for k, ds in enumerate(dsets):
-        rs = [r for r in rows if r["dataset"] == ds]
-        rs.sort(key=lambda r: r["corrected_AP"])
-        ax = axes[2 * k]
+        rs = sorted([r for r in rows if r["dataset"] == ds], key=lambda r: r["corrected_AP"])
         y = np.arange(len(rs))
+        ax = axes[k, 0]
         for i, r in enumerate(rs):
             ax.plot([r["tutorial_AP"], r["corrected_AP"]], [i, i], color="#999", lw=1)
-        ax.scatter([r["tutorial_AP"] for r in rs], y, s=14, color="#bbb", label="tutorial protocol", zorder=3)
-        ax.scatter([r["corrected_AP"] for r in rs], y, s=14,
-                   color=[FAMILY_COLOR[r["family"]] for r in rs], label="corrected protocol", zorder=3)
-        ax.set_yticks(y, [r["model"] for r in rs])
+        ax.scatter([r["tutorial_AP"] for r in rs], y, s=14, color="#bbb", zorder=3)
+        ax.scatter([r["corrected_AP"] for r in rs], y, s=14, color=[FAMILY_COLOR[r["family"]] for r in rs], zorder=3)
+        ax.set_yticks(y, [r["model"] for r in rs], fontsize=6.5)
         ax.set_xlabel("mAP@[.5:.95]")
-        ax.set_title(f"{DS_LABEL[ds]}: mAP under each protocol")
-        ax.legend(frameon=False, loc="lower right", fontsize=7)
-        ax = axes[2 * k + 1]
-        factors = audit["factors"]
-        left_pos, left_neg = np.zeros(len(rs)), np.zeros(len(rs))
-        cmap = plt.get_cmap("tab10")
+        ax.set_title(f"{DS_LABEL[ds]}: tutorial (grey) to corrected protocol")
+        ax = axes[k, 1]
+        pos, neg = np.zeros(len(rs)), np.zeros(len(rs))
         for j, f in enumerate(factors):
             v = np.array([r["shapley"][f] for r in rs])
-            base = np.where(v >= 0, left_pos, left_neg)
-            ax.barh(y, v, left=base, color=cmap(j), label=FACTOR_LABEL[f], height=0.7)
-            left_pos += np.clip(v, 0, None); left_neg += np.clip(v, None, 0)
+            ax.barh(y, v, left=np.where(v >= 0, pos, neg), color=cmap(j), height=0.7)
+            pos += np.clip(v, 0, None); neg += np.clip(v, None, 0)
         ax.axvline(0, color="k", lw=0.6)
         ax.set_yticks(y, [])
-        ax.set_xlabel("contribution to the mAP change (Shapley)")
-        ax.set_title("what moved the number")
-        if k == len(dsets) - 1:
-            ax.legend(frameon=False, fontsize=6.5, loc="lower right")
-    fig.tight_layout()
+        ax.set_xlabel("contribution to the change in mAP (Shapley value)")
+        ax.tick_params(axis="x", labelsize=7)
+        ax.set_title("which protocol choice moved it")
+    handles = [Patch(color=cmap(j), label=FACTOR_LABEL[f]) for j, f in enumerate(factors)]
+    handles += [Line2D([], [], marker="o", ls="", color=c, label=f) for f, c in FAMILY_COLOR.items()]
+    fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False, fontsize=6.5,
+               bbox_to_anchor=(0.5, -0.06))
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     fig.savefig(FIG / "protocol_audit.png")
     plt.close(fig)
 
@@ -89,7 +90,7 @@ def fig_cross_dataset(main):
         ax.set_xticks(np.arange(len(models)), models, rotation=75, ha="right")
         ax.set_title(f"{cls}")
     axes[0].set_ylabel("AP@[.5:.95]")
-    axes[0].legend(frameon=False, fontsize=7)
+    axes[2].legend(frameon=False, fontsize=7, loc="upper left")
     fig.tight_layout()
     fig.savefig(FIG / "cross_dataset_per_class.png")
     plt.close(fig)
@@ -117,11 +118,14 @@ def fig_height(main):
     plt.close(fig)
 
 
-def fig_speed(main, latency):
-    """Accuracy against batch-1 fp16 end-to-end latency, one panel per dataset."""
-    lat = {r["model"]: r for r in latency["runs"]}
-    fig, axes = plt.subplots(1, 3, figsize=(10, 3))
+def fig_speed(main, lat_nuim, lat_kitti):
+    """Accuracy against batch-1 fp16 end-to-end latency, one panel per dataset.
+    KITTI uses latency measured on KITTI frames; COCO and nuImages use latency
+    on a 1600x900 nuImages frame, the cost of one driving camera frame."""
+    from matplotlib.lines import Line2D
+    fig, axes = plt.subplots(1, 3, figsize=(10, 3.2))
     for ax, ds in zip(axes, ("coco_val", "kitti_val", "nuimages_val")):
+        lat = {r["model"]: r for r in (lat_kitti if ds == "kitti_val" else lat_nuim)["runs"]}
         pts = []
         for r in main:
             if r["dataset"] != ds or r["spec"] not in lat:
@@ -138,9 +142,13 @@ def fig_speed(main, latency):
         if front:
             ax.plot(*zip(*front), color="k", lw=0.7, ls=":")
         ax.set_xscale("log")
-        ax.set_xlabel("latency, ms per image (batch 1, fp16, end to end)")
+        res = "KITTI frame" if ds == "kitti_val" else "1600x900 frame"
+        ax.set_xlabel(f"ms per {res} (batch 1, fp16, end to end)")
         ax.set_title(DS_LABEL[ds])
     axes[0].set_ylabel("mAP@[.5:.95]")
+    axes[0].legend(handles=[Line2D([], [], marker="o", ls="", color=c, label=f) for f, c in FAMILY_COLOR.items()]
+                   + [Line2D([], [], color="k", ls=":", lw=0.7, label="best accuracy so far")],
+                   frameon=False, fontsize=6, loc="lower right")
     fig.tight_layout()
     fig.savefig(FIG / "speed_accuracy.png")
     plt.close(fig)
@@ -162,28 +170,33 @@ def fig_finetune(ft, main):
         ax.set_xticks([0, 1], ["Faster R-CNN v2", "YOLO11-M"])
         ax.set_title(DS_LABEL[ds])
     axes[0].set_ylabel("mAP@[.5:.95]")
-    axes[0].legend(frameon=False, fontsize=7)
+    axes[1].legend(frameon=False, fontsize=7, loc="upper right")
     fig.tight_layout()
     fig.savefig(FIG / "finetune.png")
     plt.close(fig)
 
 
 def fig_subgroups(sg):
-    groups = ["human.pedestrian.adult", "human.pedestrian.child", "human.pedestrian.construction_worker",
-              "human.pedestrian.police_officer"]
-    labels = ["adult", "child", "construction\nworker", "police\nofficer"]
-    rows = [r for r in sg["rows"] if "seed" not in r["model"]]
-    fig, ax = plt.subplots(figsize=(7.5, 2.8))
-    w = 0.8 / len(rows)
-    for i, r in enumerate(rows):
-        x = np.arange(len(groups)) + (i - len(rows) / 2) * w
-        v = np.array([r["recall"][g] for g in groups])
-        lo = np.array([r["ci95"][g][0] for g in groups]); hi = np.array([r["ci95"][g][1] for g in groups])
-        ax.bar(x, v, width=w, label=r["model"])
-        ax.errorbar(x, v, yerr=[v - lo, hi - v], fmt="none", ecolor="k", elinewidth=0.4)
-    ax.set_xticks(range(len(groups)), labels)
-    ax.set_ylabel("recall at IoU 0.5\n(F1-optimal threshold)")
-    ax.legend(frameon=False, fontsize=5.5, ncol=4, loc="lower left")
+    """Recall gap against adult pedestrians (adult minus group), raw and at
+    matched height, with clustered 95% intervals."""
+    rows = [r for r in sg["rows"] if "YOLO11-M fine-tuned" not in r["model"]]
+    groups = [("human.pedestrian.child", "child"), ("human.pedestrian.construction_worker", "construction worker")]
+    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.6), sharey=True)
+    y = np.arange(len(rows))[::-1]
+    for ax, (g, label) in zip(axes, groups):
+        for dy, key, mk, name in ((0.15, g, "o", "raw"), (-0.15, g + "/height_std", "s", "at matched height")):
+            d = [r["gap_vs_adult"][key] for r in rows]
+            v = 100 * np.array([x["gap"] for x in d])
+            lo = 100 * np.array([x["ci95"][0] for x in d]); hi = 100 * np.array([x["ci95"][1] for x in d])
+            ax.errorbar(v, y + dy, xerr=[v - lo, hi - v], fmt=mk, ms=3.5, lw=0.8, capsize=0,
+                        color="#333" if mk == "o" else "#c44e52", mfc="white" if mk == "o" else "#c44e52",
+                        label=name)
+        ax.axvline(0, color="k", lw=0.6)
+        ax.set_title(f"adult recall minus {label} recall")
+        ax.set_xlabel("percentage points (positive = group missed more)")
+    axes[0].set_yticks(y, [r["model"].replace(" fine-tuned", " FT").replace("(seed ", "s").replace(")", "")
+                           for r in rows], fontsize=6.5)
+    axes[0].legend(frameon=False, fontsize=7, loc="upper left")
     fig.tight_layout()
     fig.savefig(FIG / "pedestrian_subgroups.png")
     plt.close(fig)
@@ -197,9 +210,9 @@ def main():
     if main_rows:
         fig_cross_dataset(main_rows)
         fig_height(main_rows)
-    lat, ft, sg = load("latency_nuimages"), load("finetune"), load("subgroups")
-    if main_rows and lat:
-        fig_speed(main_rows, lat)
+    lat, latk, ft, sg = load("latency_nuimages"), load("latency_kitti"), load("finetune"), load("subgroups")
+    if main_rows and lat and latk:
+        fig_speed(main_rows, lat, latk)
     if main_rows and ft:
         fig_finetune(ft, main_rows)
     if sg:
