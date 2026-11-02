@@ -9,6 +9,7 @@
     python scripts/analyze.py errors    --runs $RUNS --data $DATA
     python scripts/analyze.py gate      --runs $RUNS --data $DATA
     python scripts/analyze.py reproduction --runs $RUNS --data $DATA
+    python scripts/analyze.py prompts   --runs $RUNS --data $DATA
 
 Needs only CPU. Each section writes results/<section>.json.
 """
@@ -487,6 +488,28 @@ def section_gate(a):
                          "published_AP": PUBLISHED_COCO_AP.get(spec), **r})
             print(rows[-1]["model"], rows[-1]["measured_AP"], rows[-1]["published_AP"])
     save("gate", rows)
+
+
+# ------------------------------------------------------------------ prompts
+
+def _prompt_job(runs, data, spec, name, prompt, ds):
+    """Open-vocabulary AP for one prompt set. The default prompt set
+    (synonyms) comes from the main run, restricted to the same images."""
+    f = det_path(runs, spec if prompt == "synonyms" else f"{spec}@{prompt}",
+                 "nuimages_val" if (prompt == "synonyms" and ds == "nuimages_val_sub") else ds)
+    if not f.exists():
+        return None
+    _, gt, dets = A.prepare(f, native_path(data, ds), spec, A.settings())
+    m, _ = match(gt, dets)
+    c = {tx.CLASSES[k - 1]: APCache(m[k]) for k in m}
+    return {"model": name, "prompt": prompt, "dataset": ds, "AP": mean_ap(c.values()),
+            **{k: v.ap() for k, v in c.items()}}
+
+
+def section_prompts(a):
+    jobs = [(a.runs, a.data, s, n, p, ds) for s, n, fam in MODELS if fam == "open vocabulary"
+            for p in ("synonyms", "bare", "rider") for ds in ("kitti_val", "nuimages_val_sub")]
+    save("prompts", [r for r in pool_map(_prompt_job, jobs, a.procs) if r])
 
 
 # ------------------------------------------------------------- reproduction
