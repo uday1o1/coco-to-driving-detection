@@ -14,6 +14,13 @@ mkdir -p "$DATA" && cd "$DATA"
 
 pip install -q -r "$REPO/requirements.txt"
 
+# official D-FINE implementation (weights are fetched on first use)
+DFINE_SRC="${DFINE_SRC:-$HOME/dfine_src}"
+if [ ! -d "$DFINE_SRC" ]; then
+  git clone -q https://github.com/Peterande/D-FINE.git "$DFINE_SRC"
+  git -C "$DFINE_SRC" checkout -q 956d1709314c2c6a4df6f34de232054578a7449f
+fi
+
 fetch() {  # url file
   [ -s "$2" ] && return
   if command -v aria2c >/dev/null; then aria2c -q -x 16 -s 16 -o "$2" "$1"

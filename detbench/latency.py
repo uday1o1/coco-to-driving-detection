@@ -25,8 +25,8 @@ import numpy as np
 import torch
 from PIL import Image
 
-from .detectors import (DFineDetector, GroundingDinoDetector, TorchvisionDetector,
-                        YoloDetector, _letterbox, build)
+from .detectors import (DFineDetector, DFineOfficialDetector, GroundingDinoDetector,
+                        TorchvisionDetector, YoloDetector, _letterbox, build)
 from .infer import environment
 
 
@@ -55,6 +55,14 @@ def forward_fn(det, im, fp16):
         def f():
             with torch.inference_mode():
                 p.inference(x)
+        return f
+    if isinstance(det, DFineOfficialDetector):
+        import torchvision.transforms.functional as F
+        src = _letterbox(im, 640)[0] if det.letterbox else im
+        x = F.to_tensor(src.resize((640, 640), Image.BILINEAR))[None].cuda()
+        def f():
+            with torch.inference_mode(), ac():
+                det.model(x)
         return f
     if isinstance(det, DFineDetector):
         src = _letterbox(im, 640)[0] if det.letterbox else im

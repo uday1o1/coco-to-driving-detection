@@ -10,3 +10,5 @@ scipy
 pandas
 matplotlib
 pillow
+calflops
+tensorboard

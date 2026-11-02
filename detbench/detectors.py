@@ -8,7 +8,8 @@ happens at evaluation time so one inference run serves every protocol.
 Model specs:
   tv:<torchvision builder>        e.g. tv:fasterrcnn_resnet50_fpn_v2
   yolo:<weights>[@<imgsz>|single]  e.g. yolo:yolo11m.pt, yolo:yolo11m.pt@1280
-  dfine:<hf id>[@letterbox]       e.g. dfine:ustc-community/dfine-medium-coco
+  dfine:<n|m|x>[@letterbox]       official D-FINE, e.g. dfine:m
+  hfdfine:<hf id>[@letterbox]     the Hugging Face port, kept for the comparison
   gdino:<hf id>[@<prompt set>]    Grounding DINO family (GDINO, MM-GDINO, LLMDet)
   <spec>#<checkpoint>             fine-tuned weights for tv: and yolo: specs
 """
@@ -145,6 +146,63 @@ class DFineDetector:
         return results
 
 
+class DFineOfficialDetector:
+    """D-FINE from the authors' repository (Peterande/D-FINE) with their
+    released COCO weights.
+
+    The Hugging Face port (transformers 5.22.1, ustc-community checkpoints)
+    scores about 4 AP lower on COCO val with identical preprocessing, so the
+    official code is used. Needs the repository at $DFINE_SRC (default
+    ~/dfine_src, set up by scripts/setup.sh). Preprocessing is the official
+    one: resize to 640x640 without keeping aspect ratio, scale to [0, 1].
+    The post-processor keeps the top 300 (query, class) pairs, no NMS.
+    """
+    COMMIT = "956d1709314c2c6a4df6f34de232054578a7449f"
+    URL = "https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_{}_coco.pth"
+
+    def __init__(self, size, device, letterbox=False):
+        import os
+        import sys
+        import urllib.request
+        from pathlib import Path
+        src = Path(os.environ.get("DFINE_SRC", Path.home() / "dfine_src"))
+        sys.path.insert(0, str(src))
+        from src.core import YAMLConfig
+        w = src / "weights" / f"dfine_{size}_coco.pth"
+        if not w.exists():
+            w.parent.mkdir(exist_ok=True)
+            urllib.request.urlretrieve(self.URL.format(size), w)
+        cfg = YAMLConfig(str(src / f"configs/dfine/dfine_hgnetv2_{size}_coco.yml"))
+        if "HGNetv2" in cfg.yaml_cfg:
+            cfg.yaml_cfg["HGNetv2"]["pretrained"] = False
+        state = torch.load(w, map_location="cpu")
+        cfg.model.load_state_dict(state["ema"]["module"] if "ema" in state else state["model"])
+        self.model = cfg.model.deploy().eval().to(device)
+        self.post = cfg.postprocessor.deploy()
+        import json
+        self.names = json.loads((Path(__file__).with_name("coco80.json")).read_text())
+        self.device, self.letterbox = device, letterbox
+
+    @torch.inference_mode()
+    def __call__(self, images, fp16=False):
+        import torchvision.transforms.functional as F
+        if self.letterbox:
+            images, scales = zip(*[_letterbox(im, 640) for im in images])
+            sizes = [(640, 640)] * len(images)
+        else:
+            sizes = [im.size for im in images]
+        x = torch.stack([F.to_tensor(im.resize((640, 640), Image.BILINEAR)) for im in images]).to(self.device)
+        with torch.autocast("cuda", enabled=fp16 and self.device.startswith("cuda")):
+            labels, boxes, scores = self.post(self.model(x), torch.tensor(sizes, device=self.device))
+        out = []
+        for i in range(len(images)):
+            b = boxes[i].float()
+            if self.letterbox:
+                b = b / scales[i]
+            out.append((_np(b), _np(scores[i]), _np(labels[i]).astype(np.int64)))
+        return out
+
+
 class GroundingDinoDetector:
     """Grounding DINO, MM-Grounding-DINO and LLMDet through transformers.
 
@@ -232,6 +290,8 @@ def build(spec: str, device: str = "cuda"):
         return YoloDetector(ckpt or name, device, imgsz=int(opt) if opt.isdigit() else 640,
                             single_label=opt == "single")
     if kind == "dfine":
+        return DFineOfficialDetector(name, device, letterbox=opt == "letterbox")
+    if kind == "hfdfine":
         return DFineDetector(name, device, letterbox=opt == "letterbox")
     if kind == "gdino":
         if opt == "coco80":

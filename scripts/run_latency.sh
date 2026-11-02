@@ -12,8 +12,8 @@ nvidia-smi > "$RUNS/logs/nvidia-smi_latency_$(date +%Y%m%d_%H%M%S).txt"
 MODELS=(tv:fasterrcnn_resnet50_fpn tv:retinanet_resnet50_fpn tv:fcos_resnet50_fpn
         tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11n.pt yolo:yolo11m.pt yolo:yolo11x.pt
         yolo:yolo11m.pt@1280
-        dfine:ustc-community/dfine-nano-coco dfine:ustc-community/dfine-medium-coco
-        dfine:ustc-community/dfine-xlarge-coco dfine:ustc-community/dfine-medium-coco@letterbox
+        dfine:n dfine:m
+        dfine:x dfine:m@letterbox
         gdino:IDEA-Research/grounding-dino-tiny
         gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det
         gdino:iSEE-Laboratory/llmdet_tiny)

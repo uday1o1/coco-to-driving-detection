@@ -39,16 +39,16 @@ MODELS = [  # spec, name, family
     ("yolo:yolo11n.pt", "YOLO11-N", "YOLO"),
     ("yolo:yolo11m.pt", "YOLO11-M", "YOLO"),
     ("yolo:yolo11x.pt", "YOLO11-X", "YOLO"),
-    ("dfine:ustc-community/dfine-nano-coco", "D-FINE-N", "real-time DETR"),
-    ("dfine:ustc-community/dfine-medium-coco", "D-FINE-M", "real-time DETR"),
-    ("dfine:ustc-community/dfine-xlarge-coco", "D-FINE-X", "real-time DETR"),
+    ("dfine:n", "D-FINE-N", "real-time DETR"),
+    ("dfine:m", "D-FINE-M", "real-time DETR"),
+    ("dfine:x", "D-FINE-X", "real-time DETR"),
     ("gdino:IDEA-Research/grounding-dino-tiny", "Grounding DINO-T", "open vocabulary"),
     ("gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det", "MM-GDINO-T", "open vocabulary"),
     ("gdino:iSEE-Laboratory/llmdet_tiny", "LLMDet-T", "open vocabulary"),
 ]
 ABLATIONS = [
     ("yolo:yolo11m.pt@1280", "YOLO11-M at 1280", "YOLO"),
-    ("dfine:ustc-community/dfine-medium-coco@letterbox", "D-FINE-M letterboxed", "real-time DETR"),
+    ("dfine:m@letterbox", "D-FINE-M letterboxed", "real-time DETR"),
 ]
 DATASETS = ["coco_val", "kitti_val", "nuimages_val"]
 
@@ -458,8 +458,9 @@ PUBLISHED_COCO_AP = {  # COCO val2017 box AP from the model's own documentation 
     "tv:fasterrcnn_resnet50_fpn": 37.0, "tv:retinanet_resnet50_fpn": 36.4,
     "tv:fcos_resnet50_fpn": 39.2, "tv:fasterrcnn_resnet50_fpn_v2": 46.7,
     "yolo:yolo11n.pt": 39.5, "yolo:yolo11m.pt": 51.5, "yolo:yolo11x.pt": 54.7,
-    "dfine:ustc-community/dfine-nano-coco": 42.8, "dfine:ustc-community/dfine-medium-coco": 52.3,
-    "dfine:ustc-community/dfine-xlarge-coco": 55.8,
+    "dfine:n": 42.8, "dfine:m": 52.3, "dfine:x": 55.8,
+    "hfdfine:ustc-community/dfine-nano-coco": 42.8, "hfdfine:ustc-community/dfine-medium-coco": 52.3,
+    "hfdfine:ustc-community/dfine-xlarge-coco": 55.8,
     "gdino:IDEA-Research/grounding-dino-tiny@coco80": 48.4,
 }
 
@@ -468,7 +469,9 @@ def section_gate(a):
     from detbench.coco_gate import coco_ap
     ann = Path(a.data) / "coco/annotations/instances_val2017.json"
     rows = []
-    for s, name, fam in MODELS:
+    hf = [(f"hfdfine:ustc-community/dfine-{v}-coco", f"D-FINE-{k} (Hugging Face port)", "real-time DETR")
+          for k, v in (("N", "nano"), ("M", "medium"), ("X", "xlarge"))]
+    for s, name, fam in MODELS + hf:
         spec = s + "@coco80" if s.startswith("gdino") else s
         f = det_path(a.runs, spec, "coco_val")
         if f.exists():

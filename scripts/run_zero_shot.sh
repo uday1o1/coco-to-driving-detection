@@ -25,8 +25,8 @@ run() {  # spec dataset [batch]
 
 CLOSED=(tv:fasterrcnn_resnet50_fpn tv:retinanet_resnet50_fpn tv:fcos_resnet50_fpn
         tv:fasterrcnn_resnet50_fpn_v2 yolo:yolo11n.pt yolo:yolo11m.pt yolo:yolo11x.pt
-        dfine:ustc-community/dfine-nano-coco dfine:ustc-community/dfine-medium-coco
-        dfine:ustc-community/dfine-xlarge-coco)
+        dfine:n dfine:m
+        dfine:x)
 OPEN=(gdino:IDEA-Research/grounding-dino-tiny
       gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det
       gdino:iSEE-Laboratory/llmdet_tiny)
@@ -41,12 +41,16 @@ run tv:fasterrcnn_resnet50_fpn_v2 kitti_train
 # 3. input-resolution and input-distortion ablations
 for ds in kitti_val nuimages_val; do
   run yolo:yolo11m.pt@1280 $ds
-  run dfine:ustc-community/dfine-medium-coco@letterbox $ds
+  run dfine:m@letterbox $ds
 done
 # 4. prompt ablation on KITTI val and a log-spread fifth of nuImages val
 for m in "${OPEN[@]}"; do
   for p in bare rider; do run "$m@$p" kitti_val 4; run "$m@$p" nuimages_val_sub 4; done
 done
-# 5. COCO 80-class sanity check for the open-vocabulary models
+# 5. the Hugging Face port of D-FINE, for the implementation comparison
+for m in n m x; do
+  run "hfdfine:ustc-community/dfine-$( [ $m = n ] && echo nano || ([ $m = m ] && echo medium || echo xlarge) )-coco" coco_val
+done
+# 6. COCO 80-class sanity check for the open-vocabulary models
 for m in "${OPEN[@]}"; do run "$m@coco80" coco_val 4; done
 echo "[$(date +%H:%M:%S)] zero-shot stage done"
