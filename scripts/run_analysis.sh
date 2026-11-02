@@ -6,9 +6,12 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DATA="${DATA:-$HOME/data}"; RUNS="${RUNS:-$HOME/runs}"
-PROCS="${PROCS:-$(nproc)}"
+# Each worker holds a dataset's ground truth and one detection file (about 3 GB
+# for nuImages), so keep PROCS within memory / 3 GB.
+PROCS="${PROCS:-12}"
+SECTIONS="${SECTIONS:-gate reproduction main audit stability fusion subgroups finetune errors prompts}"
 cd "$REPO"
-for s in gate reproduction main audit stability fusion subgroups finetune errors prompts; do
+for s in $SECTIONS; do
   echo "[$(date +%H:%M:%S)] $s"
   python scripts/analyze.py $s --runs "$RUNS" --data "$DATA" --procs "$PROCS"
 done
