@@ -123,14 +123,19 @@ def main():
     img = Image.open(a.data / "nuimages" / im_rec["file_name"])
     peds = [b for b in nat["boxes"] if b["image_id"] == iid and b["fine"].startswith("human.pedestrian")]
     workers = np.array([b["xyxy"] for b in peds if b["fine"].endswith("construction_worker")])
-    cx, cy = workers[:, [0, 2]].mean(), workers[:, [1, 3]].mean()
-    x1 = int(np.clip(cx - 600, 0, img.width - 1200)); y1 = int(np.clip(cy - 260, 0, img.height - 520))
+    others = [b["xyxy"] for b in peds if not b["fine"].endswith("construction_worker")]
+    pad = 60
+    x1 = int(max(0, workers[:, 0].min() - pad)); x2 = int(min(img.width, workers[:, 2].max() + pad))
+    cy = workers[:, [1, 3]].mean(); half = max(90, (workers[:, 3].max() - workers[:, 1].min()) / 2 + pad)
+    y1 = int(max(0, cy - half)); y2 = int(min(img.height, cy + half))
     off = np.array([x1, y1, x1, y1], float)
     pb, ps, pl = boxes_for(protocol.load(a.runs / f"dets/{tag}__nuimages_val.npz"), iid, t, ["person"])
-    panel_d = draw(img.crop((x1, y1, x1 + 1200, y1 + 520)), [list(np.array(b["xyxy"]) - off) for b in peds],
-                   (pb - off, ps, pl),
-                   title=f"(d) nuImages (crop): labelled pedestrians in green, construction workers among them; "
-                         f"person detections at the F1 threshold {t:.2f}")
+    inside = (pb[:, 2] > x1) & (pb[:, 0] < x2) & (pb[:, 3] > y1) & (pb[:, 1] < y2)
+    shift = lambda bs: [list(np.array(b) - off) for b in bs]
+    panel_d = draw(img.crop((x1, y1, x2, y2)), shift(workers), (pb[inside] - off, ps[inside], pl[inside]),
+                   ignore=shift(others),
+                   title=f"(d) nuImages, crop: construction workers (green), other pedestrians (grey), "
+                         f"person detections at the F1 threshold {t:.2f} (red)")
     W = 1600
     rows = [p.resize((W, int(p.height * W / p.width))) for p in (panel_a, panel_b, panel_c, panel_d)]
     canvas = Image.new("RGB", (W, sum(r.height for r in rows) + 6 * 3), (255, 255, 255))

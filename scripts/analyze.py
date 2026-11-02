@@ -566,8 +566,11 @@ def section_reproduction(a):
     tutorial table, and this repo's tutorial-mode protocol on the same
     images and the same per-image inference."""
     rows = []
+    ng = Path(a.runs) / "ngdet_out"
+    if not ng.exists():
+        ng = REPO / "logs" / "ngdet"          # committed copy of the ngdet outputs
     for d in ("k_c", "nuim", "k_train120"):
-        for m in json.loads((Path(a.runs) / "ngdet_out" / d / "metrics.json").read_text()):
+        for m in json.loads((ng / d / "metrics.json").read_text()):
             ds = m["_meta"]["dataset"] + ("_train120" if d == "k_train120" else "")
             rows.append({"model": m["_meta"]["model"], "dataset": ds, "images": m["_meta"]["num_images"],
                          "ngdet_AP": m["mAP"], "tutorial_table_AP": NG_TABLE.get((m["_meta"]["model"], ds)),
