@@ -10,6 +10,7 @@
     python scripts/analyze.py gate      --runs $RUNS --data $DATA
     python scripts/analyze.py reproduction --runs $RUNS --data $DATA
     python scripts/analyze.py prompts   --runs $RUNS --data $DATA
+    python scripts/analyze.py contrasts --runs $RUNS --data $DATA
 
 Needs only CPU. Each section writes results/<section>.json.
 """
@@ -492,6 +493,34 @@ def section_gate(a):
                          "published_AP": PUBLISHED_COCO_AP.get(spec), **r})
             print(rows[-1]["model"], rows[-1]["measured_AP"], rows[-1]["published_AP"])
     save("gate", rows)
+
+
+# ---------------------------------------------------------------- contrasts
+
+CONTRASTS = [  # (a, b, datasets): clustered paired bootstrap of AP(a) - AP(b)
+    ("yolo:yolo11m.pt@1280", "yolo:yolo11m.pt", ("kitti_val", "nuimages_val")),
+    ("dfine:m@letterbox", "dfine:m", ("kitti_val", "nuimages_val")),
+    ("gdino:iSEE-Laboratory/llmdet_tiny",
+     "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det", tuple(DATASETS)),
+    ("gdino:IDEA-Research/grounding-dino-tiny", "tv:fasterrcnn_resnet50_fpn_v2", ("kitti_val", "nuimages_val")),
+    ("yolo:yolo11x.pt", "dfine:x", tuple(DATASETS)),
+    ("yolo:yolo11x.pt", "tv:fasterrcnn_resnet50_fpn_v2", tuple(DATASETS)),
+    ("tv:fcos_resnet50_fpn", "tv:fasterrcnn_resnet50_fpn", tuple(DATASETS)),
+    ("tv:retinanet_resnet50_fpn", "tv:fasterrcnn_resnet50_fpn", tuple(DATASETS)),
+    ("tv:fasterrcnn_resnet50_fpn_v2", "tv:fasterrcnn_resnet50_fpn", tuple(DATASETS)),
+]
+
+
+def _contrast_job(runs, data, a, b, ds):
+    fa, fb = det_path(runs, a, ds), det_path(runs, b, ds)
+    if not (fa.exists() and fb.exists()):
+        return None
+    return {"a": a, "b": b, "dataset": ds, **A.paired_diff(fa, fb, native_path(data, ds), a, b)}
+
+
+def section_contrasts(a):
+    jobs = [(a.runs, a.data, x, y, ds) for x, y, dss in CONTRASTS for ds in dss]
+    save("contrasts", [r for r in pool_map(_contrast_job, jobs, a.procs) if r])
 
 
 # ------------------------------------------------------------------ prompts
