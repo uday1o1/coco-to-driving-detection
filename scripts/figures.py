@@ -119,8 +119,14 @@ def fig_height(main):
     plt.close(fig)
 
 
+LABEL_OFFSET = {("kitti_val", "Faster R-CNN v2"): (-14, 6), ("kitti_val", "YOLO11-M at 1280"): (3, -9),
+                ("kitti_val", "Faster R-CNN"): (-50, -3), ("nuimages_val", "D-FINE-M letterboxed"): (-38, -6)}
+LABEL_TEXT = {("nuimages_val", "D-FINE-M letterboxed"): "D-FINE-M\nletterboxed"}
+
+
 def fig_speed(main, lat_nuim, lat_kitti):
-    """Accuracy against batch-1 fp16 end-to-end latency, one panel per dataset.
+    """Accuracy against batch-1 fp32 end-to-end latency (the precision the accuracy
+    runs used), one panel per dataset.
     KITTI uses latency measured on KITTI frames; COCO and nuImages use latency
     on a 1600x900 nuImages frame, the cost of one driving camera frame."""
     from matplotlib.lines import Line2D
@@ -131,11 +137,11 @@ def fig_speed(main, lat_nuim, lat_kitti):
         for r in main:
             if r["dataset"] != ds or r["spec"] not in lat:
                 continue
-            t = lat[r["spec"]]["fp16_end_to_end_ms_median"]
+            t = lat[r["spec"]]["fp32_end_to_end_ms_median"]
             pts.append((t, r["stats"]["AP"], r["model"], r["family"]))
             ax.scatter(t, r["stats"]["AP"], color=FAMILY_COLOR[r["family"]], s=16)
-            below = (ds, r["model"]) in {("kitti_val", "Faster R-CNN v2")}   # avoid a label collision
-            ax.annotate(r["model"], (t, r["stats"]["AP"]), fontsize=5.5, xytext=(2, -8 if below else 2),
+            off = LABEL_OFFSET.get((ds, r["model"]), (2, 2))   # move labels that would collide
+            ax.annotate(LABEL_TEXT.get((ds, r["model"]), r["model"]), (t, r["stats"]["AP"]), fontsize=5.5, xytext=off,
                         textcoords="offset points")
         pts.sort()
         front, best = [], -1
@@ -148,7 +154,7 @@ def fig_speed(main, lat_nuim, lat_kitti):
         ax.set_xticks([5, 10, 20, 50, 100], ["5", "10", "20", "50", "100"])
         ax.minorticks_off()
         res = "KITTI frame" if ds == "kitti_val" else "1600x900 frame"
-        ax.set_xlabel(f"ms per {res} (batch 1, fp16, end to end)")
+        ax.set_xlabel(f"ms per {res} (batch 1, fp32, end to end)")
         ax.set_title(DS_LABEL[ds])
     axes[0].set_ylabel("mAP@[.5:.95]")
     fig.legend(handles=[Line2D([], [], marker="o", ls="", color=c, label=f) for f, c in FAMILY_COLOR.items()]

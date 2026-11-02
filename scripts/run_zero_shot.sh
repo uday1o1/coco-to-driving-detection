@@ -53,4 +53,5 @@ for m in n m x; do
 done
 # 6. COCO 80-class sanity check for the open-vocabulary models
 for m in "${OPEN[@]}"; do run "$m@coco80" coco_val 4; done
+run yolo:yolo11n.pt@single coco_val   # Ultralytics prediction-mode (single-label) NMS, for the COCO check
 echo "[$(date +%H:%M:%S)] zero-shot stage done"

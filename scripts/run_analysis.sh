@@ -20,5 +20,6 @@ done
 if [ -d "$DATA/kitti/training/image_2" ] && [ -d "$DATA/nuimages/samples" ]; then
   python scripts/qualitative.py --runs "$RUNS" --data "$DATA"     # needs images
 fi
+python scripts/tables.py > results/tables.md
 python scripts/figures.py
 echo "[$(date +%H:%M:%S)] analysis done"

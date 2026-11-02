@@ -495,7 +495,7 @@ PUBLISHED_COCO_AP = {  # COCO val2017 box AP from the model's own documentation 
     "gdino:IDEA-Research/grounding-dino-tiny@coco80": 48.4,
     "yolo:yolo11n.pt@single": 39.5,
     "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det@coco80": 50.4,
-    # LLMDet is trained on GroundingCap-1M, which contains COCO images: no zero-shot reference
+    "gdino:iSEE-Laboratory/llmdet_tiny@coco80": 55.6,   # LLMDet paper, Table 4; trained with COCO images
 }
 
 
@@ -552,8 +552,33 @@ def _unified_nms(dets, thr=0.7):
 
 def _nms_job(runs, data, spec, ds):
     _, gt, dets = A.prepare(det_path(runs, spec, ds), native_path(data, ds), spec, A.settings())
-    return {"spec": spec, "dataset": ds, "AP": A.coco_stats(gt, dets)["AP"],
-            "AP_unified_nms_0.7": A.coco_stats(gt, _unified_nms(dets))["AP"]}
+    out = {"spec": spec, "dataset": ds}
+    for key, d in (("", dets), ("_unified_nms_0.7", _unified_nms(dets))):
+        m, _ = match(gt, d)
+        out["AP" + key] = A.coco_stats(gt, d)["AP"]
+        out["per_class" + key] = {tx.CLASSES[k - 1]: APCache(m[k]).ap() for k in m}
+    return out
+
+
+NMS_SPECS = ("yolo:yolo11x.pt", "dfine:x", "tv:fasterrcnn_resnet50_fpn_v2", "tv:retinanet_resnet50_fpn",
+             "gdino:IDEA-Research/grounding-dino-tiny",
+             "gdino:openmmlab-community/mm_grounding_dino_tiny_o365v1_goldg_grit_v3det",
+             "gdino:iSEE-Laboratory/llmdet_tiny")
+
+
+def nms_check(a):
+    """Class-wise NMS (IoU 0.7) after mapping to the unified classes: removes
+    boxes that two source classes or two prompt terms both produced."""
+    return pool_map(_nms_job, [(a.runs, a.data, s, ds) for s in NMS_SPECS for ds in ("kitti_val", "nuimages_val")],
+                    a.procs)
+
+
+def section_unified_nms(a):
+    """Re-run only the NMS check and update robustness.json in place."""
+    f = REPO / "results" / "robustness.json"
+    out = json.loads(f.read_text())
+    out["unified_nms"] = nms_check(a)
+    save("robustness", out)
 
 
 def section_robustness(a):
@@ -596,10 +621,7 @@ def section_robustness(a):
     jobs += [(a.runs, a.data, x, y, "coco_val", cls, "none") for x, y in ROBUST_PAIRS for cls in (1, 2)]
     out["class_contrasts"] = pool_map(_class_contrast_job, jobs, a.procs)
     # 3. NMS after merging COCO classes into the unified ones
-    out["unified_nms"] = pool_map(_nms_job, [(a.runs, a.data, s, ds) for s in
-                                             ("yolo:yolo11x.pt", "dfine:x", "tv:fasterrcnn_resnet50_fpn_v2",
-                                              "tv:retinanet_resnet50_fpn") for ds in ("kitti_val", "nuimages_val")],
-                                  a.procs)
+    out["unified_nms"] = nms_check(a)
     # 4. YOLO NMS mode under the tutorial protocol, same 500 nuImages frames
     nm = {}
     for spec, ds in (("yolo:yolo11x.pt@single", "nuimages_ngdet500"), ("yolo:yolo11x.pt", "nuimages_val")):

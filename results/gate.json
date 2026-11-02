@@ -219,7 +219,7 @@
   "model": "LLMDet-T",
   "spec": "gdino:iSEE-Laboratory/llmdet_tiny@coco80",
   "measured_AP": 55.5,
-  "published_AP": null,
+  "published_AP": 55.6,
   "AP": 0.555,
   "AP50": 0.7242,
   "AP75": 0.6094,
