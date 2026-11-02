@@ -14,6 +14,13 @@ Needs only CPU. Each section writes results/<section>.json.
 """
 from __future__ import annotations
 
+import os
+
+# One thread per worker process: the pool supplies the parallelism, and
+# multi-threaded numeric libraries inside each worker oversubscribe the CPU.
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMBA_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
+
 import argparse
 import itertools
 import json
