@@ -20,7 +20,8 @@ box (the union) scored by the geometric mean of the two scores; the person is
 removed. Bicycles left without a rider are dropped, since parked bicycles are
 not cyclists. Persons over a motorcycle are removed the same way, because both
 datasets put the rider inside the motorcycle box. Pairs are taken greedily by
-pair score.
+pair score. Fusion is applied only to datasets that put the rider inside the
+bicycle box (taxonomy.RIDER_IN_BOX); COCO labels the rider as a person.
 """
 from __future__ import annotations
 
@@ -99,6 +100,8 @@ def apply(d: dict, dataset: str, semantics="corrected", threshold=False, minsize
           fusion="rider", model_kind="tv", ioa=None, bike_min=None, stretch=1.0) -> dict:
     """Scored detections (image_id, boxes, scores, category_id) for one setting.
     fusion: "none" (bicycle -> cyclist), "rider" or "stretch"."""
+    if not tx.RIDER_IN_BOX[dataset]:
+        fusion = "none"
     names = np.array([tx.COCO_ALIASES.get(str(n).strip().lower(), str(n).strip().lower()) for n in d["names"]])
     labels = names[d["labels"]].astype("<U32")
     img, boxes, scores = d["image_id"], d["boxes"], d["scores"]

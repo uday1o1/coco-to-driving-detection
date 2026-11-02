@@ -97,6 +97,10 @@ def gt_rule(dataset: str, fine: str, crowd: bool, semantics: str, ignore: bool):
     return cls, None
 
 
+# Whether the dataset puts a rider inside the bicycle or motorcycle box. Rider
+# fusion only applies where it does; COCO labels the rider as a person.
+RIDER_IN_BOX = {"kitti": True, "nuimages": True, "coco": False}
+
 # Minimum box height in pixels below which a dataset does not reliably label
 # objects: KITTI's benchmark ignores boxes under 25 px, nuImages annotators
 # skip objects under 10 px. Ground truth below it is ignored and detections
